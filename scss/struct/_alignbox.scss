@@ -14,6 +14,8 @@ $alignbox-box-name: module('box') !default;
 	@include flexbox;
 	@include flex-flow(row nowrap);
 
+	position: relative;
+
 	@if $h-align == left
 	{
 		@include justify-content(flex-start);
@@ -90,6 +92,7 @@ $alignbox-box-name: module('box') !default;
 		@include justify-content(center);
 		@include align-items(center);
 
+		width: 100%; // To stop other flex elements from messing with it
 		position: relative;
 		text-align: center;
 		white-space: nowrap;
