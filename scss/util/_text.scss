@@ -1,0 +1,132 @@
+// Settings
+// ========
+
+$text-on: $output-styles !default;
+
+
+// Mixins
+// ======
+
+@mixin textbox(
+	$font-size: 1em,
+	$padding: 0,
+	$border-width: 0,
+	$line-height: 1,
+	$inline: false,
+	$multiline: false
+) {
+	font-size: $font-size;
+
+	// Doesn't really make sense to have a line height if there's only one line...
+	@if not $multiline {
+		//$line-height: 1;
+	}
+
+	$lh-type: unit($line-height);
+
+	@if $line-height == 1 or $line-height == 1em or ($lh-type == px and $line-height == $font-size) {
+		padding: $padding;
+	}
+	@else // TODO Test this beast...
+	{
+		$lh-excess: 0;
+
+		@if $lh-type == '' {
+			$lh-excess: ((1 - $line-height) / 2);
+		} @elseif $lh-type == em {
+			$lh-excess: ((1em - $line-height) / 2);
+		} @elseif $lh-type == px {
+			$lh-excess: ((px($font-size) - $line-height) / 2);
+		} @else {
+			$lh-excess: sum-units(.5em, -($line-height / 2));
+		}
+
+		$top-sums: sum-units(top($padding), $lh-excess);
+		$bottom-sums: sum-units(bottom($padding), $lh-excess);
+
+		$padding-top: sum-units-calc($top-sums);
+		$padding-bottom: sum-units-calc($bottom-sums);
+		$padding-left: left($padding);
+		$padding-right: right($padding);
+
+		$padding-fb: false;
+		$padding-top-fb: $padding-top;
+		$padding-bottom-fb: $padding-bottom;
+
+		@if length($top-sums) > 1 {
+			$padding-fb: true;
+			$padding-top-fb: map-get($top-sums, 'em');
+			@if map-has-key($top-sums, 'px') {
+				$padding-top-fb: $padding-top-fb + em(map-get($top-sums, 'px'), $font-size);
+			}
+		}
+
+		@if length($bottom-sums) > 1 {
+			$padding-fb: true;
+			$padding-bottom-fb: map-get($bottom-sums, 'em');
+			@if map-has-key($top-sums, 'px') {
+				$padding-bottom-fb: $padding-bottom-fb + em(map-get($bottom-sums, 'px'), $font-size);
+			}
+		}
+
+		@if $padding-fb {
+			padding: $padding-top-fb $padding-right $padding-bottom-fb $padding-left;
+			padding-top: $padding-top;
+			padding-bottom: $padding-bottom;
+		} @else {
+			padding: $padding-top $padding-right $padding-bottom $padding-left;
+		}
+	}
+
+	border-width: $border-width;
+	line-height: $line-height;
+
+	@if $inline {
+		display: inline-block;
+		vertical-align: middle;
+	} @else {
+		display: block;
+		width: 100%; // This has to be applied for some reason
+	}
+
+	@if not $multiline {
+		$sums: sum-units(1em,
+			top($padding),
+			bottom($padding),
+			top($border-width),
+			bottom($border-width)
+		);
+
+		// calc() fallback
+		@if length($sums) > 1 {
+			$em: map-get($sums, 'em');
+			@if map-has-key($sums, 'px') {
+				$em: $em + em(map-get($sums, 'px'), $font-size);
+			}
+			height: $em;
+		}
+		height: sum-units-calc($sums);
+
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis; // A nice way to clip text
+	}
+}
+
+
+// Utilities
+// =========
+
+@if $text-on {
+
+	@include utility('text-left') {
+		text-align: left !important;
+	}
+	@include utility('text-center') {
+		text-align: center !important;
+	}
+	@include utility('text-right') {
+		text-align: right !important;
+	}
+
+}

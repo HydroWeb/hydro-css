@@ -1,0 +1,39 @@
+// Replace
+// =======
+
+// Source: http://hugogiraudel.com/2014/01/13/sass-string-replacement-function/
+
+@function str-replace($string, $search, $replace: '')
+{
+	$index: str-index($string, $search);
+	$slice: $string;
+
+	@while $index
+	{
+		$slice: if($index == 1, '', str-slice($slice, 0, $index - 1)) + $replace + str-slice($slice, $index + max(str-length($replace), 1));
+		$index: str-index($slice, $search);
+	}
+
+	@return $slice;
+}
+
+
+// Substrings
+// ==========
+
+@function str-first($string, $length: 1)
+{
+	$l: str-length($string);
+	@if $length > $l { @return $string }
+
+	@return str-slice($string, 1, $length);
+}
+
+@function str-last($string, $length: 1)
+{
+	$end: str-length($string);
+	$start: $end - $length + 1;
+	@if $start < 1 { @return $string; }
+
+	@return str-slice($string, $start);
+}

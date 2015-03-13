@@ -1,0 +1,52 @@
+// Mixins
+// ======
+
+@mixin control(
+	$font-size,
+	$padding,
+	$border-width,
+	$line-height,
+	$inline,
+	$display-options,
+	$icon-placement,
+	$icon-side-gap: auto,
+	$icon-text-gap: auto,
+	$icon-size: auto
+) {
+	@include textbox($font-size, $padding, $border-width, $line-height, $inline, false);
+
+	@if $icon-placement and mixin-exists(icon-placement)
+	{
+		@include icon-placement(
+			$padding: $padding,
+			$side-gap: $icon-side-gap,
+			$text-gap: $icon-text-gap,
+			$size: $icon-size,
+			$positions: left right,
+			$only-icon: parameter
+		);
+	}
+
+	@if $display-options
+	{
+		@if $inline
+		{
+			width: auto;
+			max-width: 100%;
+
+			&#{parameter('fill')} {
+				display: block;
+				width: 100%; // This has to be applied for some reason
+			}
+		}
+		@else
+		{
+			&#{parameter('inline')} {
+				display: inline-block;
+				vertical-align: middle;
+				width: auto;
+				max-width: 100%;
+			}
+		}
+	}
+}

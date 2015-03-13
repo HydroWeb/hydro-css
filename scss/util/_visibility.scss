@@ -1,0 +1,43 @@
+// Utilities
+// =========
+
+#{utility('clip')} {
+	overflow: hidden !important;
+}
+
+#{utility('auto-scroll')} {
+	overflow: auto !important;
+}
+
+#{utility('hidden')} {
+	display: none !important;
+	visibility: hidden !important;
+}
+
+#{utility('visually-hidden')} {
+	border: 0 !important;
+	clip: rect(0 0 0 0) !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+
+	&#{parameter('focusable')} {
+
+		&:active,
+		&:focus {
+			clip: auto !important;
+			height: auto !important;
+			margin: 0 !important;
+			overflow: visible !important;
+			position: static !important;
+			width: auto !important;
+		}
+	}
+}
+
+#{utility('invisible')} {
+	visibility: hidden !important;
+}

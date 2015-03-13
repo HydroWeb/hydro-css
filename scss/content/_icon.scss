@@ -1,0 +1,226 @@
+// Settings
+// ========
+
+$icon-on: $output-styles !default;
+$icon-font: 'icons' !default;
+$icon-prefix: 'icon-' !default;
+$icon-size: em(16px) !default;
+
+$icons: () !default;
+
+
+// Functions
+// =========
+
+@function icon($name, $icons: $icons)
+{
+	@return map-get($icons, $name);
+}
+
+
+// Mixins
+// ======
+
+@mixin icon($font: $icon-font, $size: $icon-size, $name: false)
+{
+	speak: none;
+	font-family: '#{$font}';
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	font-size: $size;
+	text-transform: none;
+	line-height: 1;
+	text-align: center;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	cursor: inherit;
+	width: 1em;
+	height: 1em;
+	display: block;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+	@if $name != false { content: icon($name); }
+}
+
+// TODO Border????
+@mixin icon-placement(
+	$padding: 0,
+	$side-gap: auto,
+	$text-gap: auto,
+	$size: auto,
+	$positions: left right,
+	$only-icon: parameter
+) {
+	@if $size     == auto { $size:     $icon-size; }
+	@if $side-gap == auto { $side-gap: $padding;   }
+	@if $text-gap == auto { $text-gap: $padding;   }
+
+	position: relative;
+
+	&:before {
+		position: absolute;
+		pointer-events: none; // Allowing click-through for buttons and fields
+
+		@if $size != $icon-size
+		{
+			font-size: $size;
+		}
+	}
+
+	// Need to scale the position of the icon if the size is not 1em
+	$icon-scale: (1 / strip-unit($size));
+
+	// TODO Temp fix
+	@if unit(left($padding)) == px {
+		$size: $base-font-size * strip-unit($size);
+	}
+
+	@if $only-icon != true
+	{
+		// TODO Add default position
+		@each $position in $positions
+		{
+			@if $position == left
+			{
+				@include parameter('side', 'left') {
+					padding-left: left($side-gap) + left($text-gap) + $size;
+
+					&:before {
+						top: 50%;
+						margin-top: -.5em;
+						left: left($side-gap) * $icon-scale;
+					}
+				}
+			}
+			@elseif $position == right
+			{
+				@include parameter('side', 'right') {
+					padding-right: right($side-gap) + right($text-gap) + $size;
+
+					&:before {
+						top: 50%;
+						margin-top: -.5em;
+						right: right($side-gap) * $icon-scale;
+					}
+				}
+			}
+			@elseif $position == top
+			{
+				@include parameter('side', 'top') {
+					padding-top: top($side-gap) + top($text-gap) + $size;
+
+					&:before {
+						left: 50%;
+						margin-left: -.5em;
+						top: top($side-gap) * $icon-scale;
+					}
+				}
+			}
+			@elseif $position == bottom
+			{
+				@include parameter('side', 'bottom') {
+					padding-bottom: bottom($side-gap) + bottom($text-gap) + $size;
+
+					&:before {
+						left: 50%;
+						margin-left: -.5em;
+						bottom: bottom($side-gap) * $icon-scale;
+					}
+				}
+			}
+		}
+	}
+
+	@if $only-icon == parameter
+	{
+		@include parameter('only-icon') {
+
+			// TODO Temp fix
+			$height: 1em;
+			@if unit(left($side-gap)) == px {
+				$height: $base-font-size * strip-unit($height);
+			}
+
+			padding: (top($side-gap) + $height) right($side-gap) bottom($side-gap) (left($side-gap) + $height);
+
+			// If there is for some reason text there (eg. accessibility purposes), hide it.
+			text-indent: -99999px; // For good measure... content shouldn't be too long
+			overflow: hidden;
+			white-space: nowrap;
+			line-height: 0;
+
+			&:before {
+				left: 50%;
+				top: 50%;
+				margin: (-.5em) 0 0 (-.5em);
+				text-indent: 0;
+			}
+		}
+	}
+	@elseif $only-icon == true
+	{
+		// TODO Temp fix
+		$height: 1em;
+		@if unit(left($side-gap)) == px {
+			$height: $base-font-size * strip-unit($height);
+		}
+
+		padding: (top($side-gap) + $height) right($side-gap) bottom($side-gap) (left($side-gap) + $height);
+
+		// If there is for some reason text there (eg. accessibility purposes), hide it.
+		text-indent: -99999px; // For good measure... content shouldn't be too long
+		overflow: hidden;
+		white-space: nowrap;
+		line-height: 0;
+
+		&:before {
+			left: 50%;
+			top: 50%;
+			margin: (-.5em) 0 0 (-.5em);
+			text-indent: 0;
+		}
+	}
+}
+
+
+// Placeholders
+// ============
+
+%icon {
+	@include icon;
+}
+
+
+// Module
+// ======
+
+@if $icon-on {
+
+	@include prefix-class($icon-prefix)
+	{
+		// Attribute selectors retain a specificity that can be overrided by simple class names
+		// meaning it's safe to override the display value.
+		display: inline-block;
+		vertical-align: middle; // Better inline alignment
+
+		&:before {
+			@extend %icon;
+		}
+	}
+
+	@each $icon in $icons {
+		$name: nth($icon, 1);
+		$value: nth($icon, 2);
+
+		.#{$icon-prefix}#{$name} {
+
+			&:before {
+				content: $value;
+			}
+		}
+	}
+}

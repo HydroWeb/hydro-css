@@ -1,0 +1,51 @@
+// Mixins
+// ======
+
+@mixin triangle($dir, $color, $size, $point-size: $size)
+{
+	display: block;
+	width: 0;
+	height: 0;
+	border: $size inset transparent; // Use inset to fix firefox anti-aliasing bug
+
+	@if $dir == top or $dir == up
+	{
+		border-top-width: 0;
+		border-bottom: solid $point-size $color;
+	}
+	@else if $dir == bottom or $dir == down
+	{
+		border-bottom-width: 0;
+		border-top: solid $point-size $color;
+	}
+	@else if $dir == left
+	{
+		border-left-width: 0;
+		border-right: solid $point-size $color;
+	}
+	@else if $dir == right
+	{
+		border-right-width: 0;
+		border-left: solid $point-size $color;
+	}
+}
+
+@mixin triangle-color($dir, $color)
+{
+	@if $dir == top or $dir == up
+	{
+		border-bottom-color: $color;
+	}
+	@else if $dir == bottom or $dir == down
+	{
+		border-top-color: $color;
+	}
+	@else if $dir == left
+	{
+		border-right-color: $color;
+	}
+	@else if $dir == right
+	{
+		border-left-color: $color;
+	}
+}

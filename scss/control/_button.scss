@@ -1,0 +1,34 @@
+// Button
+// ======
+
+@mixin button(
+	$font-size: 1em,
+	$padding: 0,
+	$border-width: 0,
+	$inline: true,
+	$display-options: true,
+	$icon-placement: false,
+	$icon-side-gap: auto,
+	$icon-text-gap: auto,
+	$icon-size: auto
+) {
+	@extend %button !optional;
+
+	@include control(
+		$font-size,
+		$padding,
+		$border-width,
+		1, // Line-height
+		$inline,
+		$display-options,
+		$icon-placement,
+		$icon-side-gap,
+		$icon-text-gap,
+		$icon-size
+	);
+
+	-webkit-appearance: none; // Reset appearance for webkit as it's set to button in normalize
+	-webkit-user-drag: none;
+	user-select: none;
+	cursor: pointer;
+}

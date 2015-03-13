@@ -1,0 +1,17 @@
+// Mixins
+// ======
+
+@mixin prefix-class($prefix, $selector: '')
+{
+	#{$selector}[class^='#{$prefix}'],
+	#{$selector}[class*=' #{$prefix}'] {
+		@content;
+	}
+}
+
+@mixin prefix($attr, $prefix, $selector: '')
+{
+	#{$selector}[#{$attr}^='#{$prefix}'] {
+		@content;
+	}
+}

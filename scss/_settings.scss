@@ -1,0 +1,68 @@
+// Framework
+// =========
+
+$output-styles: true !default;
+
+$module-prefix: '' !default; // Overwrite to 'm-' for compatibility with other frameworks
+$sub-module-prefix: '-' !default;
+$utility-prefix: 'u-' !default;
+$parameter-prefix: '-' !default;
+$value-prefix: '-' !default;
+$state-prefix: 'is-' !default;
+$feature-prefix: 'has-' !default;
+$featureless-prefix: 'no-' !default;
+
+
+// Base
+// ====
+
+$base-legacy: false !default;
+
+$base-font-size: 16px !default;
+$base-max-width: 1280px !default;
+
+$base-sizes: (
+	xsmall: em-fix(.5em),
+	small: em-fix(.75em),
+	large: em-fix(1.5em),
+	xlarge: em-fix(2em),
+	half: .5em,
+	2x: 2em,
+	3x: 3em,
+	4x: 4em,
+	5x: 5em
+) !default;
+
+$base-breakpoints: (
+	small: 0px,
+	medium: 500px,
+	large: 900px
+) !default;
+
+$base-reduce-breakpoint: 340px !default;
+$base-reduce: 80% !default;
+
+$base-gutters: (
+	small: .5em,
+	medium: 1em,
+	large: 3em
+) !default;
+
+$base-divisions: (
+	100: 100%,
+	 90:  90%,
+	 80:  80%,
+	 75:  75%,
+	 70:  70%,
+	'2-3rds': 66.66%,
+	 60:  60%,
+	 50:  50%,
+	 40:  40%,
+	3rd:  33.33%,
+	 30:  30%,
+	 25:  25%,
+	 20:  20%,
+	6th:  16.66%,
+	8th:  12.5%,
+	 10:  10%
+) !default;

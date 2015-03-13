@@ -1,0 +1,155 @@
+// Settings
+// ========
+
+$media-px-to-em: true !default;
+$media-font-size: 16px !default;
+
+
+// Mixins
+// ======
+
+@mixin under($size, $prop: width, $map: $base-breakpoints)
+{
+	@if map_has_key($map, $size)
+	{
+		$size: map_get($map, $size);
+	}
+
+	@if unit($size) == px
+	{
+		$size: $size - 1px;
+
+		@if $media-px-to-em
+		{
+			$size: em($size, $media-font-size);
+		}
+	}
+
+	@if strip-unit($size) > 0
+	{
+		@media (max-#{$prop}: $size) { @content; }
+	}
+}
+
+@mixin over($size, $prop: width, $map: $base-breakpoints)
+{
+	@if map_has_key($map, $size)
+	{
+		$size: map_get($map, $size);
+	}
+
+	@if unit($size) == px and $media-px-to-em
+	{
+		$size: em($size, $media-font-size);
+	}
+
+	@if strip-unit($size) <= 0
+	{
+		@content
+	}
+	@else
+	{
+		@media (min-#{$prop}: $size) { @content; }
+	}
+}
+
+@mixin between($low, $high, $prop: width, $map: $base-breakpoints)
+{
+	@if map_has_key($map, $low)
+	{
+		$size: map_get($map, $low);
+	}
+
+	@if map_has_key($map, $high)
+	{
+		$size: map_get($map, $high);
+	}
+
+	@if unit($high) == px
+	{
+		$high: $high - 1px;
+
+		@if $media-px-to-em
+		{
+			$high: em($high, $media-font-size);
+		}
+	}
+
+	@if unit($low) == px and $media-px-to-em
+	{
+		$low: em($low, $media-font-size);
+	}
+
+	@if strip-unit($low) < strip-unit($high)
+	{
+		@media (min-#{$prop}: $low) and (max-#{$prop}: $high - 1px) { @content; }
+	}
+}
+
+@mixin density($dpi: 1.5)
+{
+	@media (-webkit-min-device-pixel-ratio: $dpi),
+	       (-moz-min-device-pixel-ratio: $dpi),
+	       (min-resolution: #{$dpi}dppx) { @content; }
+}
+
+@mixin landscape
+{
+	@media (orientation: landscape) { @content; }
+}
+
+@mixin portrait
+{
+	@media (orientation: portrait) { @content; }
+}
+
+/*
+Example
+$values: (
+	400px: (font-size: 1em, color: black),
+	900px: (font-size: 2em, color: red),
+	1200px: (font-size: 3em)
+);
+*/
+@mixin responsive($values, $prop: width, $map: $base-breakpoints)
+{
+	// Find the map-based breakpoints and apply them explicitly
+	@each $break, $properties in $values
+	{
+		@if map_has_key($map, $break)
+		{
+			// Swap out the labelled breakpoint for the real thing
+			$label: $break;
+			$break: map_get($map, $label);
+			$values: map_remove($values, $label);
+
+			// If the map contains a breakpoint that exists already (explicitly stated), then
+			// merge with priority the properties from that set into the map-specified properties.
+			@if map_has_key($values, $break)
+			{
+				$properties: map-merge($properties, map_get($values, $break));
+			}
+
+			// Set the explicit breakpoint as a key on the original values
+			$values: map-merge($values, ($break: $properties));
+		}
+	}
+
+	// Sort breakpoints in ascending order
+	// This is so that cascading styles are correctly applied
+	$breaks: sort(map_keys($values));
+
+	// Apply the styles
+	@each $break in $breaks
+	{
+		$properties: map_get($values, $break);
+
+		@include over($break, $prop)
+		{
+			@each $prop, $val in $properties
+			{
+				#{$prop}: $val;
+			}
+		}
+	}
+}

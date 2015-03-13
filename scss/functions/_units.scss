@@ -1,0 +1,198 @@
+// Strip
+// =====
+
+@function strip-unit($value) {
+	@return $value / ($value * 0 + 1);
+}
+
+
+// EM
+// ==
+
+@function em($value, $base: 1em)
+{
+	$value-unit: unit($value);
+	$base-unit: unit($base);
+
+	@if $value-unit == em or $value-unit == rem
+	{
+		$value: $value * $base-font-size;
+	}
+
+	@if $base-unit == em or $base-unit == rem
+	{
+		$base: $base * $base-font-size;
+	}
+
+	@return strip-unit($value / $base) * 1em;
+}
+
+@function em-fix($em, $base: $base-font-size)
+{
+	$base-unit: unit($base);
+	@if $base-unit == em or $base-unit == rem
+	{
+		$base: $base * $base-font-size;
+	}
+
+	$px: round(strip-unit($em) * $base);
+	@return em($px, $base);
+}
+
+
+// REM
+// ===
+
+@function rem($value)
+{
+	@return em($value);
+}
+
+@function rem-fix($rem)
+{
+	@return em-fix($rem);
+}
+
+
+// Pixel
+// =====
+
+@function px($value, $base: 1em, $round: true)
+{
+	$value-unit: unit($value);
+	$base-unit: unit($base);
+
+	@if $value-unit == px
+	{
+		$value: $value / $base-font-size;
+	}
+
+	@if $base-unit == px
+	{
+		@return strip-unit($value) * $base;
+	}
+
+	$r: strip-unit($value * $base) * $base-font-size;
+
+	@if $round
+	{
+		$r: round($r);
+	}
+
+	@return $r;
+}
+
+
+// Percentage
+// ==========
+
+@function per-to-dec($percentage)
+{
+	@return (strip-unit($percentage) / 100);
+}
+
+
+// Decimal
+// =======
+
+@function dec-to-per($decimal)
+{
+	@return (strip-unit($decimal) * 100%);
+}
+
+
+// Sum Units
+// =========
+
+@function sum-units($values...)
+{
+	$sums: ();
+
+	@each $value in $values
+	{
+		$type: type-of($value);
+
+		@if $type == map
+		{
+			@each $unit, $sum in $value
+			{
+				@if strip-unit($sum) != 0
+				{
+					@if map-has-key($sums, $unit)
+					{
+						$sum: $sum + map-get($sums, $unit);
+					}
+					$sums: map-merge($sums, ($unit: $sum));
+				}
+			}
+		}
+		@elseif $type == number
+		{
+			$unit: unit($value);
+			$sum: $value;
+
+			@if strip-unit($sum) != 0
+			{
+				@if map-has-key($sums, $unit)
+				{
+					$sum: $sum + map-get($sums, $unit);
+				}
+				$sums: map-merge($sums, ($unit: $sum));
+			}
+		}
+	}
+
+	@return $sums;
+}
+
+@function sum-units-calc($value)
+{
+	$type: type-of($value);
+
+	@if $type == map
+	{
+		$count: 0;
+		$numbers: '';
+
+		@each $unit, $sum in $value
+		{
+			@if $sum != 0
+			{
+				$count: $count + 1;
+				@if $count > 1
+				{
+					@if $sum < 0
+					{
+						$sum: $sum * -1;
+						$numbers: $numbers + ' - ';
+					}
+					@elseif $sum > 0
+					{
+						$numbers: $numbers + ' + ';
+					}
+				}
+
+				$numbers: $numbers + $sum;
+			}
+		}
+
+		$length: length($numbers);
+
+		@if $count == 0
+		{
+			@return 0;
+		}
+		@elseif $count == 1
+		{
+			@return unquote($numbers);
+		}
+
+		@return unquote('calc(' + $numbers + ')');
+	}
+	@elseif $type == number
+	{
+		@return $value;
+	}
+
+	@return 0;
+}

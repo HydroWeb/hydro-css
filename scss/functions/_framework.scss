@@ -1,0 +1,86 @@
+// Module
+// ======
+
+@function module($name, $sub: false)
+{
+	@if $sub != false
+	{
+		@return '.' + $module-prefix + $name + $sub-module-prefix + $sub;
+	}
+
+	@return '.' + $module-prefix + $name;
+}
+
+
+// Utility
+// =======
+
+@function utility($name)
+{
+	@return '.' + $utility-prefix + $name;
+}
+
+
+// Parameter
+// =========
+
+@function parameter($name, $value: false)
+{
+	@if $value != false
+	{
+		@return '.' + $parameter-prefix + $name + $value-prefix + $value;
+	}
+
+	@return '.' + $parameter-prefix + $name;
+}
+
+
+// State
+// =====
+
+@function state($name)
+{
+	@return '.' + $state-prefix + $name;
+}
+
+
+// Feature
+// =======
+
+@function feature($name)
+{
+	@return '.' + $feature-prefix + $name;
+}
+
+
+// Featureless
+// ===========
+
+@function featureless($name)
+{
+	@return '.' + $featureless-prefix + $name;
+}
+
+
+// Maps
+// ====
+
+@function size($type, $sizes: $base-sizes)
+{
+	@return map-get($sizes, $type);
+}
+
+@function breakpoint($type, $breakpoints: $base-breakpoints)
+{
+	@return map-get($breakpoints, $type);
+}
+
+@function gutter($type, $gutters: $base-gutters)
+{
+	@return map-get($gutters, $type);
+}
+
+@function division($type, $divisions: $base-divisions)
+{
+	@return map-get($divisions, $type);
+}

@@ -1,0 +1,61 @@
+// Settings
+// ========
+
+$clearfix-on: $output-styles !default;
+
+
+/*
+For modern browsers
+1. The space content is one way to avoid an Opera bug when the
+   'contenteditable' attribute is included anywhere else in the document.
+   Otherwise it causes space to appear at the top and bottom of elements
+   that receive the 'clearfix' class.
+2. The use of 'table' rather than `block` is only necessary if using
+   ':before' to contain the top-margins of child elements.
+3. In some cases (such as mixing with flexbox) display of table can have
+   a non-zero width, which is fix accounts for.
+4. Only needed on that ':after' element, but by moving it under the dual
+   selector this saves bytes and total number of selectors in the CSS
+   file.
+*/
+
+// Mixins
+// ======
+
+@mixin clearfix {
+
+	&:before,
+	&:after {
+		content: " "; // 1
+		display: table; // 2
+		width: 0; // 3
+		clear: both; // 4
+	}
+}
+
+
+// Placeholders
+// ============
+
+%clearfix {
+	@include clearfix;
+}
+
+
+// Utilities
+// =========
+
+@if $clearfix-on {
+
+	@include utility('clearfix') {
+		@extend %clearfix;
+	}
+
+	@include utility('float-left') {
+		float: left !important;
+	}
+
+	@include utility('float-right') {
+		float: right !important;
+	}
+}
