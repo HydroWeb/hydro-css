@@ -47,10 +47,14 @@
 		}
 	}*/
 
-	@at-root #{selector-unify(&, textarea)} {
-		height: auto;
-		white-space: normal;
-		overflow: auto;
+	$textarea: selector-unify(&, textarea);
+	@if $textarea != null {
+
+		@at-root #{$textarea} {
+			height: auto;
+			white-space: normal;
+			overflow: auto;
+		}
 	}
 }
 
