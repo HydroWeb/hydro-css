@@ -7,7 +7,6 @@ env:
 before_install:
   - npm install -g grunt-cli
   - gem update --system
-install: npm install
-before_script:
   - gem install sass -v $SASS_VERSION
-  - grunt build
+install: npm install
+before_script: grunt build
