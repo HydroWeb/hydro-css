@@ -20,10 +20,10 @@
 /// Creates a hydro selector using the set prefixes and a multidimensional list of names.
 /// @require {function} hf-prefix
 /// @param {String | List} $type - If a string, the prefix is retrieved from the `$hf-prefixes` map. If a list (of size
-/// 	2), the first value is treated as a selector string, and the second prefix type. This allows prefixing entire
-/// 	selectors.
+///   2), the first value is treated as a selector string, and the second prefix type. This allows prefixing entire
+///   selectors.
 /// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
-/// 	that is prefixed and joined together.
+///   that is prefixed and joined together.
 /// @return {String} Selector
 @function hf-selector($type, $names...) {
 	$output: '';
