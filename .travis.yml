@@ -10,4 +10,4 @@ before_install:
 install: npm install
 before_script:
   - gem install sass -v $SASS_VERSION
-  - grunt build
+  - grunt test
