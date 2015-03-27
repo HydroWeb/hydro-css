@@ -1,0 +1,96 @@
+////
+/// Framework
+/// @group utilities
+/// @author Benjamin Fleming
+////
+
+
+// Mixins
+// ------
+
+/// A mixin wrapper for the hf-selector function.
+/// @require {function} hf-selector
+/// @param {String | List} $type - If a string, the prefix is retrieved from the `$hf-prefixes` map. If a list (of size
+///   2), the first value is treated as a selector string, and the second prefix type. This allows prefixing entire
+///   selectors.
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the selector
+/// @output The selector and the passed styles
+@mixin hf-selector($type, $names...) {
+	#{hf-selector($type, $names)} {
+		@content;
+	}
+}
+
+/// An alias for passing 'module' as the type to the hf-selector mixin.
+/// @require {function} hf-selector
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the module selector
+/// @output The module selector and the passed styles
+@mixin hf-module($names...) {
+	#{hf-selector('module', $names)} {
+		@content;
+	}
+}
+
+/// An alias for passing 'utility' as the type to the hf-selector mixin.
+/// @require {function} hf-selector
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the utility selector
+/// @output The utility selector and the passed styles
+@mixin hf-utility($names...) {
+	#{hf-selector('utility', $names)} {
+		@content;
+	}
+}
+
+/// An alias for passing 'parameter' as the type to the hf-selector mixin.
+/// @require {function} hf-selector
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the parameter selector
+/// @output The parameter selector and the passed styles
+@mixin hf-parameter($names...) {
+	#{hf-selector('&' 'parameter', $names)} {
+		@content;
+	}
+}
+
+/// An alias for passing 'state' as the type to the hf-selector mixin.
+/// @require {function} hf-selector
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the state selector
+/// @output The state selector and the passed styles
+@mixin hf-parameter($names...) {
+	#{hf-selector('&' 'state', $names)} {
+		@content;
+	}
+}
+
+/// An alias for passing 'feature' as the type to the hf-selector mixin.
+/// @require {function} hf-selector
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the feature selector
+/// @output The feature selector and the passed styles
+@mixin hf-parameter($names...) {
+	#{hf-selector('&' 'feature', $names)} {
+		@content;
+	}
+}
+
+/// An alias for passing 'featureless' as the type to the hf-selector mixin.
+/// @require {function} hf-selector
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+///   that is prefixed and joined together.
+/// @content Styles for the featureless selector
+/// @output The featureless selector and the passed styles
+@mixin hf-parameter($names...) {
+	#{hf-selector('&' 'featureless', $names)} {
+		@content;
+	}
+}
