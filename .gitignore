@@ -111,3 +111,8 @@ $RECYCLE.BIN/
 
 # Grunt usually preprocesses files such as coffeescript, compass... inside the .tmp directory
 .tmp/
+
+
+### tests ###
+# Files to ignore with the test suite
+spec/results.css
