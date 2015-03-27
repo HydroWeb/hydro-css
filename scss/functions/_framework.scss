@@ -22,10 +22,10 @@
 /// @param {String | List} $type - If a string, the prefix is retrieved from the `$hf-prefixes` map. If a list (of size
 ///   2), the first value is treated as a selector string, and the second prefix type. This allows prefixing entire
 ///   selectors.
-/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
-///   that is prefixed and joined together.
+/// @param {String | List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list
+///   each item of that is prefixed and joined together.
 /// @return {String} Selector
-@function hf-selector($type, $names...) {
+@function hf-selector($type, $names) {
 	$output: '';
 	$comma: '';
 	$selector: '';
@@ -34,6 +34,10 @@
 	@if type-of($type) == list {
 		$selector: nth($type, 1);
 		$type: nth($type, 2);
+	}
+
+	@if type-of($names) != list {
+		$names: ($names,); // Trailing comma is necessary to initialise a single-item list in sass.
 	}
 
 	// Adds the class name symbol to the prefix.
