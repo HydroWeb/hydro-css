@@ -4,9 +4,14 @@
 /// @author Benjamin Fleming
 ////
 
-$hf-precision: 4;
 
-$hf-absolute-units: (
+// Settings
+// --------
+
+
+$hf-number-precision: 4 !default;
+
+$hf-number-absolute-units: (
 	'px': 1px,
 	'in': (1in / 96),
 	'cm': (2.54cm / 96),
@@ -15,7 +20,7 @@ $hf-absolute-units: (
 	'pc': (6pc / 96)
 ) !default;
 
-$hf-relative-units: (
+$hf-number-relative-units: (
 	'': 1,
 	'%': 100%,
 	'em': 1em,
@@ -33,7 +38,7 @@ $hf-relative-units: (
 
 
 
-@function hf-precision($value, $to: $hf-precision, $type: round) {
+@function hf-precision($value, $to: $hf-number-precision, $type: round) {
 	$n: 1;
 
 	@if type-of($value) != number {
@@ -62,13 +67,13 @@ $hf-relative-units: (
 
 
 @function -hf-absolute-unit($value) {
-	@return map-has-key($hf-absolute-units,
+	@return map-has-key($hf-number-absolute-units,
 		if(type-of($value) == 'number', unit($value), $value)
 	);
 }
 
 @function -hf-relative-unit($value) {
-	@return map-has-key($hf-relative-units,
+	@return map-has-key($hf-number-relative-units,
 		if(type-of($value) == 'number', unit($value), $value)
 	);
 }
@@ -77,11 +82,11 @@ $hf-relative-units: (
 	$unit: unit($value);
 
 	@if -hf-absolute-unit($unit) {
-		@return ($value / map-get($hf-absolute-units, $unit));
+		@return ($value / map-get($hf-number-absolute-units, $unit));
 	}
 
 	@if -hf-relative-unit($unit) {
-		@return ($value / map-get($hf-relative-units, $unit));
+		@return ($value / map-get($hf-number-relative-units, $unit));
 	}
 
 	@return ($value / ($value * 0 + 1));
@@ -95,7 +100,7 @@ $hf-relative-units: (
 
 		@if -hf-absolute-unit($unit) {
 
-			$output: $normal * map-get($hf-absolute-units, $unit);
+			$output: $normal * map-get($hf-number-absolute-units, $unit);
 
 		} @elseif -hf-relative-unit($unit) {
 
@@ -107,7 +112,7 @@ $hf-relative-units: (
 				$convert-factor
 			);
 
-			$output: ($normal / $normal-factor) * map-get($hf-relative-units, $unit);
+			$output: ($normal / $normal-factor) * map-get($hf-number-relative-units, $unit);
 
 		} @else {
 			@error '#{$unit} is not a valid unit';
@@ -125,11 +130,11 @@ $hf-relative-units: (
 				$convert-factor
 			);
 
-			$output: ($normal * $normal-factor) * map-get($hf-absolute-units, $unit);
+			$output: ($normal * $normal-factor) * map-get($hf-number-absolute-units, $unit);
 
 		} @elseif -hf-relative-unit($unit) {
 
-			$output: $normal * map-get($hf-relative-units, $unit);
+			$output: $normal * map-get($hf-number-relative-units, $unit);
 
 		} @else {
 			@error '#{$unit} is not a valid unit';
