@@ -1,0 +1,111 @@
+////
+/// Global settings
+/// @group settings
+/// @author Benjamin Fleming
+////
+
+
+/// Controls whether styles in the framework are generated.
+/// This is useful if you only intend on using the functions, mixins, placeholders, and variables.
+/// @type Boolean
+$hf-generate: true !default;
+
+/// Defines the class prefixes for different types of style definitions.
+/// @type Map
+/// @prop {String} module []
+/// @prop {String} utility [\+]
+/// @prop {String} parameter [-]
+/// @prop {String} value [-]
+/// @prop {String} state [is-]
+/// @prop {String} feature [has-]
+/// @prop {String} featureless [no-]
+$hf-prefixes: (
+	'module': '',
+	'utility': '\\+',
+	'parameter': '-',
+	'value': '-',
+	'state': 'is-',
+	'feature': 'has-',
+	'featureless': 'no-'
+) !default;
+
+/// Defines the base font size for the web document.
+/// @type Number
+$hf-font-size: 16px !default;
+
+/// Defines the maximum width for responsive modules to consider.
+/// On the contrary this does not determine the maximum width of the site.
+/// @type Number
+$hf-max-width: 1280px !default;
+
+/// Defines the different sizes to be used.
+/// @type Map
+/// @prop {Number} sm [0.5em]
+/// @prop {Number} md [1em]
+/// @prop {Number} lg [2em]
+/// @prop {Number} 1x [1em]
+/// @prop {Number} 2x [2em]
+/// @prop {Number} 3x [3em]
+/// @prop {Number} 4x [4em]
+/// @prop {Number} 5x [5em]
+/// @prop {Number} 6x [6em]
+$hf-sizes: (
+	'sm': 0.5em,
+	'md':   1em,
+	'lg':   2em,
+
+	'1x': 1em, '2x': 2em, '3x': 3em,
+	'4x': 4em, '5x': 5em, '6x': 6em
+) !default;
+
+/// Defines the different breakpoints to be used.
+/// Breakpoints are to be taken as anything at or above the labels value.
+/// @type Map
+/// @prop {Number} sm [0px]
+/// @prop {Number} md [640px]
+/// @prop {Number} lg [1080px]
+$hf-breakpoints: (
+	'sm':    0px,
+	'md':  640px,
+	'lg': 1080px
+) !default;
+
+/// Defines the different gutters to be used.
+/// @type Map
+/// @prop {Number} sm [0.5em]
+/// @prop {Number} md [1em]
+/// @prop {Number} lg [2em]
+$hf-gutters: (
+	'sm': 0.5em,
+	'md':   1em,
+	'lg':   2em
+) !default;
+
+/// Defines the different divisions to be used.
+/// @type Map
+/// @prop {Number} 12 [100%]
+/// @prop {Number} 11 [91.67%]
+/// @prop {Number} 10 [83.33%]
+/// @prop {Number} 9 [75%]
+/// @prop {Number} 8 [66.67%]
+/// @prop {Number} 7 [58.33%]
+/// @prop {Number} 6 [50%]
+/// @prop {Number} 5 [41.67%]
+/// @prop {Number} 4 [33.33%]
+/// @prop {Number} 3 [25%]
+/// @prop {Number} 2 [16.67%]
+/// @prop {Number} 1 [8.33%]
+$hf-divisions: (
+	'12': (12 / 12 * 100%),
+	'11': (11 / 12 * 100%),
+	'10': (10 / 12 * 100%),
+	'9': ( 9 / 12 * 100%),
+	'8': ( 8 / 12 * 100%),
+	'7': ( 7 / 12 * 100%),
+	'6': ( 6 / 12 * 100%),
+	'5': ( 5 / 12 * 100%),
+	'4': ( 4 / 12 * 100%),
+	'3': ( 3 / 12 * 100%),
+	'2': ( 2 / 12 * 100%),
+	'1': ( 1 / 12 * 100%)
+) !default;
