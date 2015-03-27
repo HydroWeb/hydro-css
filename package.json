@@ -1,6 +1,9 @@
 {
   "name": "hydro-css",
   "version": "0.0.1",
+  "scripts": {
+    "test": "grunt test"
+  },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-sass": "~0.8.1",
