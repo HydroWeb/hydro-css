@@ -1,0 +1,80 @@
+////
+/// Base styles
+/// @group global
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (base) are generated.
+/// @type Boolean
+$hf-generate-base: $hf-generate !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-base {
+
+	/// Changing the box model to a more sane one. Does not work in browsers below or equal to IE7.
+	/// Beware this can cause conflicts with third-party styles if they rely on a different box sizing type.
+	*,
+	*:before,
+	*:after {
+		-webkit-box-sizing: border-box; // Webkit <= 10
+		-moz-box-sizing: border-box; // Gecko <= 29
+		box-sizing: border-box;
+	}
+
+	/// Disable tap highlighting so that it can be applied where needed.
+	* {
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	/// Applies the base font size as a percentage so it responds to browser font size settings. Default font size is
+	/// assumed to be `16px`.
+	/// @require {function} sl-percentage
+	html {
+		// TODO $hf-font-size is expected to be in pixels. Need to remove that dependency and allow any unit.
+		font-size: ($hf-font-size / 16px) * 100%;
+	}
+
+	/// Normalize the form control font declarations.
+	/// Removes border radii on iOS devices, except for the select element - you have to change the appearance for that,
+	/// but in doing so removes the down arrow, so it's best to just keep the border radius.
+	input,
+	button,
+	select,
+	textarea {
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		border-radius: 0;
+	}
+
+	/// Only allow vertical resizing of textareas. This stops layouts from potentially breaking if they are resized
+	/// horizontally.
+	textarea {
+		resize: vertical;
+	}
+
+	/// For touch screen devices running IE, this removes the `~300ms` delay between clicking and the event being
+	/// executed.
+	a,
+	input,
+	button {
+		-ms-touch-action: none;
+	}
+
+	/// Set the vertical alignment to a better value on media elements.
+	audio,
+	canvas,
+	img,
+	svg,
+	video {
+		vertical-align: middle;
+	}
+
+}
