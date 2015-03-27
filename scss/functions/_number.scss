@@ -87,18 +87,28 @@ $hf-relative-units: (
 	@return ($value / ($value * 0 + 1));
 }
 
-@function hf-convert($value, $unit, $factor: $hf-font-size) {
+@function hf-convert($value, $unit, $factor: false) {
 	$normal: -hf-unit-normalize($value);
 	$output: $normal;
 
 	@if -hf-absolute-unit($value) {
 
 		@if -hf-absolute-unit($unit) {
+
 			$output: $normal * map-get($hf-absolute-units, $unit);
+
 		} @elseif -hf-relative-unit($unit) {
-			$convert-factor: -hf-unit-normalize($hf-font-size) * if(-hf-relative-unit($hf-font-size), 16px, 1px) !global;
-			$normal-factor: -hf-unit-normalize( hf-convert($factor, px, $convert-factor) );
+
+			$convert-factor: -hf-unit-normalize($hf-font-size)
+				* if( -hf-relative-unit($hf-font-size), 16, 1 );
+
+			$normal-factor: if( type-of($factor) == 'number',
+				-hf-unit-normalize( hf-convert($factor, px, $convert-factor * 1px) ),
+				$convert-factor
+			);
+
 			$output: ($normal / $normal-factor) * map-get($hf-relative-units, $unit);
+
 		} @else {
 			@error '#{$unit} is not a valid unit';
 		}
@@ -106,11 +116,21 @@ $hf-relative-units: (
 	} @elseif -hf-relative-unit($value) {
 
 		@if -hf-absolute-unit($unit) {
-			$convert-factor: -hf-unit-normalize($hf-font-size) * if(-hf-relative-unit($hf-font-size), 16px, 1px) !global;
-			$normal-factor: -hf-unit-normalize( hf-convert($factor, px, $convert-factor) );
+
+			$convert-factor: -hf-unit-normalize($hf-font-size)
+				* if( -hf-relative-unit($hf-font-size), 16, 1 );
+
+			$normal-factor: if( type-of($factor) == 'number',
+				-hf-unit-normalize( hf-convert($factor, px, $convert-factor * 1px) ),
+				$convert-factor
+			);
+
 			$output: ($normal * $normal-factor) * map-get($hf-absolute-units, $unit);
+
 		} @elseif -hf-relative-unit($unit) {
+
 			$output: $normal * map-get($hf-relative-units, $unit);
+
 		} @else {
 			@error '#{$unit} is not a valid unit';
 		}

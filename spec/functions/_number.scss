@@ -43,7 +43,7 @@
 
 	@include it('should convert correctly between absolute and relative with relative global font size') {
 		$tmp: $hf-font-size;
-		$hf-font-size: 24px !global;
+		$hf-font-size: 150% !global;
 
 		@include should(expect(hf-convert(24px, em)), to(equal(1em)));
 
