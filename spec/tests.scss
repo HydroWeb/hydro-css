@@ -10,7 +10,10 @@ $bc-setting-warnings: true;
 // Hydro CSS
 // ---------
 
-// @import 'hydro';
+$hf-generate: false;
+$hf-font-size: 10px;
+
+@import 'hydro';
 
 
 // Tests
@@ -18,6 +21,7 @@ $bc-setting-warnings: true;
 
 @include runner-start;
 
-// @import ...
+@import
+	'functions/number';
 
 @include runner-end;

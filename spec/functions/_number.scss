@@ -1,0 +1,52 @@
+// Convert
+// -------
+
+// Expects $hf-font-size to be 10px
+
+@include describe('hf-convert') {
+
+	@include it('should return the input if converting to same unit') {
+		@include should(expect(hf-convert(10px, px)), to(equal(10px)));
+		@include should(expect(hf-convert(1em, em)), to(equal(1em)));
+	}
+
+	@include it('should convert correctly between absolute') {
+		@include should(expect(hf-convert(10px, pt)), to(equal(7.5pt)));
+		@include should(expect(hf-convert(10pt, in)), to(be-close-to(0.14in, 2)));
+		@include should(expect(hf-convert(10in, cm)), to(equal(25.4cm)));
+		@include should(expect(hf-convert(10cm, mm)), to(equal(100mm)));
+		@include should(expect(hf-convert(10mm, pc)), to(be-close-to(2.36pc, 2)));
+		@include should(expect(hf-convert(10pc, pt)), to(equal(120pt)));
+	}
+
+	@include it('should convert correctly between relative') {
+		@include should(expect(hf-convert(2.75, em)), to(equal(2.75em)));
+		@include should(expect(hf-convert(3em, '%')), to(equal(300%)));
+		@include should(expect(hf-convert(-5em, rem)), to(equal(-5rem)));
+		@include should(expect(hf-convert(0.25rem, vw)), to(equal(25vw)));
+		@include should(expect(hf-convert(80vw, vh)), to(equal(80vh)));
+		@include should(expect(hf-convert(50vh, vmin)), to(equal(50vmin)));
+		@include should(expect(hf-convert(-55vmin, vmax)), to(equal(-55vmax)));
+		@include should(expect(hf-convert(25vmax, deg)), to(equal(90deg)));
+		@include should(expect(hf-convert(180deg, rad)), to(be-close-to(3.14rad, 2)));
+		@include should(expect(hf-convert(1.57rad, grad)), to(be-close-to(100grad, 0)));
+		@include should(expect(hf-convert(150grad, turn)), to(equal(0.375turn)));
+	}
+
+	@include it('should convert correctly between absolute and relative') {
+		@include should(expect(hf-convert(20px, em)), to(equal(2em)));
+	}
+
+	@include it('should convert correctly between absolute and relative with altered factor') {
+		@include should(expect(hf-convert(32px, em, 16px)), to(equal(2em)));
+	}
+
+	@include it('should convert correctly between absolute and relative with relative global font size') {
+		$tmp: $hf-font-size;
+		$hf-font-size: 24px !global;
+
+		@include should(expect(hf-convert(24px, em)), to(equal(1em)));
+
+		$hf-font-size: $tmp !global;
+	}
+}
