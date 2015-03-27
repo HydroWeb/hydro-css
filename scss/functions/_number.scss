@@ -1,0 +1,123 @@
+////
+/// Number-based functions
+/// @group functions
+/// @author Benjamin Fleming
+////
+
+$hf-precision: 4;
+
+$hf-absolute-units: (
+	'px': 1px,
+	'in': (1in / 96),
+	'cm': (2.54cm / 96),
+	'mm': (25.4mm / 96),
+	'pt': (72pt / 96),
+	'pc': (6pc / 96)
+) !default;
+
+$hf-relative-units: (
+	'': 1,
+	'%': 100%,
+	'em': 1em,
+	'rem': 1rem,
+	'vw': 100vw,
+	'vh': 100vh,
+	'vmin': 100vmin,
+	'vmax': 100vmax,
+	'deg': 360deg,
+	'rad': 6.2832rad,
+	'grad': 400grad,
+	'turn': 1turn
+) !default;
+
+
+
+
+@function hf-precision($value, $to: $hf-precision, $type: round) {
+	$n: 1;
+
+	@if type-of($value) != number {
+		@error '#{$value} is not a number.';
+	}
+
+	@if type-of($to) != number or $to < 0 {
+		@error '#{$to} is not a non-negative number.';
+	}
+
+	@for $i from 1 through $to {
+		$n: $n * 10;
+	}
+
+	@if $type == round {
+		@return round($value * $n) / $n;
+	} @elseif $type == ceil {
+		@return ceil($value * $n) / $n;
+	} @elseif $type == floor {
+		@return floor($value * $n) / $n;
+	}
+
+	@error '#{$type} is not a valid type';
+}
+
+
+
+@function -hf-absolute-unit($value) {
+	@return map-has-key($hf-absolute-units,
+		if(type-of($value) == 'number', unit($value), $value)
+	);
+}
+
+@function -hf-relative-unit($value) {
+	@return map-has-key($hf-relative-units,
+		if(type-of($value) == 'number', unit($value), $value)
+	);
+}
+
+@function -hf-unit-normalize($value) {
+	$unit: unit($value);
+
+	@if -hf-absolute-unit($unit) {
+		@return ($value / map-get($hf-absolute-units, $unit));
+	}
+
+	@if -hf-relative-unit($unit) {
+		@return ($value / map-get($hf-relative-units, $unit));
+	}
+
+	@return ($value / ($value * 0 + 1));
+}
+
+@function hf-convert($value, $unit, $factor: $hf-font-size) {
+	$normal: -hf-unit-normalize($value);
+	$output: $normal;
+
+	@if -hf-absolute-unit($value) {
+
+		@if -hf-absolute-unit($unit) {
+			$output: $normal * map-get($hf-absolute-units, $unit);
+		} @elseif -hf-relative-unit($unit) {
+			$convert-factor: -hf-unit-normalize($hf-font-size) * if(-hf-relative-unit($hf-font-size), 16px, 1px) !global;
+			$normal-factor: -hf-unit-normalize( hf-convert($factor, px, $convert-factor) );
+			$output: ($normal / $normal-factor) * map-get($hf-relative-units, $unit);
+		} @else {
+			@error '#{$unit} is not a valid unit';
+		}
+
+	} @elseif -hf-relative-unit($value) {
+
+		@if -hf-absolute-unit($unit) {
+			$convert-factor: -hf-unit-normalize($hf-font-size) * if(-hf-relative-unit($hf-font-size), 16px, 1px) !global;
+			$normal-factor: -hf-unit-normalize( hf-convert($factor, px, $convert-factor) );
+			$output: ($normal * $normal-factor) * map-get($hf-absolute-units, $unit);
+		} @elseif -hf-relative-unit($unit) {
+			$output: $normal * map-get($hf-relative-units, $unit);
+		} @else {
+			@error '#{$unit} is not a valid unit';
+		}
+
+	} @else {
+		@error '#{$value} does not have a valid unit';
+	}
+
+	@return hf-precision($output);
+}
