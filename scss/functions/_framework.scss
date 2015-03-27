@@ -1,0 +1,148 @@
+////
+/// Framework
+/// @group functions
+/// @author Benjamin Fleming
+////
+
+
+// Prefixes
+// --------
+
+/// Creates a usable class name from a prefix and a name.
+/// @require {variable} hf-prefixes
+/// @param {String} $type - The prefix type. The value is retrieved from the $hf-prefixes map.
+/// @param {String} $name - The name of the class to be prefixed.
+/// @return {String} The prefixed class name
+@function hf-prefix($type, $name) {
+	@return '.' + map-get($hf-prefixes, $type) + $name;
+}
+
+/// Creates a hydro selector using the set prefixes and a multidimensional list of names.
+/// @require {function} hf-prefix
+/// @param {String | List} $type - If a string, the prefix is retrieved from the `$hf-prefixes` map. If a list (of size
+/// 	2), the first value is treated as a selector string, and the second prefix type. This allows prefixing entire
+/// 	selectors.
+/// @param {List} $names - Each name passed is prefixed and separated by a comma. If a name is also a list, each item of
+/// 	that is prefixed and joined together.
+/// @return {String} Selector
+@function hf-selector($type, $names...) {
+	$output: '';
+	$comma: '';
+	$selector: '';
+
+	// If the type is comprised of a selector and a prefix type, separate them out.
+	@if type-of($type) == list {
+		$selector: nth($type, 1);
+		$type: nth($type, 2);
+	}
+
+	// Adds the class name symbol to the prefix.
+	$prefix: '.' + map-get($hf-prefixes, $type);
+
+	@each $name in $names {
+		$output: $output + $comma;
+		$comma: ',';
+
+		@if type-of($name) == list {
+			$first: true;
+			@each $part in $name {
+				$output: $output
+					+ if($first, $selector, '')
+					+ hf-prefix($type, $part);
+				$first: false;
+			}
+		} @else {
+			$output: $output
+				+ $selector
+				+ hf-prefix($type, $name);
+		}
+	}
+
+	@return $output;
+}
+
+/// Creates a module class name.
+/// @require {function} hf-prefix
+/// @param {String} $name - The name of the module.
+/// @return {String} The module class name
+@function hf-module($name) {
+	@return hf-prefix('module', $name);
+}
+
+/// Creates a utility class name.
+/// @require {function} hf-prefix
+/// @param {String} $name - The name of the utility.
+/// @return {String} The utility class name
+@function hf-utility($name) {
+	@return hf-prefix('utility', $name);
+}
+
+/// Creates a parameter class name.
+/// @require {function} hf-prefix
+/// @param {String} $name - The name of the parameter.
+/// @param {String} $value [false] - The (optional) value of the parameter.
+/// @return {String} The parameter class name
+@function hf-parameter($name, $value: false) {
+	@return hf-prefix('parameter', $name)
+		+ if($value == false, '', hf-prefix('value', $value));
+}
+
+/// Creates a state class name.
+/// @require {function} hf-prefix
+/// @param {String} $name - The name of the state.
+/// @return {String} The state class name
+@function hf-state($name) {
+	@return hf-prefix('state', $name);
+}
+
+/// Creates a feature class name.
+/// @require {function} hf-prefix
+/// @param {String} $name - The name of the feature.
+/// @return {String} The feature class name
+@function hf-feature($name) {
+	@return hf-prefix('feature', $name);
+}
+
+/// Creates a featureless class name.
+/// @require {function} hf-prefix
+/// @param {String} $name - The name of the feature.
+/// @return {String} The featureless class name
+@function hf-featureless($name) {
+	@return hf-prefix('featureless', $name);
+}
+
+
+// Maps
+// ----
+
+/// Gets a sizes value. Just a readable wrapper for `map-get()` on `$hf-sizes`.
+/// @require {variable} $hf-sizes
+/// @param {String} $type - The size type
+/// @return {Number}
+@function hf-size($type) {
+	@return map-get($hf-sizes, $type);
+}
+
+/// Gets a breakpoints value. Just a readable wrapper for `map-get()` on `$hf-breakpoints`.
+/// @require {variable} $hf-breakpoints
+/// @param {String} $type - The breakpoint type
+/// @return {Number}
+@function hf-breakpoint($type) {
+	@return map-get($hf-breakpoints, $type);
+}
+
+/// Gets a gutters value. Just a readable wrapper for `map-get()` on `$hf-gutters`.
+/// @require {variable} $hf-gutters
+/// @param {String} $type - The gutter type
+/// @return {Number}
+@function hf-gutter($type) {
+	@return map-get($hf-gutters, $type);
+}
+
+/// Gets a divisions value. Just a readable wrapper for `map-get()` on `$hf-divisions`.
+/// @require {variable} $hf-divisions
+/// @param {String} $type - The division type
+/// @return {Number}
+@function hf-division($type) {
+	@return map-get($hf-divisions, $type);
+}
