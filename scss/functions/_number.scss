@@ -8,9 +8,20 @@
 // Settings
 // --------
 
-
+/// The number of decimals to round/ceil/floor to
+/// @type Number
 $hf-number-precision: 4 !default;
 
+/// A map of absolute units and their relative values. Used when converting. Their ratios are related to a normalised
+/// absolute value (see -hf-unit-normalize). As an example, "1" (as a normalized absolute unit) is equivalent to "1px".
+/// To put it simply, each value in the map should be the equivalent to every other (1px = 0.75pt = 0.0625pc = ...)
+/// @type Map
+/// @prop {Number} px [1px]
+/// @prop {Number} in [0.0104in]
+/// @prop {Number} cm [0.0265cm]
+/// @prop {Number} mm [0.2646mm]
+/// @prop {Number} pt [0.75pt]
+/// @prop {Number} pc [0.0625pc]
 $hf-number-absolute-units: (
 	'px': 1px,
 	'in': (1in / 96),
@@ -20,6 +31,22 @@ $hf-number-absolute-units: (
 	'pc': (6pc / 96)
 ) !default;
 
+/// A map of relative units and their relative values. Used when converting. Their ratios are related to a normalised
+/// relative value (see -hf-unit-normalize). As an example, "1" (as a normalized relative unit) is equivalent to "1em".
+/// To put it simply, each value in the map should be the equivalent to every other (1em = 100% = 360deg = ...)
+/// @type Map
+/// @prop {Number}  [1]
+/// @prop {Number} % [100%]
+/// @prop {Number} em [1em]
+/// @prop {Number} rem [1rem]
+/// @prop {Number} vw [100vw]
+/// @prop {Number} vh [100vh]
+/// @prop {Number} vmin [100vmin]
+/// @prop {Number} vmax [100vmax]
+/// @prop {Number} deg [360deg]
+/// @prop {Number} rad [6.2832rad]
+/// @prop {Number} grad [400grad]
+/// @prop {Number} turn [1turn]
 $hf-number-relative-units: (
 	'': 1,
 	'%': 100%,
@@ -36,48 +63,38 @@ $hf-number-relative-units: (
 ) !default;
 
 
+// Private
+// -------
 
-
-@function hf-precision($value, $to: $hf-number-precision, $type: round) {
-	$n: 1;
-
-	@if type-of($value) != number {
-		@error '#{$value} is not a number.';
-	}
-
-	@if type-of($to) != number or $to < 0 {
-		@error '#{$to} is not a non-negative number.';
-	}
-
-	@for $i from 1 through $to {
-		$n: $n * 10;
-	}
-
-	@if $type == round {
-		@return round($value * $n) / $n;
-	} @elseif $type == ceil {
-		@return ceil($value * $n) / $n;
-	} @elseif $type == floor {
-		@return floor($value * $n) / $n;
-	}
-
-	@error '#{$type} is not a valid type';
-}
-
-
-
+// Checks if a unit is absolute.
+// @require {variable} hf-number-absolute-units
+// @param {Number | String} $value - The number or unit (as a string) to check.
+// @return {Boolean}
 @function -hf-absolute-unit($value) {
 	@return map-has-key($hf-number-absolute-units,
 		if(type-of($value) == 'number', unit($value), $value)
 	);
 }
 
+// Checks if a unit is relative.
+// @require {variable} hf-number-relative-units
+// @param {Number | String} $value - The number or unit (as a string) to check.
+// @return {Boolean}
 @function -hf-relative-unit($value) {
 	@return map-has-key($hf-number-relative-units,
 		if(type-of($value) == 'number', unit($value), $value)
 	);
 }
 
+// Converts a number into a normalized value. Used for conversion.
+// @require {variable} hf-number-absolute-units
+// @require {variable} hf-number-relative-units
+// @require {function} -hf-absolute-unit
+// @require {function} -hf-relative-unit
+// @param {Number} $value - The number to normalize
+// @return {Number} The normalized number
+// @example scss
+//   -hf-unit-normalize(1.5pt) // Outputs 2
 @function -hf-unit-normalize($value) {
 	$unit: unit($value);
 
@@ -92,7 +109,59 @@ $hf-number-relative-units: (
 	@return ($value / ($value * 0 + 1));
 }
 
-@function hf-convert($value, $unit, $factor: false) {
+
+// Public
+// ------
+
+/// Round a number to specified number of decimal places
+/// @require {variable} hf-number-precision
+/// @param {Number} $value - The number to round
+/// @param {Number} $decimals [$hf-number-precision] - The number of decimals to round to
+/// @param {String} $type [round] - [round | ceil | floor] The rounding type
+/// @return {Number} The rounded number
+@function hf-precision($value, $decimals: $hf-number-precision, $type: round) {
+	$n: 1;
+
+	@if type-of($value) != number {
+		@error '#{$value} is not a number.';
+	}
+
+	@if type-of($decimals) != number or $decimals < 0 {
+		@error '#{$decimals} is not a non-negative number.';
+	}
+
+	@for $i from 1 through $decimals {
+		$n: $n * 10;
+	}
+
+	@if $type == round {
+		@return round($value * $n) / $n;
+	} @elseif $type == ceil {
+		@return ceil($value * $n) / $n;
+	} @elseif $type == floor {
+		@return floor($value * $n) / $n;
+	}
+
+	@error '#{$type} is not a valid type';
+}
+
+/// Convert a number to another unit.
+/// @require {variable} hf-font-size
+/// @require {variable} hf-number-absolute-units
+/// @require {variable} hf-number-relative-units
+/// @require {function} hf-precision
+/// @require {function} -hf-absolute-unit
+/// @require {function} -hf-relative-unit
+/// @require {function} -hf-unit-normalize
+/// @param {Number} $value - The number to convert
+/// @param {String} $unit - The unit to convert the number to
+/// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
+///   This is defaulted to the global font size set in the settings file.
+/// @return {Number} The converted number
+/// @example scss
+///   hf-convert(0.5em, '%') // Outputs 50%
+///   hf-convert(32px, em, 16px) // Outputs 2em
+@function hf-convert($value, $unit, $factor: null) {
 	$normal: -hf-unit-normalize($value);
 	$output: $normal;
 
