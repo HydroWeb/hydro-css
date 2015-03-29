@@ -49,6 +49,7 @@
 // ------------
 
 /// Returns the "top" value of a list. Useful to extract individual side values from CSS short-hand lists like paddings.
+/// @require {function} hf-nth-loop
 /// @param {List | Map} $list
 /// @return {*}
 @function top($list) {
@@ -57,6 +58,7 @@
 
 /// Returns the "right" value of a list. Useful to extract individual side values from CSS short-hand lists like
 /// paddings.
+/// @require {function} hf-nth-loop
 /// @param {List | Map} $list
 /// @return {*}
 @function right($list) {
@@ -65,6 +67,7 @@
 
 /// Returns the "bottom" value of a list. Useful to extract individual side values from CSS short-hand lists like
 /// paddings.
+/// @require {function} hf-nth-loop
 /// @param {List | Map} $list
 /// @return {*}
 @function bottom($list) {
@@ -73,6 +76,7 @@
 
 /// Returns the "left" value of a list. Useful to extract individual side values from CSS short-hand lists like
 /// paddings.
+/// @require {function} hf-nth-loop
 /// @param {List | Map} $list
 /// @return {*}
 @function left($list) {
