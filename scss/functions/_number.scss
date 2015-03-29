@@ -175,6 +175,17 @@ $hf-number-relative-units: (
 		@return $output;
 	}
 
+	@if $type == 'map' {
+		$output: ();
+
+		@each $key, $item in $value {
+			$new-item: hf-convert($item, $unit, $factor);
+			$output: map-merge($output, ($key: $new-item));
+		}
+
+		@return $output;
+	}
+
 	@if $type != 'number' {
 		@error '#{$value} is not a valid type';
 	}
