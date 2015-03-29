@@ -1,0 +1,32 @@
+////
+/// List functions
+/// @group functions
+/// @author Benjamin Fleming
+////
+
+
+/// Flatten a multi-dimensional list into a single dimension list.
+/// @param {*} $list
+/// @return {List}
+@function hf-flatten($list...) {
+	$length: length($list);
+	$flattened: ();
+
+	@if $length < 1 {
+		@return $flattened;
+	} @else if $length == 1 {
+		$list: nth($list, 1);
+	}
+
+	$type: type-of($list);
+
+	@if $type == 'list' or $type == 'arglist' {
+		@each $item in $list {
+			$flattened: join($flattened, hf-flatten($item));
+		}
+	} @else {
+		$flattened: append($flattened, $list);
+	}
+
+	@return $flattened;
+}
