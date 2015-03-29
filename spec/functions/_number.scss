@@ -1,9 +1,8 @@
 // Convert
 // -------
 
-// Expects $hf-font-size to be 10px
-
 @include describe('hf-convert') {
+	$hf-font-size: 10px !global;
 
 	@include it('should return the input if converting to same unit') {
 		@include should(expect(hf-convert(10px, px)), to(equal(10px)));
@@ -48,5 +47,26 @@
 		@include should(expect(hf-convert(24px, em)), to(equal(1em)));
 
 		$hf-font-size: $tmp !global;
+	}
+}
+
+
+// Sum
+// ---
+
+@include describe('hf-sum') {
+	$hf-font-size: 10px !global;
+
+	@include it('should sum all the values and return a single value') {
+		@include should(expect(hf-sum(2px, 5px, -1px)), to(equal(6px)));
+	}
+
+	@include it('should output as a CSS3 calc function') {
+		@include should(expect(hf-sum(10px, -2em, 50%)), to(be('calc(10px - 2em + 50%)')));
+	}
+
+	@include it('should sum all the values and return a single value with the specified unit') {
+		@include should(expect(hf-sum('em', 5px, 1em, 50%)), to(equal(2em)));
+		@include should(expect(hf-sum(('%': 5px), 10px, 15px, 1.5em)), to(equal(650%)));
 	}
 }
