@@ -153,7 +153,7 @@ $hf-number-relative-units: (
 /// @require {function} -hf-absolute-unit
 /// @require {function} -hf-relative-unit
 /// @require {function} -hf-unit-normalize
-/// @param {Number} $value - The number to convert
+/// @param {Number | List} $value - The number (or list of numbers) to convert
 /// @param {String} $unit - The unit to convert the number to
 /// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
 ///   This is defaulted to the global font size set in the settings file.
@@ -162,6 +162,23 @@ $hf-number-relative-units: (
 ///   hf-convert(0.5em, '%') // Outputs 50%
 ///   hf-convert(32px, em, 16px) // Outputs 2em
 @function hf-convert($value, $unit, $factor: null) {
+	$type: type-of($value);
+
+	@if $type == 'list' {
+		$output: ();
+
+		@each $item in $value {
+			$new-item: hf-convert($item, $unit, $factor);
+			$output: append($output, $new-item);
+		}
+
+		@return $output;
+	}
+
+	@if $type != 'number' {
+		@error '#{$value} is not a valid type';
+	}
+
 	$normal: -hf-unit-normalize($value);
 	$output: $normal;
 
