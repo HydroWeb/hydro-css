@@ -215,3 +215,119 @@ $hf-number-relative-units: (
 
 	@return hf-precision($output);
 }
+
+/// Sum a list of values, either converting them all to a single unit or outputting them as a CSS3 calc() value.
+/// @require {function} hf-flatten
+/// @require {function} hf-convert
+/// @param {Number | String | Map} $format
+/// @param {Number} $values
+/// @return {Number | String}
+/// @example scss
+///   hf-sum(2px, 5px, -1px) // Outputs 6px
+///   hf-sum(10px, -2em, 50%) // Outputs calc(10px - 2em + 50%)
+///   hf-sum('em', 8px, 1em, 50%) // Outputs 2em (given that $hf-font-size is 16px)
+///   hf-sum(('%': 8px), 16px, 24px, 1.5em) // Outputs 650%
+@function hf-sum($format: 'calc', $values...) {
+	$values: hf-flatten($values);
+	$factor: null;
+	$format-type: type-of($format);
+
+	@if $format-type == 'number' {
+		$values: join($format, $values);
+		$format: 'calc';
+		$format-type: 'string';
+	}
+
+	@if length($values) < 1 {
+		@error 'No numbers were passed';
+	}
+
+	//
+	// Determine the format and/or conversion factor
+	//
+
+	@if $format-type == 'map' {
+
+		@if length($format) < 1 {
+			@error '#{$format} is an invalid format';
+		}
+
+		$format-pair: nth($format, 1);
+		$format: nth($format-pair, 1);
+		$factor: nth($format-pair, 2);
+
+	} @elseif $format-type != 'string' {
+		@error '#{$format} is an invalid format';
+	}
+
+	//
+	// Sum all same-unit values
+	//
+
+	$sums: ();
+
+	@each $item in $values {
+
+		@if type-of($item) != 'number' {
+			@error '#{$item} is not a number';
+		}
+
+		$unit: unit($item);
+		$sum: $item;
+
+		@if $item != 0 { // Comparison with zero doesn't consider unit, so for example 0px == 0 is true
+
+			@if map-has-key($sums, $unit) {
+				$sum: $sum + map-get($sums, $unit);
+			}
+
+			$sums: map-merge($sums, ($unit: $sum) );
+		}
+	}
+
+	//
+	// Generate output
+	//
+
+	@if $format == 'calc' {
+
+		@if length($sums) > 1 {
+			$numbers: '';
+			$first: true;
+
+			@each $unit, $value in $sums {
+
+				@if not $first {
+
+					@if $value < 0 {
+						$value: $value * -1;
+						$numbers: $numbers + ' - ';
+
+					} @elseif $value > 0 {
+						$numbers: $numbers + ' + ';
+					}
+
+				} @else {
+					$first: false;
+				}
+
+				$numbers: $numbers + $value;
+			}
+
+			@return unquote('calc(' + $numbers + ')');
+
+		} @else { // Can trust the length is equal to one, thanks to the error checking above
+
+			@return nth( nth($sums, 1), 2);
+		}
+
+	} @else {
+		$sum: 0;
+
+		@each $unit, $value in $sums {
+			$sum: $sum + hf-convert($value, $format, $factor);
+		}
+
+		@return $sum;
+	}
+}
