@@ -153,11 +153,11 @@ $hf-number-relative-units: (
 /// @require {function} -hf-absolute-unit
 /// @require {function} -hf-relative-unit
 /// @require {function} -hf-unit-normalize
-/// @param {Number | List} $value - The number (or list of numbers) to convert
+/// @param {Number | List | Map} $value - The number (or list or map of numbers) to convert
 /// @param {String} $unit - The unit to convert the number to
 /// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
 ///   This is defaulted to the global font size set in the settings file.
-/// @return {Number} The converted number
+/// @return {Number | List | Map} The converted number (or list or map of numbers)
 /// @example scss
 ///   hf-convert(0.5em, '%') // Outputs 50%
 ///   hf-convert(32px, em, 16px) // Outputs 2em
