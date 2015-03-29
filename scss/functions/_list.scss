@@ -5,6 +5,19 @@
 ////
 
 
+// Public
+// ------
+
+/// Returns the value at an index on a list or map. If the index is outside the bounds of the list or map it is 'looped'
+/// around. Essentially the list or map is treated like a circular buffer.
+/// @param {List | Map} $list
+/// @param {Number} $index
+/// @return {*}
+@function hf-nth-loop($list, $index) {
+	// Ruby's implementation of modulo does not result in negatives, so there's no need to check for negative values.
+	@return nth($list, ($index - 1) % length($list) + 1);
+}
+
 /// Flatten a multi-dimensional list into a single dimension list.
 /// @param {*} $list
 /// @return {List}
@@ -29,4 +42,39 @@
 	}
 
 	@return $flattened;
+}
+
+
+// Non-prefixed
+// ------------
+
+/// Returns the "top" value of a list. Useful to extract individual side values from CSS short-hand lists like paddings.
+/// @param {List | Map} $list
+/// @return {*}
+@function top($list) {
+	@return hf-nth-loop($list, 1);
+}
+
+/// Returns the "right" value of a list. Useful to extract individual side values from CSS short-hand lists like
+/// paddings.
+/// @param {List | Map} $list
+/// @return {*}
+@function right($list) {
+	@return hf-nth-loop($list, 2);
+}
+
+/// Returns the "bottom" value of a list. Useful to extract individual side values from CSS short-hand lists like
+/// paddings.
+/// @param {List | Map} $list
+/// @return {*}
+@function bottom($list) {
+	@return hf-nth-loop($list, 3);
+}
+
+/// Returns the "left" value of a list. Useful to extract individual side values from CSS short-hand lists like
+/// paddings.
+/// @param {List | Map} $list
+/// @return {*}
+@function left($list) {
+	@return hf-nth-loop($list, 4);
 }
