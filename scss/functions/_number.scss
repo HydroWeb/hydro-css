@@ -359,3 +359,57 @@ $hf-number-relative-units: (
 		@return $sum;
 	}
 }
+
+
+// Non-prefixed
+// ------------
+
+/// Converts a number (or list of numbers) to pixels.
+/// @require {function} hf-convert
+/// @param {Number | List | Map} $value - The number (or list or map of numbers) to convert
+/// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
+///   This is defaulted to the global font size set in the settings file.
+/// @return {Number | List | Map} The converted number (or list or map of numbers) in pixels
+@function px($value, $factor: null) {
+	@return hf-convert($value, 'px', $factor);
+}
+
+/// Converts a number (or list of numbers) to EM's.
+/// @require {function} hf-convert
+/// @param {Number | List | Map} $value - The number (or list or map of numbers) to convert
+/// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
+///   This is defaulted to the global font size set in the settings file.
+/// @return {Number | List | Map} The converted number (or list or map of numbers) in EM's
+@function em($value, $factor: null) {
+	@return hf-convert($value, 'em', $factor);
+}
+
+/// Converts a number (or list of numbers) to relative EM's.
+/// @require {function} hf-convert
+/// @param {Number | List | Map} $value - The number (or list or map of numbers) to convert
+/// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
+///   This is defaulted to the global font size set in the settings file.
+/// @return {Number | List | Map} The converted number (or list or map of numbers) in relative EM's
+@function rem($value, $factor: null) {
+	@return hf-convert($value, 'rem', $factor);
+}
+
+/// Converts a number (or list of numbers) to a percentage.
+/// @require {function} hf-convert
+/// @param {Number | List | Map} $value - The number (or list or map of numbers) to convert
+/// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
+///   This is defaulted to the global font size set in the settings file.
+/// @return {Number | List | Map} The converted number (or list or map of numbers) as a percentage
+@function percent($value, $factor: null) {
+	@return hf-convert($value, '%', $factor);
+}
+
+/// Converts a number (or list of numbers) to a decimal.
+/// @require {function} hf-convert
+/// @param {Number | List | Map} $value - The number (or list or map of numbers) to convert
+/// @param {Number} $factor [null] - The number to convert against (when converting between absolute and relative values)
+///   This is defaulted to the global font size set in the settings file.
+/// @return {Number | List | Map} The converted number (or list or map of numbers) as a decimal
+@function decimal($value, $factor: null) {
+	@return hf-convert($value, '', $factor);
+}
