@@ -43,6 +43,57 @@
 	@return $flattened;
 }
 
+/// Insertion sort for sorting comparison-based values.
+/// @param {List} $list
+/// @param {String} $direction [asc]
+/// @param {String} $separator [auto]
+/// @return {List}
+@function hf-sort($list, $direction: 'asc', $separator: auto) {
+	$type: type-of($list);
+
+	@if $type != 'list' and $type != 'arglist' {
+		@error '#{$list} is not a list';
+	}
+
+	@if $direction != 'asc' and $direction != 'desc' {
+		@error '#{$direction} is not a valid direction';
+	}
+
+	$length: length($list);
+
+	@if $length < 2 {
+		@return $list;
+	}
+
+	$ascending: ($direction == 'asc');
+
+	@for $i from 2 through $length {
+		$x: nth($list, $i);
+		$j: $i;
+		$condition: true;
+
+		@while $condition {
+			$y: nth($list, $j - 1);
+
+			@if not comparable($x, $y) {
+				@error '#{$x} and #{$y} are incomparable values';
+			}
+
+			$condition: if($ascending, ($y > $x), ($y < $x));
+
+			@if $condition {
+				$list: set-nth($list, $j, nth($list, $j - 1));
+				$j: $j - 1;
+				$condition: ($j > 1);
+			}
+		}
+
+		$list: set-nth($list, $j, $x);
+	}
+
+	@return $list;
+}
+
 
 // Non-prefixed
 // ------------
