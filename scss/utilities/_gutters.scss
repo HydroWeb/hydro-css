@@ -1,0 +1,41 @@
+////
+/// Gutters
+/// @group utilities
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (gutters) are generated.
+/// @type Boolean
+$hf-generate-gutters: $hf-generate !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-gutters {
+
+	@each $property in 'margin', 'padding' {
+
+		@each $gutter-name, $gutter-value in join($hf-gutters, ('none': 0)) {
+
+			@include hf-utility('t-' + $property '-' + $gutter-name) { #{$property}-top:    $gutter-value !important; }
+			@include hf-utility('b-' + $property '-' + $gutter-name) { #{$property}-bottom: $gutter-value !important; }
+			@include hf-utility('l-' + $property '-' + $gutter-name) { #{$property}-left:   $gutter-value !important; }
+			@include hf-utility('r-' + $property '-' + $gutter-name) { #{$property}-right:  $gutter-value !important; }
+
+			@include hf-utility('h-' + $property '-' + $gutter-name) {
+				#{$property}-top:    $gutter-value !important;
+				#{$property}-bottom: $gutter-value !important;
+			}
+
+			@include hf-utility('v-' + $property '-' + $gutter-name) {
+				#{$property}-left:  $gutter-value !important;
+				#{$property}-right: $gutter-value !important;
+			}
+		}
+	}
+}
