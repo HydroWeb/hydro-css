@@ -202,7 +202,7 @@ $hf-number-relative-units: (
 		} @elseif -hf-relative-unit($unit) {
 
 			$convert-factor: -hf-unit-normalize($hf-font-size)
-				* if( -hf-relative-unit($hf-font-size), 16, 1 );
+				* if( -hf-relative-unit($hf-font-size), ($-hf-default-font-size / 1px), 1 );
 
 			$normal-factor: if( type-of($factor) == 'number',
 				-hf-unit-normalize( hf-convert($factor, px, $convert-factor * 1px) ),
@@ -220,7 +220,7 @@ $hf-number-relative-units: (
 		@if -hf-absolute-unit($unit) {
 
 			$convert-factor: -hf-unit-normalize($hf-font-size)
-				* if( -hf-relative-unit($hf-font-size), 16, 1 );
+				* if( -hf-relative-unit($hf-font-size), ($-hf-default-font-size / 1px), 1 );
 
 			$normal-factor: if( type-of($factor) == 'number',
 				-hf-unit-normalize( hf-convert($factor, px, $convert-factor * 1px) ),

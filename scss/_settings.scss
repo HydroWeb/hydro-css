@@ -4,6 +4,16 @@
 /// @author Benjamin Fleming
 ////
 
+// Private
+// -------
+
+// Defines the base font size for the web document.
+// @type Number
+$-hf-default-font-size: 16px;
+
+
+// Public
+// ------
 
 /// Controls whether styles in the framework are generated.
 /// This is useful if you only intend on using the functions, mixins, placeholders, and variables.
