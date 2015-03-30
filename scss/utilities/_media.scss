@@ -59,7 +59,11 @@
 				$value: hf-convert($value, em, $-hf-default-font-size);
 
 				@if $value < $prior {
-					@warn '#{$value} is either negative, or the difference between from and until is negative';
+					@if $dir == 'min' {
+						@warn 'From value (#{$value}) is negative; media query will never match';
+					} @else {
+						@warn 'Difference between from and util is negative; media query will never match';
+					}
 				}
 
 				$query: $query + $value;
@@ -67,22 +71,26 @@
 
 			} @else if $type == 'list' and $is-ratio {
 
-				@if length($type) != 2 {
+				@if length($value) != 2 {
 					@error '#{$value} is not a valid ratio list';
 				}
 
-				@each $dim in $type {
+				@each $dim in $value {
 					@if type-of($dim) != 'number' or not unitless($dim) {
 						@error '#{$dim} is not a valid ratio list value';
 					}
 				}
 
-				$ratio-x: nth($type, 1);
-				$ratio-y: nth($type, 2);
+				$ratio-x: nth($value, 1);
+				$ratio-y: nth($value, 2);
 				$ratio: ($ratio-x / $ratio-y);
 
 				@if $ratio < $prior {
-					@warn '#{$value} is either negative, or the difference between from and until is negative';
+					@if $dir == 'min' {
+						@warn 'From value (#{$value}) is negative; media query will never match';
+					} @else {
+						@warn 'Difference between from and util is negative; media query will never match';
+					}
 				}
 
 				$query: $query + $ratio-x + '/' + $ratio-y;
