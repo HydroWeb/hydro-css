@@ -10,7 +10,7 @@
 
 /// The number of decimals to round/ceil/floor to
 /// @type Number
-$hf-number-precision: 4 !default;
+$hf-number-precision: 5 !default;
 
 /// A map of absolute units and their relative values. Used when converting. Their ratios are related to a normalised
 /// absolute value (see -hf-unit-normalize). As an example, "1" (as a normalized absolute unit) is equivalent to "1px".
