@@ -51,7 +51,7 @@ $hf-generate-clearfix: $hf-generate !default;
 @if $hf-generate-clearfix {
 
 	@include hf-utility('clearfix') {
-		@extend %clearfix;
+		@extend %hf-clearfix;
 	}
 
 	@include hf-utility('float-left') {
