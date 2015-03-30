@@ -23,11 +23,11 @@
 	$valid-properties: width device-width height device-height aspect-ratio device-aspect-ratio resolution;
 
 	@if not index($valid-devices, $device) {
-		@error '#{$device} is not a valid device';
+		@warn '#{$device} is not a valid device; media query will never match';
 	}
 
 	@if not index($valid-properties, $property) {
-		@error '#{$property} is not a valid property';
+		@warn '#{$property} is not a valid property; media query will never match';
 	}
 
 	$query: $device;
