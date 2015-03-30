@@ -8,7 +8,7 @@
 // Public
 // ------
 
-/// Replace `$search` with `$replace` in `$string`
+/// Replaces all occurrences of a substring with another in a string
 /// @author Hugo Giraudel
 /// @source http://sassmeister.com/gist/1b4f2da5527830088e4d
 /// @param {String} $string - Initial string
