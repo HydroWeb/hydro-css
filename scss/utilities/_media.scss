@@ -1,0 +1,101 @@
+////
+/// Media queries
+/// @group utilities
+/// @author Benjamin Fleming
+////
+
+
+// Mixins
+// ------
+
+/// Simple media query abstraction for expressive and maintainable media queries.
+/// @require {variable} hf-breakpoints
+/// @require {variable} -hf-default-font-size
+/// @require {function} hf-convert
+/// @param {String} $device [all]
+/// @param {Number | List} $from [null]
+/// @param {Number | List} $until [null]
+/// @param {String} $property [width]
+/// @content Styles to go inside the media query
+/// @output Media query following the parameters passed
+@mixin hf-media($device: all, $from: null, $until: null, $property: width) {
+	$valid-devices: all aural braille handheld print projection screen tty tv embossed;
+	$valid-properties: width device-width height device-height aspect-ratio device-aspect-ratio resolution;
+
+	@if not index($valid-devices, $device) {
+		@error '#{$device} is not a valid device';
+	}
+
+	@if not index($valid-properties, $property) {
+		@error '#{$property} is not a valid property';
+	}
+
+	$query: $device;
+	$is-ratio: ($property == aspect-ratio or $property == device-aspect-ratio);
+
+	$prior: 0;
+
+	@each $dir, $value in ('min': $from, 'max': $until) {
+		$type: type-of($value);
+
+		@if $type != 'null' {
+			$query: $query + ' and (' + $dir + '-' + $property + ':';
+
+			@if $type == 'string' {
+				@if map-has-key($hf-breakpoints, $value) {
+					$value: map-get($hf-breakpoints, $value);
+				} @else {
+					@error '#{$type} is not a valid value';
+				}
+			}
+
+			@if $type == 'number' and not $is-ratio {
+
+				@if $dir == 'max' {
+					$value: hf-convert($value, px) - 1px;
+				}
+
+				$value: hf-convert($value, em, $-hf-default-font-size);
+
+				@if $value < $prior {
+					@error '#{$value} is either negative, or the difference between from and until is negative';
+				}
+
+				$query: $query + $value;
+				$prior: $value;
+
+			} @else if $type == 'list' and $is-ratio {
+
+				@if length($type) != 2 {
+					@error '#{$type} is not a valid ratio list';
+				}
+
+				@each $dim in $type {
+					@if type-of($dim) != 'number' or not unitless($dim) {
+						@error '#{$dim} is not a valid ratio list value';
+					}
+				}
+
+				$ratio-x: nth($type, 1);
+				$ratio-y: nth($type, 2);
+				$ratio: ($ratio-x / $ratio-y);
+
+				@if $ratio < $prior {
+					@error '#{$value} is either negative, or the difference between from and until is negative';
+				}
+
+				$query: $query + $ratio-x + '/' + $ratio-y;
+				$prior: $ratio;
+
+			} @else {
+				@error '#{$type} is not a ' + if($is-ratio, 'ratio list', 'number');
+			}
+
+			$query: $query + ')';
+		}
+	}
+
+	@media #{$query} {
+		@content;
+	}
+}
