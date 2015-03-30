@@ -44,6 +44,7 @@
 			@if $type == 'string' {
 				@if map-has-key($hf-breakpoints, $value) {
 					$value: map-get($hf-breakpoints, $value);
+					$type: type-of($value);
 				} @else {
 					@error '#{$type} is not a valid value';
 				}
@@ -88,7 +89,7 @@
 				$prior: $ratio;
 
 			} @else {
-				@error '#{$type} is not a ' + if($is-ratio, 'ratio list', 'number');
+				@error '#{$value} is not a ' + if($is-ratio, 'ratio list', 'number');
 			}
 
 			$query: $query + ')';
