@@ -20,25 +20,24 @@
 
 /// Flatten a multi-dimensional list into a single dimension list.
 /// @param {*} $list
+/// @param {String} $separator [auto]
 /// @return {List}
-@function hf-flatten($list...) {
-	$length: length($list);
-	$flattened: ();
-
-	@if $length < 1 {
-		@return $flattened;
-	} @else if $length == 1 {
-		$list: nth($list, 1);
-	}
-
+@function hf-flatten($list, $separator: auto) {
 	$type: type-of($list);
 
-	@if $type == 'list' or $type == 'arglist' {
-		@each $item in $list {
-			$flattened: join($flattened, hf-flatten($item));
-		}
-	} @else {
-		$flattened: append($flattened, $list);
+	@if $type != 'list' and $type != 'arglist' {
+		@return $list;
+	}
+
+	$flattened: ();
+	$separator: if($separator == auto, list-separator($list), $separator);
+
+	@if $separator != 'comma' and $separator != 'space' {
+		@error '#{$separator} is not a valid separator';
+	}
+
+	@each $item in $list {
+		$flattened: join($flattened, hf-flatten($item), $separator);
 	}
 
 	@return $flattened;
