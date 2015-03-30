@@ -57,18 +57,6 @@ $hf-sizes: (
 	'4x': 4em, '5x': 5em, '6x': 6em
 ) !default;
 
-/// Defines the different breakpoints to be used.
-/// Breakpoints are to be taken as anything at or above the labels value.
-/// @type Map
-/// @prop {Number} sm [0px]
-/// @prop {Number} md [640px]
-/// @prop {Number} lg [1080px]
-$hf-breakpoints: (
-	'sm':    0px,
-	'md':  640px,
-	'lg': 1080px
-) !default;
-
 /// Defines the different gutters to be used.
 /// @type Map
 /// @prop {Number} sm [0.5em]
@@ -107,4 +95,16 @@ $hf-divisions: (
 	 '3': ( 3 / 12 * 100%),
 	 '2': ( 2 / 12 * 100%),
 	 '1': ( 1 / 12 * 100%)
+) !default;
+
+/// Defines the different breakpoints to be used.
+/// Breakpoints are to be taken as anything at or above the labels value.
+/// @type Map
+/// @prop {Number} mob [0px]
+/// @prop {Number} tab [640px]
+/// @prop {Number} dsk [1080px]
+$hf-breakpoints: (
+	'mob':    0px,
+	'tab':  640px,
+	'dsk': 1080px
 ) !default;
