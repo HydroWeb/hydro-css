@@ -46,7 +46,7 @@
 					$value: map-get($hf-breakpoints, $value);
 					$type: type-of($value);
 				} @else {
-					@error '#{$type} is not a valid value';
+					@error '#{$value} is not a valid value';
 				}
 			}
 
@@ -68,7 +68,7 @@
 			} @else if $type == 'list' and $is-ratio {
 
 				@if length($type) != 2 {
-					@error '#{$type} is not a valid ratio list';
+					@error '#{$value} is not a valid ratio list';
 				}
 
 				@each $dim in $type {
