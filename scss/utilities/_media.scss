@@ -58,7 +58,7 @@
 				$value: hf-convert($value, em, $-hf-default-font-size);
 
 				@if $value < $prior {
-					@error '#{$value} is either negative, or the difference between from and until is negative';
+					@warn '#{$value} is either negative, or the difference between from and until is negative';
 				}
 
 				$query: $query + $value;
@@ -81,7 +81,7 @@
 				$ratio: ($ratio-x / $ratio-y);
 
 				@if $ratio < $prior {
-					@error '#{$value} is either negative, or the difference between from and until is negative';
+					@warn '#{$value} is either negative, or the difference between from and until is negative';
 				}
 
 				$query: $query + $ratio-x + '/' + $ratio-y;
