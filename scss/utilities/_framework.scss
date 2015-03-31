@@ -65,7 +65,7 @@
 ///   that is prefixed and joined together.
 /// @content Styles for the state selector
 /// @output The state selector and the passed styles
-@mixin hf-parameter($names...) {
+@mixin hf-state($names...) {
 	#{hf-selector('&' 'state', $names)} {
 		@content;
 	}
@@ -77,7 +77,7 @@
 ///   that is prefixed and joined together.
 /// @content Styles for the feature selector
 /// @output The feature selector and the passed styles
-@mixin hf-parameter($names...) {
+@mixin hf-feature($names...) {
 	#{hf-selector('&' 'feature', $names)} {
 		@content;
 	}
@@ -89,7 +89,7 @@
 ///   that is prefixed and joined together.
 /// @content Styles for the featureless selector
 /// @output The featureless selector and the passed styles
-@mixin hf-parameter($names...) {
+@mixin hf-featureless($names...) {
 	#{hf-selector('&' 'featureless', $names)} {
 		@content;
 	}
