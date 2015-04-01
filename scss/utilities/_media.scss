@@ -108,3 +108,99 @@
 		@content;
 	}
 }
+
+/// Media query from a minimum value
+/// @require {mixin} hf-media
+/// @param {Number | List} $value
+/// @param {String} $property [width]
+/// @content Styles to go inside the media query
+/// @output Media query following the parameters passed
+@mixin hf-from($value, $property: width) {
+	@include hf-media($from: $value, $property: $property) {
+		@content;
+	}
+}
+
+/// Media query to a maximum value
+/// @require {mixin} hf-media
+/// @param {Number | List} $value
+/// @param {String} $property [width]
+/// @content Styles to go inside the media query
+/// @output Media query following the parameters passed
+@mixin hf-until($value, $property: width) {
+	@include hf-media($until: $value, $property: $property) {
+		@content;
+	}
+}
+
+/// Shorthand media queries to be used within selectors
+/// @require {mixin} hf-media
+/// @require {function} hf-sort
+/// @require {variable} hf-breakpoints
+/// @param {Map} $map
+/// @param {String} $property [width]
+/// @param {String} $direction [from]
+/// @output Set of media queries containing the properties passed
+/// @example sass
+///   @include hf-responsive((
+///       400px: (font-size: 1em, color: black),
+///       tab: (font-size: 2em, color: red),
+///       dsk: (font-size: 3em)
+///   ));
+@mixin hf-responsive($map, $property: width, $direction: from) {
+
+	// Find the map-based breakpoints and apply them explicitly
+	@each $break, $properties in $map {
+		$type: type-of($break);
+
+		@if $type == 'string' {
+
+			@if map_has_key($hf-breakpoints, $break) {
+				// Swap out the labelled breakpoint for the real thing
+				$label: $break;
+				$break: map_get($hf-breakpoints, $label);
+				$map: map_remove($map, $label);
+
+				// If the map contains a breakpoint that exists already (explicitly stated), then
+				// merge with priority the properties from that set into the map-specified properties.
+				@if map_has_key($map, $break) {
+					$properties: map-merge($properties, map_get($map, $break));
+				}
+
+				// Set the explicit breakpoint as a key on the original values
+				$map: map-merge($map, ($break: $properties));
+
+			} @else {
+				@error '#{$break} is not a valid breakpoint name';
+			}
+		} @else if $type != 'number' {
+			@error '#{$break} is not a number or valid breakpoint name';
+		}
+	}
+
+	// Sort breakpoints in ascending order
+	// This is so that cascading styles are correctly applied
+	$breaks: hf-sort( map_keys($map) );
+
+	// Apply the styles
+	@each $break in $breaks {
+		$properties: map_get($map, $break);
+		$from: null;
+		$until: null;
+
+		@if $direction == 'from' {
+			$from: $break;
+		} @else if $direction == 'until' {
+			$until: $break;
+		} @else {
+			@error '#{$direction} is not a valid direction'
+		}
+
+		@include hf-media($from: $from, $until: $until, $property: $property) {
+
+			@each $prop, $val in $properties {
+				#{$prop}: $val;
+			}
+		}
+	}
+}
