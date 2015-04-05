@@ -52,19 +52,10 @@ $hf-max-width: 1280px !default;
 /// @prop {Number} sm [0.5em]
 /// @prop {Number} md [1em]
 /// @prop {Number} lg [2em]
-/// @prop {Number} 1x [1em]
-/// @prop {Number} 2x [2em]
-/// @prop {Number} 3x [3em]
-/// @prop {Number} 4x [4em]
-/// @prop {Number} 5x [5em]
-/// @prop {Number} 6x [6em]
 $hf-sizes: (
 	'sm': 0.5em,
 	'md':   1em,
-	'lg':   2em,
-
-	'1x': 1em, '2x': 2em, '3x': 3em,
-	'4x': 4em, '5x': 5em, '6x': 6em
+	'lg':   2em
 ) !default;
 
 /// Defines the different gutters to be used.
