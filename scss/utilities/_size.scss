@@ -1,0 +1,46 @@
+////
+/// Size utilities
+/// @group utilities
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (size) are generated.
+/// @type Boolean
+$hf-generate-size: $hf-generate !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-size {
+
+	@include hf-selector(img 'utility', 'responsive', 'fill') {
+		height: auto !important;
+	}
+
+	@include hf-utility('responsive') {
+		max-width: 100% !important;
+	}
+
+	@include hf-utility('fill') {
+		width: 100% !important;
+	}
+
+	@each $size-name, $size-value in $hf-sizes {
+
+		@include hf-utility($size-name) {
+			font-size: $size-value !important;
+		}
+	}
+
+	@for $i from 1 through 8 {
+
+		@include hf-utility($i + 'x') {
+			font-size: ($i * 1em) !important;
+		}
+	}
+}

@@ -13,8 +13,8 @@
 /// @require {variable} -hf-default-font-size
 /// @require {function} hf-convert
 /// @param {String} $device [all]
-/// @param {Number | List} $from [null]
-/// @param {Number | List} $until [null]
+/// @param {Number | List | String} $from [null]
+/// @param {Number | List | String} $until [null]
 /// @param {String} $property [width]
 /// @content Styles to go inside the media query
 /// @output Media query following the parameters passed
@@ -52,10 +52,6 @@
 
 			@if $type == 'number' and not $is-ratio {
 
-				@if $dir == 'max' {
-					$value: hf-convert($value, px) - 1px;
-				}
-
 				$value: hf-convert($value, em, $-hf-default-font-size);
 
 				@if $value < $prior {
@@ -64,6 +60,11 @@
 					} @else {
 						@warn 'Difference between from and util is negative; media query will never match';
 					}
+				}
+
+				// Maximum values should not be inclusive, so subtract a tiny amount to make sure they won't match
+				@if $dir == 'max' {
+					$value: $value - 0.01em;
 				}
 
 				$query: $query + $value;
@@ -111,7 +112,7 @@
 
 /// Media query from a minimum value
 /// @require {mixin} hf-media
-/// @param {Number | List} $value
+/// @param {Number | List | String} $value
 /// @param {String} $property [width]
 /// @content Styles to go inside the media query
 /// @output Media query following the parameters passed
@@ -123,12 +124,60 @@
 
 /// Media query to a maximum value
 /// @require {mixin} hf-media
-/// @param {Number | List} $value
+/// @param {Number | List | String} $value
 /// @param {String} $property [width]
 /// @content Styles to go inside the media query
 /// @output Media query following the parameters passed
 @mixin hf-until($value, $property: width) {
 	@include hf-media($until: $value, $property: $property) {
+		@content;
+	}
+}
+
+/// Media query only at a certain breakpoint label
+/// @require {mixin} hf-media
+/// @require {variable} hf-breakpoints
+/// @param {String} $value
+/// @param {String} $direction [from]
+/// @param {String} $property [width]
+/// @content Styles to go inside the media query
+/// @output Media query following the parameters passed
+@mixin hf-breakpoint($breakpoint, $direction: 'from', $property: width) {
+
+	@if not map-has-key($breakpoint) {
+		@error '#{$breakpoint} is not a valid breakpoint name';
+	}
+
+	@if $direction != 'from' or $direction != 'until' {
+		@error '#{$direction} is not a valid direction';
+	}
+
+	$is-from: ($direction == 'from');
+
+	$start: map-get($hf-breakpoints, $breakpoint);
+	$end: null;
+
+	@each $bp-name, $bp-value in $hf-breakpoints {
+
+		@if $is-from {
+
+			@if $bp-name > $end and ($end == null or $bp-value < $end) {
+				$end: $bp-value;
+			}
+
+		} @else {
+
+			@if $bp-name < $end and ($end == null or $bp-value > $end) {
+				$end: $bp-value;
+			}
+		}
+	}
+
+	@include hf-media(
+		$from:  if($is-from, $start, $end),
+		$until: if($is-from, $end, $start),
+		$property: $property
+	) {
 		@content;
 	}
 }

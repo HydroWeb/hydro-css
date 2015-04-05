@@ -1,0 +1,59 @@
+////
+/// Visibility utilities
+/// @group utilities
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (visibility) are generated.
+/// @type Boolean
+$hf-generate-visibility: $hf-generate !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-visibility {
+
+	@include hf-utility('clip') {
+		overflow: hidden !important;
+	}
+
+	@include hf-utility('scroll') {
+		overflow: auto !important;
+	}
+
+	@include hf-utility('hidden') {
+		display: none !important;
+		visibility: hidden !important;
+	}
+
+	@include hf-utility('invisible') {
+		border: 0 !important;
+		clip: rect(0 0 0 0) !important;
+		height: 1px !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		padding: 0 !important;
+		position: absolute !important;
+		width: 1px !important;
+	}
+
+	@include hf-utility('transparent') {
+		visibility: hidden !important;
+	}
+
+	@each $breakpoint-name in map-keys($hf-breakpoints) {
+
+		@include hf-breakpoint($breakpoint-name) {
+
+			@include hf-utility('hidden-' + $breakpoint-name) {
+				display: none !important;
+				visibility: hidden !important;
+			}
+		}
+	}
+}
