@@ -44,15 +44,15 @@ $hf-generate-text: $hf-generate !default;
 		$padding-right:  hf-nth-loop($padding, 2);
 		$padding-bottom: hf-nth-loop($padding, 3);
 		$padding-left:   hf-nth-loop($padding, 4);
-
 		$line-height-bleed: ($font-size / 2), ($line-height / -2);
 
-		padding-top:     hf-sum((unit($padding-top):    $font-size), $padding-top,    $line-height-bleed);
-		padding-bottom:  hf-sum((unit($padding-bottom): $font-size), $padding-bottom, $line-height-bleed);
+		// Add a fallback for browsers that don't support CSS3 calc()
+		$padding-top-fb:    hf-sum((unit($padding-top):    $font-size), $padding-top,    $line-height-bleed);
+		$padding-bottom-fb: hf-sum((unit($padding-bottom): $font-size), $padding-bottom, $line-height-bleed);
+		padding: $padding-top-fb $padding-right $padding-bottom-fb $padding-left;
 
 		$padding-top:    hf-sum('calc', $padding-top,    $line-height-bleed);
 		$padding-bottom: hf-sum('calc', $padding-bottom, $line-height-bleed);
-
 		$padding: $padding-top $padding-right $padding-bottom $padding-left;
 	}
 
