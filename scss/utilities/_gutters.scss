@@ -38,4 +38,14 @@ $hf-generate-gutters: $hf-generate !default;
 			}
 		}
 	}
+
+	@include hf-utility('h-trim') {
+		> :first-child { margin-left:   0 !important; }
+		> :last-child  { margin-right:  0 !important; }
+	}
+
+	@include hf-utility('v-trim') {
+		> :first-child { margin-top:    0 !important; }
+		> :last-child  { margin-bottom: 0 !important; }
+	}
 }
