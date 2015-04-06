@@ -1,0 +1,110 @@
+////
+/// Bar
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (bar) are generated.
+/// @type Boolean
+$hf-generate-bar: $hf-generate !default;
+
+/// The bar module selector
+/// @type String
+$hf-bar-selector: hf-module('bar') !default;
+
+/// The bar item module selector
+/// @type String
+$hf-bar-item-selector: hf-module('item') !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-bar {
+
+	#{$hf-bar-selector} {
+		@extend %hf-structure;
+
+		> #{$hf-bar-item-selector} {
+
+			// This feature is only available in browsers that support flexbox (IE10+)
+			@include hf-parameter('fill') {
+				@include hf-flex-grow(1);
+			}
+		}
+
+		@each $breakpoint-name, $breakpoint-value in hf-sort($hf-breakpoints) {
+
+			@include hf-from($breakpoint-value) {
+
+				@include hf-parameter('fitted-' + $breakpoint-name) {
+					display: table; // TODO extend flexbox maybe?
+					border-collapse: collapse;
+					width: 100%;
+
+					> #{$hf-bar-item-selector} {
+						display: table-cell;
+
+						@include hf-parameter('fit') {
+							width: 1px;
+							white-space: nowrap;
+						}
+
+						@include hf-parameter('compress') {
+							width: 1px;
+						}
+					}
+
+					@include hf-parameter('h-align-justify') {
+
+						&:after {
+							content: none;
+							display: none;
+						}
+					}
+
+					@each $gutter-name, $gutter-value in $hf-gutters {
+
+						@include hf-parameter('h-gap-' + $gutter-name) {
+							margin-left: 0;
+							margin-right: 0;
+
+							> #{$hf-bar-item-selector} {
+								border-left-width: $gutter-value;
+								border-right-width: 0;
+
+								&:first-child {
+									border-left-width: 0;
+								}
+							}
+
+							@include hf-parameter('h-outer-gap') {
+
+								> #{$hf-bar-item-selector} {
+									border-left-width: $gutter-value;
+									border-right-width: $gutter-value;
+								}
+							}
+						}
+
+						@include hf-parameter('v-gap-' + $gutter-name) {
+							margin-top: 0;
+
+							@include hf-parameter('v-outer-gap') {
+
+								> #{$hf-bar-item-selector} {
+									border-top: $gutter-value solid transparent;
+									border-bottom: $gutter-value solid transparent;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
