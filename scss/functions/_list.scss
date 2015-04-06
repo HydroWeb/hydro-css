@@ -44,12 +44,19 @@
 }
 
 /// Insertion sort for sorting comparison-based values.
-/// @param {List} $list
+/// @param {List | Map} $list
 /// @param {String} $direction [asc]
 /// @param {String} $separator [auto]
-/// @return {List}
+/// @return {List | Map}
 @function hf-sort($list, $direction: 'asc', $separator: auto) {
 	$type: type-of($list);
+	$keys: null;
+
+	@if $type == 'map' or $type == 'argmap' {
+		$keys: map-keys($list);
+		$list: map-values($list);
+		$type: 'list';
+	}
 
 	@if $type != 'list' and $type != 'arglist' {
 		@error '#{$list} is not a list';
@@ -69,6 +76,7 @@
 
 	@for $i from 2 through $length {
 		$x: nth($list, $i);
+		$k: if($keys != null, nth($keys, $i), null);
 		$j: $i;
 		$condition: true;
 
@@ -83,12 +91,33 @@
 
 			@if $condition {
 				$list: set-nth($list, $j, nth($list, $j - 1));
+
+				@if $keys != null {
+					$keys: set-nth($keys, $j, nth($keys, $j - 1));
+				}
+
 				$j: $j - 1;
 				$condition: ($j > 1);
 			}
 		}
 
 		$list: set-nth($list, $j, $x);
+
+		@if $keys != null {
+			$keys: set-nth($keys, $j, $k);
+		}
+	}
+
+	@if $keys != null {
+		$map: ();
+
+		@for $i from 1 through length($keys) {
+			$key: nth($keys, $i);
+			$value: nth($list, $i);
+			$map: map-merge($map, ($key: $value));
+		}
+
+		@return $map;
 	}
 
 	@return $list;
