@@ -1,0 +1,158 @@
+////
+/// Structure
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Styles
+// ------
+
+%hf-structure {
+	@include hf-display-flex;
+	@include hf-flex-flow(row wrap);
+	@include hf-justify-content(flex-start);
+	@include hf-align-items(flex-start);
+
+	pointer-events: none; // Negative margins mouse event fix
+	word-spacing: -1em; // Remove spacing between items
+	text-align: left;
+
+	> * {
+		display: inline-block;
+		vertical-align: top;
+		word-spacing: normal;
+		width: auto;
+		min-height: 1px; // Fix for empty blocks
+		pointer-events: auto; // Negative margins mouse event fix
+		text-align: left;
+		background-clip: padding-box; // Borders are used for gaps, so clip backgrounds at paddings
+	}
+
+	//
+	// Reverse
+	//
+
+	@include hf-parameter('reversed') {
+		@include hf-justify-content(flex-end);
+
+		text-align: right;
+		direction: rtl;
+
+		> * {
+			direction: ltr;
+		}
+	}
+
+	//
+	// Alignment
+	//
+
+	@include hf-parameter('h-align-left', 'reversed' 'h-align-right') {
+		@include hf-justify-content(flex-start);
+
+		text-align: left;
+	}
+
+	@include hf-parameter('h-align-right', 'reversed' 'h-align-left') {
+		@include hf-justify-content(flex-end);
+
+		text-align: right;
+	}
+
+	@include hf-parameter('h-align-center') {
+		@include hf-justify-content(center);
+
+		text-align: center;
+	}
+
+	@include hf-parameter('h-align-justify') {
+		@include hf-justify-content(space-between);
+
+		text-align: justify;
+
+		&:after {
+			content: '';
+			display: inline-block;
+			width: 100%;
+			height: 0;
+		}
+	}
+
+	@include hf-parameter('v-align-top') {
+		@include hf-align-items(flex-start);
+
+		> * {
+			vertical-align: top;
+		}
+	}
+
+	@include hf-parameter('v-align-center') {
+		@include hf-align-items(center);
+
+		> * {
+			vertical-align: middle;
+		}
+	}
+
+	@include hf-parameter('v-align-bottom') {
+		@include hf-align-items(flex-end);
+
+		> * {
+			vertical-align: bottom;
+		}
+	}
+
+	@include hf-parameter('v-align-fill') {
+		@include hf-align-items(stretch);
+	}
+
+	//
+	// Gutters
+	//
+
+	@each $gutter-name, $gutter-value in $hf-gutters {
+		$gutter-half: ($gutter-value / 2);
+
+		@include hf-parameter('h-gap-' + $gutter-name) {
+			margin-left: -$gutter-half;
+			margin-right: -$gutter-half;
+
+			@include hf-parameter('h-outer-gap') {
+				margin-left: 0;
+				margin-right: 0;
+				padding-left: $gutter-half;
+				padding-right: $gutter-half;
+			}
+
+			> * {
+				border-left: $gutter-half solid transparent;
+				border-right: $gutter-half solid transparent;
+			}
+		}
+
+		@include hf-parameter('v-gap-' + $gutter-name) {
+			margin-top: -$gutter-value;
+
+			@include hf-parameter('v-outer-gap') {
+				margin-top: 0;
+				padding-top: 0;
+				padding-bottom: $gutter-value;
+			}
+
+			> * {
+				margin-top: $gutter-value;
+			}
+		}
+	}
+}
+
+ul%hf-structure,
+ol%hf-structure {
+	margin: 0;
+	padding: 0;
+
+	> li {
+		list-style: none;
+	}
+}
