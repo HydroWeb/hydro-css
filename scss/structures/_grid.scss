@@ -1,0 +1,77 @@
+////
+/// Grid
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (grid) are generated.
+/// @type Boolean
+$hf-generate-grid: $hf-generate !default;
+
+/// Number of grid options for cells in a row at maximum width
+/// @type Number
+$hf-grids: 8 !default;
+
+/// How much can the cells contract before wrapping
+/// @type Number
+$hf-grid-cell-contract: 0% !default;
+
+/// The grid module selector
+/// @type String
+$hf-grid-selector: hf-module('grid') !default;
+
+/// The grid cell module selector
+/// @type String
+$hf-grid-cell-selector: hf-module('cell') !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-grid {
+
+	#{$hf-grid-selector} {
+		@extend %hf-structure;
+
+		> #{$hf-grid-cell-selector} {
+			width: 100%;
+		}
+
+		$max-width: hf-convert($hf-max-width, px);
+		$contract: hf-convert($hf-grid-cell-contract, 'decimal') * $max-width;
+
+		@for $i from 2 through $hf-grids {
+
+			@include hf-parameter('has-' + $i) {
+
+				> #{$hf-grid-cell-selector} {
+					width: (100% / $i);
+				}
+			}
+
+			$root-cell-width: ($max-width / $i);
+
+			@for $j from ($i - 1) through 1 {
+				$cell-width: (100% / $j);
+				$breakpoint: $root-cell-width * ($j + 1) - $contract;
+
+				@if $breakpoint > 0 {
+
+					@include hf-until($breakpoint) {
+
+						@include hf-parameter('has-' + $i) {
+
+							> #{$hf-grid-cell-selector} {
+								width: $cell-width;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
