@@ -1,0 +1,192 @@
+////
+/// Align box
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (alignbox) are generated.
+/// @type Boolean
+$hf-generate-alignbox: $hf-generate !default;
+
+/// The alignbox module selector
+/// @type String
+$hf-alignbox-selector: hf-module('alignbox') !default;
+
+/// The alignbox box module selector
+/// @type String
+$hf-alignbox-box-selector: hf-module('box') !default;
+
+
+// Mixins
+// ------
+
+///
+/// @require {mixin} hf-display-flex
+/// @require {mixin} hf-flex-flow
+/// @require {mixin} hf-justify-content
+/// @require {mixin} hf-align-items
+/// @param {String} $h-align [center]
+/// @param {String} $v-align [center]
+/// @output
+@mixin hf-alignbox($h-align: center, $v-align: center) {
+	@include hf-display-flex;
+	@include hf-flex-flow(row nowrap);
+
+	$valid-h-align: (left: flex-start, right: flex-end, center: center);
+	$valid-v-align: (top: flex-start, bottom: flex-end, center: center);
+
+	@if not map-has-key($valid-h-align, $h-align) {
+		@error '#{$h-align} is not a valid horizontal alignment';
+	}
+
+	@if not map-has-key($valid-v-align, $v-align) {
+		@error '#{$h-align} is not a valid vertical alignment';
+	}
+
+	@include hf-justify-content( map-get($valid-h-align, $h-align) );
+	@include hf-align-items( map-get($valid-v-align, $v-align) );
+
+	$v-align: if($v-align == 'center', middle, $v-align);
+
+	position: relative;
+	width: 100%;
+	height: 100%;
+	word-spacing: -1em; // Remove spacing between items
+	text-align: $h-align;
+	white-space: nowrap;
+	overflow: hidden;
+
+	> * {
+		word-spacing: normal;
+		vertical-align: $v-align !important;
+	}
+
+	// Non-flexbox inline-block hack
+	// http://stackoverflow.com/a/13075912/556609
+	&:after {
+		display: inline-block;
+		content: '';
+		height: 100%;
+		width: 0;
+		word-spacing: normal;
+		vertical-align: $v-align;
+	}
+}
+
+///
+/// @param {String} $fix [none]
+/// @output
+@mixin hf-alignbox-box($fix: none) {
+	text-align: inherit;
+	white-space: normal;
+
+	@if $fix == top or $fix == bottom {
+
+		display: block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		#{unquote($fix)}: 0;
+
+	} @else {
+		display: inline-block;
+	}
+}
+
+
+// Styles
+// ------
+
+@if $hf-generate-alignbox {
+
+	#{$hf-alignbox-selector} {
+		@include hf-alignbox;
+
+		// Target wildcard (*) as wildcard selectors have the lowest specifity and will not override any settings that
+		// are applied to any other selector. Then target .box as it WILL override other selectors, which is fine as by
+		// applying the .box selector the element you are explicitly setting these properties rather than implicitly.
+		> *,
+		> #{$hf-alignbox-box-selector} {
+			@include hf-alignbox-box;
+		}
+
+		> #{$hf-alignbox-box-selector} {
+
+			@include hf-parameter('fix-top', 'fix-bottom') {
+				display: block;
+				position: absolute;
+				left: 0;
+				right: 0;
+			}
+
+			@include hf-parameter('fix-top') {
+				top: 0;
+			}
+
+			@include hf-parameter('fix-bottom') {
+				bottom: 0;
+			}
+		}
+
+		@include hf-parameter('h-align-left') {
+			@include hf-justify-content(flex-start);
+
+			text-align: left;
+		}
+
+		@include hf-parameter('h-align-right') {
+			@include hf-justify-content(flex-end);
+
+			text-align: right;
+		}
+
+		@include hf-parameter('h-align-center') {
+			@include hf-justify-content(center);
+
+			text-align: center;
+		}
+
+		@include hf-parameter('v-align-top') {
+			@include hf-align-items(flex-start);
+
+			> * {
+				vertical-align: top !important;
+			}
+
+			&:after,
+			> #{$hf-alignbox-box-selector} {
+				vertical-align: top;
+			}
+		}
+
+		@include hf-parameter('v-align-bottom') {
+			@include hf-align-items(flex-end);
+
+			> * {
+				vertical-align: bottom !important;
+			}
+
+			&:after,
+			> #{$hf-alignbox-box-selector} {
+				vertical-align: bottom;
+			}
+		}
+
+		@include hf-parameter('v-align-center') {
+			@include hf-align-items(center);
+
+			> * {
+				vertical-align: middle !important;
+			}
+
+			&:after,
+			> #{$hf-alignbox-box-selector} {
+				vertical-align: middle;
+			}
+		}
+	}
+}
