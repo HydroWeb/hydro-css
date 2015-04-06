@@ -1,0 +1,105 @@
+////
+/// Ratio box
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (ratiobox) are generated.
+/// @type Boolean
+$hf-generate-ratiobox: $hf-generate !default;
+
+/// The ratiobox module selector
+/// @type String
+$hf-ratiobox-selector: hf-module('ratiobox') !default;
+
+/// The ratiobox box module selector
+/// @type String
+$hf-ratiobox-box-selector: hf-module('box') !default;
+
+/// A list of ratios
+/// @type List
+$hf-ratiobox-ratios: (1,1) (5,4) (4,3) (3,2) (16,10) (5,3) (16,9) (1.85,1) (2,1) (2.39,1) !default;
+
+/// Whether or not the inversions of each ratio should be made a parameter
+/// @type Boolean
+$hf-ratiobox-invert: false !default;
+
+
+// Mixins
+// ------
+
+///
+/// @param {Number} $x [1]
+/// @param {Number} $y [1]
+/// @output
+@mixin hf-ratiobox($x: 1, $y: 1) {
+
+	@each $n in $x, $y {
+		@if type-of($n) != 'number' or not unitless($n) or $n <= 0 {
+			@error '#{$n} is not a positive decimal greater than zero';
+		}
+	}
+
+	display: block;
+	position: relative;
+	padding: ($y / $x * 100%) 0 0 100%;
+}
+
+///
+/// @output
+@mixin hf-ratiobox-box {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	// Use width and height instead of right and bottom as they don't work for elements like iframes.
+	width: 100%;
+	height: 100%;
+}
+
+
+// Styles
+// ------
+
+@if $hf-generate-ratiobox {
+
+	#{$hf-ratiobox-selector} {
+		@include hf-ratiobox;
+
+		> #{$hf-ratiobox-box-selector} {
+			@include hf-ratiobox-box;
+		}
+
+		@each $ratio in $hf-ratiobox-ratios {
+
+			@if type-of($ratio) != 'list' or length($ratio) != 2 {
+				@error '#{$ratio} is not a list of size two';
+			}
+
+			$x: nth($ratio, 1);
+			$y: nth($ratio, 2);
+
+			@each $n in $x, $y {
+				@if type-of($n) != 'number' or not unitless($n) or $n <= 0 {
+					@error '#{$n} is not a positive decimal greater than zero';
+				}
+			}
+
+			@include hf-parameter('ratio-' + hf-str-replace($x + '-' + $y, '.', '_') ) {
+				padding-top: ($y / $x * 100%);
+			}
+
+			@if $hf-ratiobox-invert {
+
+				@include hf-parameter('ratio-' + hf-str-replace($y + '-' + $x, '.', '_') ) {
+					padding-top: ($x / $y * 100%);
+				}
+			}
+		}
+	}
+}
