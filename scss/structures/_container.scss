@@ -1,0 +1,54 @@
+////
+/// Container
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (container) are generated.
+/// @type Boolean
+$hf-generate-container: $hf-generate !default;
+
+/// The container module selector
+/// @type String
+$hf-container-selector: hf-module('container') !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-container {
+
+	#{$hf-container-selector} {
+		$max-width: hf-convert($hf-max-width, em);
+
+		max-width:$max-width;
+		margin: auto;
+
+		@each $division-name, $division-value in $hf-divisions {
+
+			@include hf-parameter('width-' + $division-name) {
+				max-width: hf-convert($division-value, 'decimal') * $max-width;
+			}
+		}
+
+		@include hf-parameter('width-fill') {
+			max-width: none;
+		}
+
+		@include hf-parameter('align-left') {
+			margin: 0 auto 0 0;
+		}
+
+		@include hf-parameter('align-right') {
+			margin: 0 0 0 auto;
+		}
+
+		@include hf-parameter('align-center') {
+			margin: 0 auto;
+		}
+	}
+}
