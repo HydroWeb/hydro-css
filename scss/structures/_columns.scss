@@ -1,0 +1,52 @@
+////
+/// Columns
+/// @group structures
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (columns) are generated.
+/// @type Boolean
+$hf-generate-columns: $hf-generate !default;
+
+/// The columns module selector
+/// @type String
+$hf-columns-selector: hf-module('columns') !default;
+
+/// The column module selector
+/// @type String
+$hf-column-selector: hf-module('column') !default;
+
+
+// Styles
+// ------
+
+@if $hf-generate-columns {
+
+	#{$hf-columns-selector} {
+		@extend %hf-structure;
+
+		> #{$hf-column-selector} {
+			width: 100%;
+		}
+
+		@each $breakpoint-name, $breakpoint-value in hf-sort($hf-breakpoints) {
+
+			@include hf-from($breakpoint-value) {
+
+				> #{$hf-column-selector} {
+
+					@each $division-name, $division-value in $hf-divisions {
+
+						@include hf-parameter($breakpoint-name + '-' + $division-name) {
+							width: $division-value;
+						}
+					}
+				}
+			}
+		}
+	}
+}
