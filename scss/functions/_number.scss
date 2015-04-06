@@ -191,6 +191,10 @@ $hf-number-relative-units: (
 		@error '#{$value} is not a valid type';
 	}
 
+	@if $unit == 'decimal' {
+		$unit: '';
+	}
+
 	$normal: -hf-unit-normalize($value);
 	$output: $normal;
 
