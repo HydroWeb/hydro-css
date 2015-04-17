@@ -36,7 +36,27 @@ $hf-generate-gutters: $hf-generate !default;
 				#{$property}-left:  $gutter-value !important;
 				#{$property}-right: $gutter-value !important;
 			}
+
+			@include hf-utility($property '-' + $gutter-name) {
+				#{$property}: $gutter-value !important;
+			}
 		}
+	}
+
+	@include hf-utility('t-trim') {
+		> :first-child { margin-top:    0 !important; }
+	}
+
+	@include hf-utility('b-trim') {
+		> :last-child  { margin-bottom: 0 !important; }
+	}
+
+	@include hf-utility('l-trim') {
+		> :first-child { margin-left:   0 !important; }
+	}
+
+	@include hf-utility('r-trim') {
+		> :last-child  { margin-right:  0 !important; }
 	}
 
 	@include hf-utility('h-trim') {
@@ -47,5 +67,10 @@ $hf-generate-gutters: $hf-generate !default;
 	@include hf-utility('v-trim') {
 		> :first-child { margin-top:    0 !important; }
 		> :last-child  { margin-bottom: 0 !important; }
+	}
+
+	@include hf-utility('trim') {
+		> :first-child { margin-top:    0 !important; margin-left:  0 !important; }
+		> :last-child  { margin-bottom: 0 !important; margin-right: 0 !important; }
 	}
 }
