@@ -13,6 +13,12 @@
 $hf-generate-base: $hf-generate !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-base, 'bool');
+
+
 // Styles
 // ------
 
