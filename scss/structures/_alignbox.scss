@@ -21,6 +21,14 @@ $hf-alignbox-selector: hf-module('alignbox') !default;
 $hf-alignbox-box-selector: hf-module('box') !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-alignbox, 'bool');
+@include hf-assert($hf-alignbox-selector, 'string');
+@include hf-assert($hf-alignbox-box-selector, 'string');
+
+
 // Mixins
 // ------
 
