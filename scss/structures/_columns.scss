@@ -21,6 +21,14 @@ $hf-columns-selector: hf-module('columns') !default;
 $hf-column-selector: hf-module('column') !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-columns, 'bool');
+@include hf-assert($hf-columns-selector, 'string');
+@include hf-assert($hf-column-selector, 'string');
+
+
 // Styles
 // ------
 
