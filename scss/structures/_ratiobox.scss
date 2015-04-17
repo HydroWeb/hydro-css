@@ -29,6 +29,16 @@ $hf-ratiobox-ratios: (1,1) (5,4) (4,3) (3,2) (16,10) (5,3) (16,9) (1.85,1) (2,1)
 $hf-ratiobox-invert: false !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-ratiobox, 'bool');
+@include hf-assert($hf-ratiobox-selector, 'string');
+@include hf-assert($hf-ratiobox-box-selector, 'string');
+@include hf-assert($hf-ratiobox-ratios, 'list', 'list', 'number');
+@include hf-assert($hf-ratiobox-invert, 'bool');
+
+
 // Mixins
 // ------
 
