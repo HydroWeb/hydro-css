@@ -13,6 +13,12 @@
 $hf-generate-size: $hf-generate !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-size, 'bool');
+
+
 // Styles
 // ------
 

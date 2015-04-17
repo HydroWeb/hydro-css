@@ -13,6 +13,12 @@
 $hf-generate-visibility: $hf-generate !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-visibility, 'bool');
+
+
 // Styles
 // ------
 
