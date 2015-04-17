@@ -15,6 +15,12 @@
 $hf-generate-normalize: $hf-generate !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-normalize, 'bool');
+
+
 // Styles
 // ------
 
