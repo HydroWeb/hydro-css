@@ -21,6 +21,14 @@ $hf-bar-selector: hf-module('bar') !default;
 $hf-bar-item-selector: hf-module('item') !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-bar, 'bool');
+@include hf-assert($hf-bar-selector, 'string');
+@include hf-assert($hf-bar-item-selector, 'string');
+
+
 // Styles
 // ------
 
