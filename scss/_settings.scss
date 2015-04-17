@@ -109,3 +109,16 @@ $hf-breakpoints: (
 	'tab':  640px,
 	'dsk': 1080px
 ) !default;
+
+
+// Asserts
+// -------
+
+@include hf-assert($hf-generate, 'bool');
+@include hf-assert($hf-prefixes, 'map', 'string');
+@include hf-assert($hf-font-size, 'number');
+@include hf-assert($hf-max-width, 'number');
+@include hf-assert($hf-sizes, 'map', 'number');
+@include hf-assert($hf-gutters, 'map', 'number');
+@include hf-assert($hf-divisions, 'map', 'number');
+@include hf-assert($hf-breakpoints, 'map', 'number');
