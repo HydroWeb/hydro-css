@@ -17,6 +17,13 @@ $hf-generate-container: $hf-generate !default;
 $hf-container-selector: hf-module('container') !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-container, 'bool');
+@include hf-assert($hf-container-selector, 'string');
+
+
 // Styles
 // ------
 
