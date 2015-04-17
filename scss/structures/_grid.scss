@@ -29,6 +29,16 @@ $hf-grid-selector: hf-module('grid') !default;
 $hf-grid-cell-selector: hf-module('cell') !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-grid, 'bool');
+@include hf-assert($hf-grids, 'number');
+@include hf-assert($hf-grid-cell-contract, 'number');
+@include hf-assert($hf-grid-selector, 'string');
+@include hf-assert($hf-grid-cell-selector, 'string');
+
+
 // Styles
 // ------
 
