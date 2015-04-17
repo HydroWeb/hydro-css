@@ -63,6 +63,16 @@ $hf-number-relative-units: (
 ) !default;
 
 
+// Asserts
+// -------
+
+@if mixin-exists('hf-assert') {
+	@include hf-assert($hf-number-precision, 'number');
+	@include hf-assert($hf-number-absolute-units, 'map', 'number');
+	@include hf-assert($hf-number-relative-units, 'map', 'number');
+}
+
+
 // Private
 // -------
 
