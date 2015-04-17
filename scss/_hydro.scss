@@ -7,15 +7,16 @@
 ////
 
 @import
+	'testing',
 	'settings',
 	'functions',
-
-	'libraries/normalize',
-
-	'base',
 
 	'utilities/framework',
 	'utilities/media',
 	'utilities/clearfix',
 	'utilities/gutters',
-	'utilities/text';
+	'utilities/text',
+
+	'libraries/normalize',
+
+	'base';

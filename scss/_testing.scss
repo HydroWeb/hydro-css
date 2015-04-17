@@ -1,0 +1,202 @@
+////
+/// Testing utilities
+/// @group global
+/// @author Benjamin Fleming
+////
+
+
+// Private
+// -------
+
+// Slices a list
+// All error checking is removed as being only a helper function for this file appropriate checking is done in context.
+// @author Hugo Giraudel
+// @source http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
+// @param {List} $list
+// @param {Number} $start [1]
+// @param {Number} $length [length($list)]
+// @return {List}
+@function -hf-slice($list, $start: 1, $end: length($list)) {
+	$result: ();
+
+	@for $i from $start through $end {
+		$result: append($result, nth($list, $i));
+	}
+
+	@return $result;
+}
+
+// Tests if the value's type matches
+// This is a recursive helper method for the actual test function below.
+// @require {function} -hf-test
+// @require {function} -hf-slice
+// @param {*} $value
+// @param {List} $as
+// @return {Boolean}
+@function -hf-test($value, $as) {
+	$value-type: type-of($value);
+	$as-length: length($as);
+
+	@if $as-length < 1 {
+		@return true;
+	}
+
+	$as-item: nth($as, 1);
+
+	@each $as-type in $as-item {
+
+		@if type-of($as-type) != 'string' {
+			@error '#{$as-type} is not a string';
+		}
+
+		@if $as-type == $value-type {
+
+			@if $as-length > 1 {
+				$sub-as: -hf-slice($as, 2);
+
+				@if $value-type == 'list' or $value-type == 'arglist' {
+
+					@each $value-item in $value {
+
+						@if not -hf-test($value-item, $sub-as) {
+							@return false;
+						}
+					}
+
+				} @else if $value-type == 'map' or $value-type == 'argmap' {
+
+					@each $value-key, $value-item in $value {
+
+						@if not -hf-test($value-item, $sub-as) {
+							@return false;
+						}
+					}
+				}
+			}
+
+			@return true;
+		}
+	}
+
+	@return false;
+}
+
+// Generates all assertion messages for a given test
+// (I find it pretty funny that this error printing function is twice as large as the actual test function)
+// @require {function} -hf-slice
+// @param {List} $as
+// @param {Boolean} $plural [false]
+// @return {List}
+@function -hf-assert-lines($as, $plural: false) {
+	$lines: ();
+	$plural-s: if($plural, 's', '');
+	$plural-a: if($plural, '', 'a ');
+	$as-length: length($as);
+
+	@if $as-length < 1 {
+		@return $lines;
+	}
+
+	$as-item: nth($as, 1);
+	$types: ();
+	$group-types: ();
+
+	@each $as-type in $as-item {
+
+		@if index('list' 'map', $as-type) {
+			$group-types: append($group-types, $as-type);
+		} @else {
+			$types: append($types, if($as-type == 'bool', 'boolean', $as-type));
+		}
+	}
+
+	$types-length: length($types);
+	@if $types-length > 0 {
+		$types-str: $plural-a;
+
+		@for $i from 1 through $types-length {
+			$type: nth($types, $i) + $plural-s;
+
+			@if $i == 1 {
+				$types-str: $types-str + $type;
+			} @else if $i == $types-length {
+				$types-str: $types-str + ' or ' + $type;
+			} @else {
+				$types-str: $types-str + ', ' + $type;
+			}
+		}
+
+		$lines: append($lines, $types-str);
+	}
+
+	$group-types-length: length($group-types);
+	@if $group-types-length > 0 {
+		$group-types-str: $plural-a;
+
+		@for $i from 1 through $group-types-length {
+			$type: nth($group-types, $i) + $plural-s;
+
+			@if $i == 1 {
+				$group-types-str: $group-types-str + $type;
+			} @else if $i == $group-types-length {
+				$group-types-str: $group-types-str + ' or ' + $type;
+			} @else {
+				$group-types-str: $group-types-str + ', ' + $type;
+			}
+		}
+
+		@if $as-length > 1 {
+			$sub-as: -hf-slice($as, 2);
+			$sub-lines: -hf-assert-lines($sub-as, true);
+
+			@each $line in $sub-lines {
+				$lines: append($lines, $group-types-str + ' containing ' + $line);
+			}
+
+		} @else {
+			$lines: append($lines, $group-types-str);
+		}
+	}
+
+	@return $lines;
+}
+
+
+// Public
+// ------
+
+/// Tests a value's type against a list of types
+/// @require {function} -hf-test
+/// @param {*} $value
+/// @param {List | String} $as
+/// @return {Boolean}
+@function hf-test($value, $as...) {
+	@return -hf-test($value, $as);
+}
+
+/// Asserts a value's type against a list of types
+/// @require {function} -hf-test
+/// @require {function} -hf-assert-lines
+/// @param {*} $value
+/// @param {List | String} $as
+/// @output An error only if the test fails.
+@mixin hf-assert($value, $as...) {
+
+	@if not -hf-test($value, $as) {
+
+		$error: '#{$value} is not';
+		$lines: -hf-assert-lines($as);
+
+		@if length($lines) == 1 {
+			$error: $error + ' ' + nth($lines, 1);
+		} @else {
+			$error: $error + ' any of the following:';
+
+			@each $line in $lines {
+				$error: $error + '\a- ' + $line;
+			}
+		}
+
+		@error $error;
+	}
+}
