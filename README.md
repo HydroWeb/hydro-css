@@ -1,5 +1,7 @@
 # Hydro CSS
 
+[![Join the chat at https://gitter.im/HydroWeb/hydro-css](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/HydroWeb/hydro-css?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Hydro CSS is the CSS aspect of the Hydro Framework. It is written in Sass/SCSS language. It's purpose is to help web developers create cross-browser consistent styles, as well as provide numerous tools and encourage a logical, modular project structure.
 
 ## Purposes & Goals
