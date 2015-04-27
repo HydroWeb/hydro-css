@@ -101,13 +101,13 @@ $hf-divisions: (
 /// Defines the different breakpoints to be used.
 /// Breakpoints are to be taken as anything at or above the labels value.
 /// @type Map
-/// @prop {Number} mob [0px]
-/// @prop {Number} tab [640px]
-/// @prop {Number} dsk [1080px]
+/// @prop {Number} mobl [0px]
+/// @prop {Number} tabl [640px]
+/// @prop {Number} desk [1080px]
 $hf-breakpoints: (
-	'mob':    0px,
-	'tab':  640px,
-	'dsk': 1080px
+	'mobl':    0px,
+	'tabl':  640px,
+	'desk': 1080px
 ) !default;
 
 
