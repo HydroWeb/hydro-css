@@ -1,0 +1,49 @@
+// Colours
+// -------
+
+$hf-colors: (
+	  0% : #000,
+	100% : #fff,
+
+	'white'         : #fff,
+	'black'         : #000,
+
+	'primary-light' : #c5cae9,
+	'primary'       : #3f51b5,
+	'primary-dark'  : #303f9f,
+
+	'accent-light'  : #ff80ab,
+	'accent'        : #ff4081,
+	'accent-dark'   : #f50057,
+
+	'success'       : #8bc34a,
+	'info'          : #2196f3,
+	'warning'       : #ff9800,
+	'danger'        : #f44336
+) !default;
+
+
+// Text
+// ----
+
+$hf-fonts: (
+	'primary' : (
+		'name'     : 'Helvetica',
+		'fallback' : sans-serif,
+		'weights'  : (
+			'hairline' : 100,
+			'light'    : 300,
+			'regular'  : 400,
+			'semibold' : 600,
+			'bold'     : 700,
+			'black'    : 900
+		)
+	)
+) !default;
+
+
+// Asserts
+// -------
+
+@include hf-assert($hf-colors, 'map', 'color');
+@include hf-assert($hf-fonts, 'map', 'map', 'map' 'string', 'string' 'number');

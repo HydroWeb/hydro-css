@@ -1,0 +1,54 @@
+@function hf-color($value, $alpha: auto) {
+	$type: type-of($value);
+	$color: false;
+
+	@if $type == 'number' and unit($value) == '%' {
+		$min: 0%;
+		$max: 100%;
+		$min-color: #000;
+		$max-color: #fff;
+		$is-at: false;
+
+		@each $scale, $scale-color in $hf-colors {
+
+			@if type-of($scale) == 'number' and unit($scale) == '%' {
+
+				@if $value > $scale {
+
+					@if $scale > $min {
+						$min: $scale;
+						$min-color: $scale-color;
+					}
+				} @else if $value < $scale {
+
+					@if $scale < $max {
+						$max: $scale;
+						$max-color: $scale-color;
+					}
+				} @else {
+					$at: true;
+					$color: $scale-color;
+				}
+			}
+		}
+
+		@if not $is-at {
+			$weight: (($value - $min) / ($max - $min)) * 100%;
+			$color: mix($min-color, $max-color, $weight);
+		}
+
+	} @else if $type == 'string' and map-has-key($hf-colors, $type) {
+		$color: map-get($hf-colors, $type);
+
+	} @else if $type == 'color' {
+		$color: $value;
+	}
+
+	@if not $color {
+		@error '#{$value} is not a valid color input';
+	}
+
+	$alpha: if($alpha == auto, alpha($color), $alpha);
+
+	@return rgba($color, $alpha);
+}
