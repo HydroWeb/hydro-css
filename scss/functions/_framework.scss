@@ -36,10 +36,6 @@
 		$type: nth($type, 2);
 	}
 
-	@if type-of($names) != list {
-		$names: ($names,); // Trailing comma is necessary to initialise a single-item list in sass.
-	}
-
 	// Adds the class name symbol to the prefix.
 	$prefix: '.' + map-get($hf-prefixes, $type);
 
@@ -84,11 +80,9 @@
 /// Creates a parameter class name.
 /// @require {function} hf-prefix
 /// @param {String} $name - The name of the parameter.
-/// @param {String} $value [false] - The (optional) value of the parameter.
 /// @return {String} The parameter class name
-@function hf-parameter($name, $value: false) {
-	@return hf-prefix('parameter', $name)
-		+ if($value == false, '', hf-prefix('value', $value));
+@function hf-parameter($name) {
+	@return hf-prefix('parameter', $name);
 }
 
 /// Creates a state class name.
