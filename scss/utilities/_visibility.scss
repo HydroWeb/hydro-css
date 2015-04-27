@@ -24,6 +24,14 @@ $hf-generate-visibility: $hf-generate !default;
 
 @if $hf-generate-visibility {
 
+	@include hf-utility('h-clip') {
+		overflow-x: hidden !important;
+	}
+
+	@include hf-utility('v-clip') {
+		overflow-y: hidden !important;
+	}
+
 	@include hf-utility('clip') {
 		overflow: hidden !important;
 	}

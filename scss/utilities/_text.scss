@@ -83,6 +83,7 @@ $hf-generate-text: $hf-generate !default;
 			$line-height * 1em
 		);
 
+		// TODO Should it be assumed that em's are the best fallback? Perhaps a setting for preferred unit?
 		height: hf-sum( ('em': $font-size), $height-values);
 		height: hf-sum('calc', $height-values);
 		white-space: nowrap;
@@ -102,5 +103,11 @@ $hf-generate-text: $hf-generate !default;
 		@include hf-utility('text-' + $text-align) {
 			text-align: $text-align;
 		}
+	}
+
+	@include hf-utility('truncate') {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 }
