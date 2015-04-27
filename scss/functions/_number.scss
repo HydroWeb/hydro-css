@@ -332,7 +332,7 @@ $hf-number-relative-units: (
 	// Generate output
 	//
 
-	@if $format == 'calc' {
+	@if index('calc' '-webkit-calc' '-moz-calc', $format) {
 
 		@if length($sums) > 1 {
 			$numbers: '';
@@ -357,7 +357,7 @@ $hf-number-relative-units: (
 				$numbers: $numbers + $value;
 			}
 
-			@return unquote('calc(' + $numbers + ')');
+			@return unquote($format + '(' + $numbers + ')');
 
 		} @else { // Can trust the length is equal to one, thanks to the error checking above
 
