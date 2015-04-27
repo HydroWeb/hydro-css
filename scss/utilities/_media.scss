@@ -144,11 +144,11 @@
 /// @output Media query following the parameters passed
 @mixin hf-breakpoint($breakpoint, $direction: 'from', $property: width) {
 
-	@if not map-has-key($breakpoint) {
+	@if not map-has-key($hf-breakpoints, $breakpoint) {
 		@error '#{$breakpoint} is not a valid breakpoint name';
 	}
 
-	@if $direction != 'from' or $direction != 'until' {
+	@if $direction != 'from' and $direction != 'until' {
 		@error '#{$direction} is not a valid direction';
 	}
 
@@ -161,13 +161,13 @@
 
 		@if $is-from {
 
-			@if $bp-name > $end and ($end == null or $bp-value < $end) {
+			@if $bp-value > $start and ($end == null or $bp-value < $end) {
 				$end: $bp-value;
 			}
 
 		} @else {
 
-			@if $bp-name < $end and ($end == null or $bp-value > $end) {
+			@if $bp-value < $start and ($end == null or $bp-value > $end) {
 				$end: $bp-value;
 			}
 		}
