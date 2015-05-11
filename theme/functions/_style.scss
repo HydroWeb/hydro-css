@@ -19,14 +19,16 @@
 						$min: $scale;
 						$min-color: $scale-color;
 					}
+
 				} @else if $value < $scale {
 
 					@if $scale < $max {
 						$max: $scale;
 						$max-color: $scale-color;
 					}
+
 				} @else {
-					$at: true;
+					$is-at: true;
 					$color: $scale-color;
 				}
 			}
@@ -34,17 +36,21 @@
 
 		@if not $is-at {
 			$weight: (($value - $min) / ($max - $min)) * 100%;
-			$color: mix($min-color, $max-color, $weight);
+			$color: mix($max-color, $min-color, $weight);
 		}
 
-	} @else if $type == 'string' and map-has-key($hf-colors, $type) {
-		$color: map-get($hf-colors, $type);
+	} @else if $type == 'string' and map-has-key($hf-colors, $value) {
+		$color: map-get($hf-colors, $value);
+
+		@if type-of($color) == 'number' and unit($color) == '%' {
+			@return hf-color($color, $alpha);
+		}
 
 	} @else if $type == 'color' {
 		$color: $value;
 	}
 
-	@if not $color {
+	@if type-of($color) != 'color' {
 		@error '#{$value} is not a valid color input';
 	}
 
