@@ -124,7 +124,7 @@
 /// @output Multiple vendor prefixed align items properties
 @mixin hf-align-items($align: stretch) {
 	$ms: map-get((flex-start: start, flex-end: end), $align);
-	-ms-flex-pack: if($ms == null, $align, $ms);
+	-ms-flex-align: if($ms == null, $align, $ms);
 	-webkit-align-items: $align;
 	-moz-align-items: $align;
 	align-items: $align;
