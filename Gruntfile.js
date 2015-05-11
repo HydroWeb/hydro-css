@@ -68,7 +68,7 @@ module.exports = function(grunt)
 	grunt.loadNpmTasks('bootcamp');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 
-	grunt.registerTask('test', ['scsslint:test', 'sass:test', 'bootcamp:test']);
+	grunt.registerTask('test', ['sass:test', 'bootcamp:test']);
 	grunt.registerTask('lint', ['scsslint:lint']);
 	grunt.registerTask('demo', ['sass:demo', 'autoprefixer:demo']);
 };
