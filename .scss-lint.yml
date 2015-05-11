@@ -1,0 +1,123 @@
+scss_files: 'scss/**/*.scss'
+
+exclude: 'scss/libraries/**'
+
+linters:
+
+  Comment:
+    allowed: ^/\*!
+
+  ImportantRule:
+    enabled: false
+
+  Indentation:
+    character: tab
+    width: 1
+
+  LeadingZero:
+    style: include_zero
+
+  PropertySortOrder:
+    order:
+      - content
+
+      - position
+      - z-index
+
+      - top
+      - bottom
+      - left
+      - right
+
+      - display
+      - visibility
+      - overflow
+      - overflow-x
+      - overflow-y
+
+      - vertical-align
+      - float
+      - clear
+
+      - width
+      - min-width
+      - max-width
+      - height
+      - min-height
+      - max-height
+
+      - margin
+      - margin-top
+      - margin-bottom
+      - margin-left
+      - margin-right
+
+      - padding
+      - padding-top
+      - padding-bottom
+      - padding-left
+      - padding-right
+
+      - border
+      - border-style
+      - border-width
+      - border-color
+      - border-top
+      - border-top-style
+      - border-top-width
+      - border-top-color
+      - border-bottom
+      - border-bottom-style
+      - border-bottom-width
+      - border-bottom-color
+      - border-left
+      - border-left-style
+      - border-left-width
+      - border-left-color
+      - border-right
+      - border-right-style
+      - border-right-width
+      - border-right-color
+
+      - font-family
+      - font-size
+      - font-weight
+      - font-style
+      - font-variant
+
+      - line-height
+
+      - white-space
+      - word-spacing
+      - word-wrap
+      - word-break
+
+      - text-overflow
+      - text-align
+      - text-decoration
+      - text-transform
+
+      - color
+
+      - background
+      - background-color
+      - background-image
+      - background-position
+      - background-position-x
+      - background-position-y
+      - background-size
+      - background-repeat
+      - background-attachment
+
+      - transform
+
+      - transition
+
+  SpaceBetweenParens:
+    enabled: false
+
+  VendorPrefix:
+    enabled: false
+
+  ZeroUnit:
+    enabled: false

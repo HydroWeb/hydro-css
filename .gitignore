@@ -113,6 +113,7 @@ $RECYCLE.BIN/
 .tmp/
 
 
-### tests ###
-# Files to ignore with the test suite
+### reports ###
+# Files to ignore with generating reports
+scss-lint-reporter.xml
 spec/results.css
