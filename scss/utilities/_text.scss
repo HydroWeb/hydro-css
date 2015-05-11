@@ -45,21 +45,23 @@ $hf-generate-text: $hf-generate !default;
 	//
 
 	@if $line-height != 1 and $line-height != 1em and $line-height != 100% {
+		$lh: $line-height * if(unitless($line-height), 1em, 1);
 
-		$padding-top:    hf-nth-loop($padding, 1);
-		$padding-right:  hf-nth-loop($padding, 2);
-		$padding-bottom: hf-nth-loop($padding, 3);
-		$padding-left:   hf-nth-loop($padding, 4);
-		$line-height-bleed: ($font-size / 2), ($line-height / -2);
+		$p-top:    hf-nth-loop($padding, 1);
+		$p-right:  hf-nth-loop($padding, 2);
+		$p-bottom: hf-nth-loop($padding, 3);
+		$p-left:   hf-nth-loop($padding, 4);
+		$lh-bleed: ($font-size / 2), ($lh / -2);
 
 		// Add a fallback for browsers that don't support CSS3 calc()
-		$padding-top-fb:    hf-sum((unit($padding-top):    $font-size), $padding-top,    $line-height-bleed);
-		$padding-bottom-fb: hf-sum((unit($padding-bottom): $font-size), $padding-bottom, $line-height-bleed);
-		padding: $padding-top-fb $padding-right $padding-bottom-fb $padding-left;
+		$p-top-fb:    hf-sum((unit($p-top):    $font-size), $p-top,    $lh-bleed);
+		$p-bottom-fb: hf-sum((unit($p-bottom): $font-size), $p-bottom, $lh-bleed);
+		padding: $p-top-fb $p-right $p-bottom-fb $p-left;
 
-		$padding-top:    hf-sum('calc', $padding-top,    $line-height-bleed);
-		$padding-bottom: hf-sum('calc', $padding-bottom, $line-height-bleed);
-		$padding: $padding-top $padding-right $padding-bottom $padding-left;
+		$p-top:    hf-sum('calc', $p-top,    $lh-bleed);
+		$p-bottom: hf-sum('calc', $p-bottom, $lh-bleed);
+
+		$padding: $p-top $p-right $p-bottom $p-left;
 	}
 
 	//
@@ -83,8 +85,8 @@ $hf-generate-text: $hf-generate !default;
 			$line-height * 1em
 		);
 
-		// TODO Should it be assumed that em's are the best fallback? Perhaps a setting for preferred unit?
-		height: hf-sum( ('em': $font-size), $height-values);
+		// TODO Should it be assumed that pixels are the best fallback? Perhaps a setting for preferred unit?
+		height: hf-sum( ('px': $font-size), $height-values);
 		height: hf-sum('calc', $height-values);
 		white-space: nowrap;
 		overflow: hidden;
@@ -98,7 +100,7 @@ $hf-generate-text: $hf-generate !default;
 
 @if $hf-generate-text {
 
-	@each $text-align in 'left', 'center', 'right', 'justify' {
+	@each $text-align in left, center, right, justify {
 
 		@include hf-utility('text-' + $text-align) {
 			text-align: $text-align;
