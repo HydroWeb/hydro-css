@@ -29,8 +29,8 @@ $hf-generate-base: $hf-generate !default;
 	*,
 	*:before,
 	*:after {
-		-webkit-box-sizing: border-box; // Webkit <= 10
 		-moz-box-sizing: border-box; // Gecko <= 29
+		-webkit-box-sizing: border-box; // Webkit <= 10
 		box-sizing: border-box;
 	}
 

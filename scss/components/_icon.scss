@@ -1,6 +1,6 @@
 @mixin hf-icon($size: 1em, $font: false, $sprite: false) {
-	display: block;
 	speak: none;
+	display: block;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
@@ -10,19 +10,20 @@
 	@if $font != false {
 		width: 1em;
 		height: 1em;
-		font-size: $size;
-		font-style: normal;
-		font-weight: normal;
-		font-variant: normal;
-		text-transform: none;
-		text-align: center;
-		line-height: 1;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
 
 		@if type-of($font) == 'string' {
 			font-family: '#{$font}', sans-serif;
 		}
+
+		font-size: $size;
+		font-weight: normal;
+		font-style: normal;
+		font-variant: normal;
+		line-height: 1;
+		text-align: center;
+		text-transform: none;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
 
 	} @else if $sprite != false {
 		width: hf-nth-loop($size, 1);

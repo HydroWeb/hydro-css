@@ -6,28 +6,27 @@
 /// @author Benjamin Fleming
 ////
 
-@import
-	'testing',
-	'settings',
-	'functions',
+@import 'testing';
+@import 'settings';
+@import 'functions';
 
-	'utilities/framework',
-	'utilities/media',
-	'utilities/clearfix',
-	'utilities/size',
-	'utilities/gutters',
-	'utilities/text',
-	'utilities/visibility',
-	'utilities/flexbox',
+@import 'utilities/framework';
+@import 'utilities/media';
+@import 'utilities/clearfix';
+@import 'utilities/size';
+@import 'utilities/gutters';
+@import 'utilities/text';
+@import 'utilities/visibility';
+@import 'utilities/flexbox';
 
-	'libraries/normalize',
+@import 'libraries/normalize';
 
-	'base',
+@import 'base';
 
-	'structures/structure',
-	'structures/bar',
-	'structures/columns',
-	'structures/grid',
-	'structures/alignbox',
-	'structures/ratiobox',
-	'structures/container';
+@import 'structures/structure';
+@import 'structures/bar';
+@import 'structures/columns';
+@import 'structures/grid';
+@import 'structures/alignbox';
+@import 'structures/ratiobox';
+@import 'structures/container';
