@@ -50,6 +50,7 @@
 /// @param {Boolean} $keys [false] - When sorting a map, whether to sort by it's keys (or it's values)
 /// @return {List | Map}
 @function hf-sort($list, $direction: 'asc', $separator: auto, $keys: false) {
+	$sort-keys: $keys;
 	$type: type-of($list);
 	$keys: null;
 	$values: null;
@@ -58,7 +59,7 @@
 	@if $is-map {
 		$keys: map-keys($list);
 		$values: map-values($list);
-		$list: if($keys, $keys, $values);
+		$list: if($sort-keys, $keys, $values);
 		$type: 'list';
 	}
 
@@ -85,7 +86,7 @@
 		$condition: true;
 
 		@if $is-map {
-			$k: if($keys, nth($values, $i), nth($keys, $i));
+			$k: if($sort-keys, nth($values, $i), nth($keys, $i));
 		}
 
 		@while $condition {
@@ -100,8 +101,9 @@
 			@if $condition {
 				$list: set-nth($list, $j, nth($list, $j - 1));
 
-				@if $keys != null {
+				@if $is-map {
 					$keys: set-nth($keys, $j, nth($keys, $j - 1));
+					$values: set-nth($values, $j, nth($values, $j - 1));
 				}
 
 				$j: $j - 1;
@@ -112,12 +114,8 @@
 		$list: set-nth($list, $j, $x);
 
 		@if $is-map {
-
-			@if $keys {
-				$values: set-nth($values, $j, $k);
-			} @else {
-				$keys: set-nth($keys, $j, $k);
-			}
+			$values: set-nth($values, $j, $k);
+			$keys: set-nth($keys, $j, $k);
 		}
 	}
 
@@ -126,8 +124,8 @@
 
 		@for $i from 1 through length($keys) {
 			$item: nth($list, $i);
-			$key: if($keys, $item, nth($keys, $i));
-			$value: if($keys, nth($values, $i), $item);
+			$key: if($sort-keys, $item, nth($keys, $i));
+			$value: if($sort-keys, nth($values, $i), $item);
 			$map: map-merge($map, ($key: $value));
 		}
 
