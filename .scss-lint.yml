@@ -15,7 +15,7 @@ linters:
 
   BorderZero:
     enabled: true
-    convention: zero # or `none`
+    convention: zero
 
   ColorKeyword:
     enabled: true
@@ -37,7 +37,7 @@ linters:
 
   ElsePlacement:
     enabled: true
-    style: same_line # or 'new_line'
+    style: same_line
 
   EmptyLineBetweenBlocks:
     enabled: true
@@ -52,11 +52,11 @@ linters:
 
   HexLength:
     enabled: true
-    style: short # or 'long'
+    style: short
 
   HexNotation:
     enabled: true
-    style: lowercase # or 'uppercase'
+    style: lowercase
 
   HexValidation:
     enabled: true
@@ -86,7 +86,7 @@ linters:
   NameFormat:
     enabled: true
     allow_leading_underscore: true
-    convention: hyphenated_lowercase # or 'camel_case', or 'snake_case', or a regex pattern
+    convention: hyphenated_lowercase
 
   NestingDepth:
     enabled: true
