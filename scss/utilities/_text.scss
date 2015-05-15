@@ -54,11 +54,11 @@ $hf-generate-text: $hf-generate !default;
 		$lh-bleed: ($font-size / 2), ($lh / -2);
 
 		// Add a fallback for browsers that don't support CSS3 calc()
-		$p-top-fb:    hf-sum((unit($p-top):    $font-size), $p-top,    $lh-bleed);
+		$p-top-fb:    hf-sum((unit($p-top): $font-size), $p-top, $lh-bleed);
 		$p-bottom-fb: hf-sum((unit($p-bottom): $font-size), $p-bottom, $lh-bleed);
 		padding: $p-top-fb $p-right $p-bottom-fb $p-left;
 
-		$p-top:    hf-sum('calc', $p-top,    $lh-bleed);
+		$p-top:    hf-sum('calc', $p-top, $lh-bleed);
 		$p-bottom: hf-sum('calc', $p-bottom, $lh-bleed);
 
 		$padding: $p-top $p-right $p-bottom $p-left;
@@ -80,16 +80,16 @@ $hf-generate-text: $hf-generate !default;
 	@if not $multiline {
 
 		$height-values: (
-			hf-nth-loop($padding,      1), hf-nth-loop($padding,      3),
+			hf-nth-loop($padding, 1), hf-nth-loop($padding, 3),
 			hf-nth-loop($border-width, 1), hf-nth-loop($border-width, 3),
 			$line-height * 1em
 		);
 
+		overflow: hidden;
 		// TODO Should it be assumed that pixels are the best fallback? Perhaps a setting for preferred unit?
 		height: hf-sum( ('px': $font-size), $height-values);
 		height: hf-sum('calc', $height-values);
 		white-space: nowrap;
-		overflow: hidden;
 		text-overflow: ellipsis;
 	}
 }
@@ -108,8 +108,8 @@ $hf-generate-text: $hf-generate !default;
 	}
 
 	@include hf-utility('truncate') {
+		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		overflow: hidden;
 	}
 }

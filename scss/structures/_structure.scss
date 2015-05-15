@@ -19,12 +19,12 @@
 	text-align: left;
 
 	> * {
+		pointer-events: auto; // Negative margins mouse event fix
 		display: inline-block;
 		vertical-align: top;
-		word-spacing: normal;
 		width: auto;
 		min-height: 1px; // Fix for empty blocks
-		pointer-events: auto; // Negative margins mouse event fix
+		word-spacing: normal;
 		text-align: left;
 		background-clip: padding-box; // Borders are used for gaps, so clip backgrounds at paddings
 	}

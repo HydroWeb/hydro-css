@@ -32,7 +32,7 @@ $hf-container-selector: hf-module('container') !default;
 	#{$hf-container-selector} {
 		$max-width: hf-convert($hf-max-width, em);
 
-		max-width:$max-width;
+		max-width: $max-width;
 		margin: auto;
 
 		@each $division-name, $division-value in $hf-divisions {

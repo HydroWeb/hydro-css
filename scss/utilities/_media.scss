@@ -204,16 +204,16 @@
 
 		@if $type == 'string' {
 
-			@if map_has_key($hf-breakpoints, $break) {
+			@if map-has-key($hf-breakpoints, $break) {
 				// Swap out the labelled breakpoint for the real thing
 				$label: $break;
-				$break: map_get($hf-breakpoints, $label);
-				$map: map_remove($map, $label);
+				$break: map-get($hf-breakpoints, $label);
+				$map: map-remove($map, $label);
 
 				// If the map contains a breakpoint that exists already (explicitly stated), then
 				// merge with priority the properties from that set into the map-specified properties.
-				@if map_has_key($map, $break) {
-					$properties: map-merge($properties, map_get($map, $break));
+				@if map-has-key($map, $break) {
+					$properties: map-merge($properties, map-get($map, $break));
 				}
 
 				// Set the explicit breakpoint as a key on the original values
@@ -233,7 +233,7 @@
 
 	// Apply the styles
 	@each $break in $breaks {
-		$properties: map_get($map, $break);
+		$properties: map-get($map, $break);
 		$from: null;
 		$until: null;
 

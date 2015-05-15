@@ -32,17 +32,17 @@ $hf-generate-clearfix: $hf-generate !default;
 	//    'clearfix' class.
 	// 2. The use of 'table' rather than 'block' is only necessary if using ':before' to contain the top-margins of
 	//    child elements.
-	// 3. In some cases (such as mixing with flexbox) display of table can have a non-zero width, which is fix accounts
-	//    for.
-	// 4. Only needed on that ':after' element, but by moving it under the dual selector this saves bytes and total
+	// 3. Only needed on that ':after' element, but by moving it under the dual selector this saves bytes and total
 	//    number of selectors in the CSS file.
+	// 4. In some cases (such as mixing with flexbox) display of table can have a non-zero width, which is fix accounts
+	//    for.
 
 	&:before,
 	&:after {
-		content: " "; // 1
+		content: ' '; // 1
 		display: table; // 2
-		width: 0; // 3
-		clear: both; // 4
+		clear: both; // 3
+		width: 0; // 4
 	}
 }
 

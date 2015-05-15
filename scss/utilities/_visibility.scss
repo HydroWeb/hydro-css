@@ -46,14 +46,14 @@ $hf-generate-visibility: $hf-generate !default;
 	}
 
 	@include hf-utility('invisible') {
-		border: 0 !important;
-		clip: rect(0 0 0 0) !important;
+		position: absolute !important;
+		overflow: hidden !important;
+		width: 1px !important;
 		height: 1px !important;
 		margin: -1px !important;
-		overflow: hidden !important;
 		padding: 0 !important;
-		position: absolute !important;
-		width: 1px !important;
+		border: 0 !important;
+		clip: rect(0 0 0 0) !important;
 	}
 
 	@include hf-utility('transparent') {

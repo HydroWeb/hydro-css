@@ -51,8 +51,8 @@ $hf-bar-item-selector: hf-module('item') !default;
 
 				@include hf-parameter('fitted-' + $breakpoint-name) {
 					display: table; // TODO extend flexbox maybe?
-					border-collapse: collapse;
 					width: 100%;
+					border-collapse: collapse;
 
 					> #{$hf-bar-item-selector} {
 						display: table-cell;
@@ -81,20 +81,20 @@ $hf-bar-item-selector: hf-module('item') !default;
 							margin-left: 0;
 							margin-right: 0;
 
+							@include hf-parameter('h-outer-gap') {
+
+								> #{$hf-bar-item-selector} {
+									border-left-width: $gutter-value;
+									border-right-width: $gutter-value;
+								}
+							}
+
 							> #{$hf-bar-item-selector} {
 								border-left-width: $gutter-value;
 								border-right-width: 0;
 
 								&:first-child {
 									border-left-width: 0;
-								}
-							}
-
-							@include hf-parameter('h-outer-gap') {
-
-								> #{$hf-bar-item-selector} {
-									border-left-width: $gutter-value;
-									border-right-width: $gutter-value;
 								}
 							}
 						}

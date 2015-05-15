@@ -4,11 +4,73 @@ exclude: 'scss/libraries/**'
 
 linters:
 
+  BangFormat:
+    enabled: true
+    space_before_bang: true
+    space_after_bang: false
+
+  BemDepth:
+    enabled: false
+    max_elements: 1
+
+  BorderZero:
+    enabled: true
+    convention: zero # or `none`
+
+  ColorKeyword:
+    enabled: true
+
+  ColorVariable:
+    enabled: true
+
   Comment:
     allowed: ^/\*!
 
+  DebugStatement:
+    enabled: true
+
+  DeclarationOrder:
+    enabled: false
+
+  DuplicateProperty:
+    enabled: true
+
+  ElsePlacement:
+    enabled: true
+    style: same_line # or 'new_line'
+
+  EmptyLineBetweenBlocks:
+    enabled: true
+    ignore_single_line_blocks: true
+
+  EmptyRule:
+    enabled: true
+
+  FinalNewline:
+    enabled: true
+    present: true
+
+  HexLength:
+    enabled: true
+    style: short # or 'long'
+
+  HexNotation:
+    enabled: true
+    style: lowercase # or 'uppercase'
+
+  HexValidation:
+    enabled: true
+
+  IdSelector:
+    enabled: true
+
   ImportantRule:
     enabled: false
+
+  ImportPath:
+    enabled: true
+    leading_underscore: false
+    filename_extension: false
 
   Indentation:
     character: tab
@@ -17,28 +79,70 @@ linters:
   LeadingZero:
     style: include_zero
 
+  MergeableSelector:
+    enabled: true
+    force_nesting: true
+
+  NameFormat:
+    enabled: true
+    allow_leading_underscore: true
+    convention: hyphenated_lowercase # or 'camel_case', or 'snake_case', or a regex pattern
+
+  NestingDepth:
+    enabled: true
+    max_depth: 3
+
+  PlaceholderInExtend:
+    enabled: true
+
+  PropertyCount:
+    enabled: false
+    include_nested: false
+    max_properties: 10
+
+  PropertyUnits:
+    enabled: true
+    global: [
+      'ch', 'em', 'ex', 'rem',                 # Font-relative lengths
+      'cm', 'in', 'mm', 'pc', 'pt', 'px', 'q', # Absolute lengths
+      'vh', 'vw', 'vmin', 'vmax',              # Viewport-percentage lengths
+      'deg', 'grad', 'rad', 'turn',            # Angle
+      'ms', 's',                               # Duration
+      'Hz', 'kHz',                             # Frequency
+      'dpi', 'dpcm', 'dppx',                   # Resolution
+      '%']                                     # Other
+    properties: {}
+
   PropertySortOrder:
     order:
+      # Selector-specific
       - content
 
+      # Interaction
+      - cursor
+      - pointer-events
+
+      # Positioning
       - position
       - z-index
-
       - top
       - bottom
       - left
       - right
 
+      # Visual
       - display
       - visibility
       - overflow
       - overflow-x
       - overflow-y
 
+      # Flow
       - vertical-align
       - float
       - clear
 
+      # Dimensions
       - width
       - min-width
       - max-width
@@ -46,18 +150,21 @@ linters:
       - min-height
       - max-height
 
+      # Margin (Box Model)
       - margin
       - margin-top
       - margin-bottom
       - margin-left
       - margin-right
 
+      # Padding (Box Model)
       - padding
       - padding-top
       - padding-bottom
       - padding-left
       - padding-right
 
+      # Border (Box Model)
       - border
       - border-style
       - border-width
@@ -78,27 +185,28 @@ linters:
       - border-right-style
       - border-right-width
       - border-right-color
+      - border-collapse
 
+      # Font
       - font-family
       - font-size
       - font-weight
       - font-style
       - font-variant
-
       - line-height
 
+      # Text
       - white-space
       - word-spacing
       - word-wrap
       - word-break
-
       - text-overflow
       - text-align
       - text-decoration
       - text-transform
-
       - color
 
+      # Background
       - background
       - background-color
       - background-image
@@ -108,10 +216,81 @@ linters:
       - background-size
       - background-repeat
       - background-attachment
+      - background-clip
 
+      # Effects
       - transform
-
       - transition
+
+  PropertySpelling:
+    enabled: true
+    extra_properties: []
+
+  QualifyingElement:
+    enabled: true
+    allow_element_with_attribute: false
+    allow_element_with_class: false
+    allow_element_with_id: false
+
+  SelectorDepth:
+    enabled: true
+    max_depth: 3
+
+  SelectorFormat:
+    enabled: true
+    convention: hyphenated_lowercase
+
+  Shorthand:
+    enabled: true
+    allowed_shorthands: [1, 2, 3]
+
+  SingleLinePerProperty:
+    enabled: true
+    allow_single_line_rule_sets: true
+
+  SingleLinePerSelector:
+    enabled: true
+
+  SpaceAfterComma:
+    enabled: true
+
+  SpaceAfterPropertyColon:
+    enabled: true
+    style: one_space
+
+  SpaceAfterPropertyName:
+    enabled: true
+
+  SpaceBeforeBrace:
+    enabled: true
+    style: space
+    allow_single_line_padding: false
+
+  StringQuotes:
+    enabled: true
+    style: single_quotes
+
+  TrailingSemicolon:
+    enabled: true
+
+  TrailingZero:
+    enabled: false
+
+  UnnecessaryMantissa:
+    enabled: true
+
+  UnnecessaryParentReference:
+    enabled: true
+
+  UrlFormat:
+    enabled: true
+
+  UrlQuotes:
+    enabled: true
+
+  VariableForProperty:
+    enabled: false
+    properties: []
 
   SpaceBetweenParens:
     enabled: false
@@ -120,4 +299,7 @@ linters:
     enabled: false
 
   ZeroUnit:
+    enabled: false
+
+  Compass::*:
     enabled: false

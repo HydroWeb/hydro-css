@@ -114,6 +114,32 @@ $hf-alignbox-box-selector: hf-module('box') !default;
 	#{$hf-alignbox-selector} {
 		@include hf-alignbox;
 
+		// Target wildcard (*) as wildcard selectors have the lowest specifity and will not override any settings that
+		// are applied to any other selector. Then target .box as it WILL override other selectors, which is fine as by
+		// applying the .box selector the element you are explicitly setting these properties rather than implicitly.
+		> *,
+		> #{$hf-alignbox-box-selector} {
+			@include hf-alignbox-box;
+		}
+
+		> #{$hf-alignbox-box-selector} {
+
+			@include hf-parameter('fix-top', 'fix-bottom') {
+				position: absolute;
+				left: 0;
+				right: 0;
+				display: block;
+			}
+
+			@include hf-parameter('fix-top') {
+				top: 0;
+			}
+
+			@include hf-parameter('fix-bottom') {
+				bottom: 0;
+			}
+		}
+
 		@include hf-parameter('h-align-left') {
 			@include hf-justify-content(flex-start);
 
@@ -168,32 +194,6 @@ $hf-alignbox-box-selector: hf-module('box') !default;
 			&:after,
 			> #{$hf-alignbox-box-selector} {
 				vertical-align: middle;
-			}
-		}
-
-		// Target wildcard (*) as wildcard selectors have the lowest specifity and will not override any settings that
-		// are applied to any other selector. Then target .box as it WILL override other selectors, which is fine as by
-		// applying the .box selector the element you are explicitly setting these properties rather than implicitly.
-		> *,
-		> #{$hf-alignbox-box-selector} {
-			@include hf-alignbox-box;
-		}
-
-		> #{$hf-alignbox-box-selector} {
-
-			@include hf-parameter('fix-top', 'fix-bottom') {
-				position: absolute;
-				left: 0;
-				right: 0;
-				display: block;
-			}
-
-			@include hf-parameter('fix-top') {
-				top: 0;
-			}
-
-			@include hf-parameter('fix-bottom') {
-				bottom: 0;
 			}
 		}
 	}

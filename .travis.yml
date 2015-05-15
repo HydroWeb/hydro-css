@@ -6,6 +6,7 @@ node_js:
 
 env:
   - SASS_VERSION=3.4.6
+  - SCSS_LINT_VERSION=0.38.0
 
 before_install:
   - npm install -g grunt-cli
@@ -15,4 +16,6 @@ install: npm install
 
 before_script:
   - gem install sass -v $SASS_VERSION
+  - gem install scss_lint $SCSS_LINT_VERSION
+  - grunt lint
   - grunt test
