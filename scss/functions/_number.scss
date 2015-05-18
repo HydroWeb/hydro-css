@@ -123,6 +123,24 @@ $hf-number-relative-units: (
 // Public
 // ------
 
+// Gets the unit type
+// @require {function} -hf-relative-unit
+// @require {function} -hf-absolute-unit
+// @param {Number | String} $value - The number or unit (as a string) to check.
+// @return {String} absolute, relative or other
+@function hf-unit-type($value) {
+
+	@if -hf-relative-unit($value) {
+		@return 'relative';
+	}
+
+	@if -hf-absolute-unit($value) {
+		@return 'absolute';
+	}
+
+	@return 'other';
+}
+
 /// Round a number to specified number of decimal places
 /// @require {variable} hf-number-precision
 /// @param {Number} $value - The number to round
@@ -156,6 +174,7 @@ $hf-number-relative-units: (
 }
 
 /// Convert a number to another unit.
+/// TODO Only convert REM units to the base font size factor
 /// @require {variable} hf-font-size
 /// @require {variable} hf-number-absolute-units
 /// @require {variable} hf-number-relative-units
