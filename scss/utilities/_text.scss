@@ -71,6 +71,8 @@ $hf-generate-text: $hf-generate !default;
 	font-size: $font-size;
 	padding: $padding;
 	border-width: $border-width;
+	// Assign this as usually this is what is wanted, though it can be overridden.
+	border-style: solid;
 	line-height: $line-height;
 
 	//
@@ -78,16 +80,20 @@ $hf-generate-text: $hf-generate !default;
 	//
 
 	@if not $multiline {
+		$p-top: hf-nth-loop($padding, 1);
+		$p-bottom: hf-nth-loop($padding, 3);
+		$bw-top: hf-nth-loop($border-width, 1);
+		$bw-bottom: hf-nth-loop($border-width, 3);
 
 		$height-values: (
-			hf-nth-loop($padding, 1), hf-nth-loop($padding, 3),
-			hf-nth-loop($border-width, 1), hf-nth-loop($border-width, 3),
+			$p-top, $p-bottom,
+			$bw-top, $bw-bottom,
 			$line-height * 1em
 		);
 
 		overflow: hidden;
-		// TODO Should it be assumed that pixels are the best fallback? Perhaps a setting for preferred unit?
-		height: hf-sum( ('px': $font-size), $height-values);
+		// Assume padding is dominant, so prioritize its unit.
+		height: hf-sum( (unit($p-top): $font-size), $height-values);
 		height: hf-sum('calc', $height-values);
 		white-space: nowrap;
 		text-overflow: ellipsis;
