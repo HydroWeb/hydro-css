@@ -1,0 +1,26 @@
+@mixin hf-button(
+	$font-size: 1em,
+	$padding: 0,
+	$border-width: 0,
+	$line-height: 1,
+	$multiline: false
+) {
+	@extend %hf-button !optional;
+
+	@include hf-textbox(
+		$font-size,
+		$padding,
+		$border-width,
+		$line-height,
+		$multiline
+	);
+
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	// Reset appearance for webkit as it's set to button in normalize
+	-webkit-appearance: none;
+	-webkit-user-drag: none;
+}

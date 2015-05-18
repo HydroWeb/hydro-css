@@ -1,0 +1,68 @@
+@mixin hf-field(
+	$font-size: 1em,
+	$padding: 0,
+	$border-width: 0,
+	$line-height: 1,
+	$placeholder: false,
+	$placeholder-font-size: 1em,
+	$placeholder-line-height: 1
+) {
+	@extend %hf-field !optional;
+
+	$input: selector-unify(&, input);
+	$textarea: selector-unify(&, textarea);
+
+	@if $input != null {
+
+		@at-root #{$input} {
+
+			@include hf-textbox(
+				$font-size,
+				$padding,
+				$border-width,
+				$line-height,
+				false
+			);
+
+			line-height: normal;
+		}
+	}
+
+	@if $textarea != null {
+
+		@at-root #{$textarea} {
+
+			@include hf-textbox(
+				$font-size,
+				$padding,
+				$border-width,
+				$line-height,
+				true
+			);
+		}
+	}
+
+	// TODO does placeholder need a line height setting? See if they go multiline on textarea's
+	@if $placeholder {
+
+		&::-webkit-input-placeholder {
+			font-size: $placeholder-font-size;
+			line-height: $placeholder-line-height;
+		}
+
+		&::-moz-placeholder {
+			font-size: $placeholder-font-size;
+			line-height: $placeholder-line-height;
+		}
+
+		&:-ms-input-placeholder {
+			font-size: $placeholder-font-size;
+			line-height: $placeholder-line-height;
+		}
+
+		&::placeholder {
+			font-size: $placeholder-font-size;
+			line-height: $placeholder-line-height;
+		}
+	}
+}
