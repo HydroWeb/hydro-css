@@ -119,7 +119,9 @@ linters:
       - content
 
       # Interaction
+      - speak
       - cursor
+      - user-select
       - pointer-events
 
       # Positioning
