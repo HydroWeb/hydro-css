@@ -12,13 +12,14 @@
 /// @require {variable} hf-prefixes
 /// @param {String} $type - The prefix type. The value is retrieved from the $hf-prefixes map.
 /// @param {String} $name - The name of the class to be prefixed.
+/// @param {Boolean} $as-selector [true] - Whether to return it as a usable selector, or just the name.
 /// @return {String} The prefixed class name
-@function hf-prefix($type, $name) {
-	@return '.' + map-get($hf-prefixes, $type) + $name;
+@function hf-name($type, $name, $as-selector: true) {
+	@return if($as-selector, '.', '') + map-get($hf-prefixes, $type) + $name;
 }
 
 /// Creates a hydro selector using the set prefixes and a multidimensional list of names.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String | List} $type - If a string, the prefix is retrieved from the `$hf-prefixes` map. If a list (of size
 ///   2), the first value is treated as a selector string, and the second prefix type. This allows prefixing entire
 ///   selectors.
@@ -48,13 +49,13 @@
 			@each $part in $name {
 				$output: $output
 					+ if($first, $selector, '')
-					+ hf-prefix($type, $part);
+					+ hf-name($type, $part);
 				$first: false;
 			}
 		} @else {
 			$output: $output
 				+ $selector
-				+ hf-prefix($type, $name);
+				+ hf-name($type, $name);
 		}
 	}
 
@@ -62,51 +63,51 @@
 }
 
 /// Creates a module class name.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String} $name - The name of the module.
 /// @return {String} The module class name
 @function hf-module($name) {
-	@return hf-prefix('module', $name);
+	@return hf-name('module', $name);
 }
 
 /// Creates a utility class name.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String} $name - The name of the utility.
 /// @return {String} The utility class name
 @function hf-utility($name) {
-	@return hf-prefix('utility', $name);
+	@return hf-name('utility', $name);
 }
 
 /// Creates a parameter class name.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String} $name - The name of the parameter.
 /// @return {String} The parameter class name
 @function hf-parameter($name) {
-	@return hf-prefix('parameter', $name);
+	@return hf-name('parameter', $name);
 }
 
 /// Creates a state class name.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String} $name - The name of the state.
 /// @return {String} The state class name
 @function hf-state($name) {
-	@return hf-prefix('state', $name);
+	@return hf-name('state', $name);
 }
 
 /// Creates a feature class name.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String} $name - The name of the feature.
 /// @return {String} The feature class name
 @function hf-feature($name) {
-	@return hf-prefix('feature', $name);
+	@return hf-name('feature', $name);
 }
 
 /// Creates a featureless class name.
-/// @require {function} hf-prefix
+/// @require {function} hf-name
 /// @param {String} $name - The name of the feature.
 /// @return {String} The featureless class name
 @function hf-featureless($name) {
-	@return hf-prefix('featureless', $name);
+	@return hf-name('featureless', $name);
 }
 
 
