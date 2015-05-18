@@ -1,21 +1,38 @@
-@mixin hf-icon($size: 1em, $font: false, $sprite: false) {
+$hf-generate-icon: $hf-generate !default;
+$hf-icon-font: false !default;
+$hf-icon-sprite: false !default;
+$hf-icon-prefix: 'icon-' !default;
+$hf-icon-size: $hf-font-size !default;
+$hf-icons: () !default;
+
+
+@function hf-icon($name) {
+	@return map-get($hf-icons, $name);
+}
+
+
+@mixin hf-icon(
+	$size: $hf-icon-size,
+	$font: $hf-icon-font,
+	$sprite: $hf-icon-sprite
+) {
 	speak: none;
-	display: block;
+	cursor: inherit;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	cursor: inherit;
+	display: block;
+	width: 1em;
+	height: 1em;
+	font-size: $size;
 
 	@if $font != false {
-		width: 1em;
-		height: 1em;
 
 		@if type-of($font) == 'string' {
 			font-family: '#{$font}', sans-serif;
 		}
 
-		font-size: $size;
 		font-weight: normal;
 		font-style: normal;
 		font-variant: normal;
@@ -26,19 +43,49 @@
 		-webkit-font-smoothing: antialiased;
 
 	} @else if $sprite != false {
-		width: hf-nth-loop($size, 1);
-		height: hf-nth-loop($size, 2);
 
 		@if type-of($sprite) == 'string' {
 			background-image: url('#{$sprite}');
 		}
 
 	} @else {
-		width: hf-nth-loop($size, 1);
-		height: hf-nth-loop($size, 2);
 		background-position: center;
 		background-size: contain;
 		background-repeat: no-repeat;
+	}
+}
+
+
+@mixin hf-iconbox-position(
+	$position: 'left',
+	$size: $hf-icon-size,
+	$font-size: 1em,
+	$side-gap: 0,
+	$text-gap: 0,
+	$selector: '&:before'
+) {
+	$position: unquote($position);
+	$loop: index(top right bottom left, $position);
+	$side: hf-nth-loop($side-gap, $loop);
+	$text: hf-nth-loop($text-gap, $loop);
+	$values: $side, $text, $size;
+
+	position: relative;
+	padding-#{$position}: hf-sum( (unit($side): $font-size), $values);
+	padding-#{$position}: hf-sum($values);
+
+	#{$selector} {
+		$side-unit: unit($side);
+		$side-type: hf-unit-type($side-unit);
+		$center-position: if($position == left or $position == right, top, left);
+
+		position: absolute;
+		#{$center-position}: 50%;
+		#{$position}: if($side-type == 'relative',
+			($side / hf-convert($font-size, $side-unit)) + unquote($side-unit)
+			$side
+		);
+		margin-#{$center-position}: -0.5em;
 	}
 }
 
@@ -49,10 +96,10 @@
 	$border-width: 0,
 	$line-height: 1,
 	$multiline: false,
-	$icon-size: auto,
+	$icon-size: $hf-icon-size,
 	$icon-side-gap: $padding,
 	$icon-text-gap: $padding,
-	$icon-position: 'left',
+	$icon-positions: top right bottom left,
 	$icon-selector: '&:before',
 	$include-textbox: true
 ) {
@@ -67,21 +114,43 @@
 		);
 	}
 
-	position: relative;
+	@each $icon-position in $icon-positions {
 
-	#{$icon-selector} {
-		position: absolute;
+		@include hf-parameter('icon-' + $icon-position) {
+
+		}
 	}
-
-
 }
 
-@mixin hf-iconbox-position($position: 'left', $size: 1em, $side-gap: 0, $text-gap: 0, $font-size: 1em) {
-	$loop: map-get( ('top': 1, 'right': 2, 'bottom': 3, 'left': 4), $position);
-	$side: hf-nth-loop($side-gap, $loop);
-	$text: hf-nth-loop($text-gap, $loop);
-	$values: $side, $text, $size;
 
-	padding-#{$position}: hf-sum( (unit($side): $font-size), $values);
-	padding-#{$position}: hf-sum($values);
+@if $hf-generate-icon {
+
+	@include hf-prefix('class', hf-name('module', $hf-icon-prefix, false)) {
+
+		&:before {
+			@include hf-icon;
+		}
+	}
+
+	@each $name, $value in $hf-icons {
+
+		@include hf-module($hf-icon-prefix + $name) {
+
+			&:before {
+
+				@if type-of($value) == 'string' {
+
+					@if length($value) == 1 {
+						content: '#{unquote($value)}';
+
+					} @else {
+						background-image: url($value);
+					}
+
+				} @else if type-of(nth($value, 1)) == 'number' {
+					background-position: $value;
+				}
+			}
+		}
+	}
 }
