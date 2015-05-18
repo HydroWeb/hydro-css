@@ -10,7 +10,7 @@
 @import 'settings';
 @import 'functions';
 
-@import 'utilities/framework';
+@import 'utilities/selectors';
 @import 'utilities/media';
 @import 'utilities/clearfix';
 @import 'utilities/size';
@@ -30,3 +30,7 @@
 @import 'structures/alignbox';
 @import 'structures/ratiobox';
 @import 'structures/container';
+
+@import 'components/icon';
+@import 'components/button';
+@import 'components/field';

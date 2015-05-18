@@ -94,3 +94,81 @@
 		@content;
 	}
 }
+
+/// Shorthand for selecting a prefix value of an attribute. Typically used to select class prefixes. It is important to
+/// note that the prefix itself will be targeted.
+/// @param {String | List} $attribute - The attribute to select the prefix on. If a list is provided, the first item in
+///   the list is treated as the selector prefix, while the second is then assigned as the attribute.
+/// @param {String} $prefix - The prefix to select.
+/// @param {Boolean} $multivalue [true] - If the attribute can contain multiple space-separated values, such as the
+///   class attribute. As an example, this setting can be disabled when selecting on the ID attribute, as that can only
+///   contain one value.
+/// @param {String} $selector [null] - The prefix to the selector. This is so you can change how it's targeted, such as
+///   a child (>), sibling (+) or anything else. This setting overrides the attribute parameter, if that parameter is
+///   passed as a list.
+/// @content Styles for the prefix selector
+/// @output The prefix selector and the passed styles
+@mixin hf-prefix($attribute, $prefix, $multivalue: true, $selector: null) {
+
+	@if length($attribute) > 1 {
+		$selector: if($selector == null, nth($attribute, 1), $selector);
+		$attribute: nth($attribute, 2);
+	}
+
+	$selector: unquote(if($selector == null, '', $selector));
+	$attribute: unquote($attribute);
+	$prefix: unquote($prefix);
+
+	@if $multivalue {
+
+		#{$selector}[#{$attribute}^='#{$prefix}'],
+		#{$selector}[#{$attribute}*=' #{$prefix}'] {
+			@content;
+		}
+
+	} @else {
+
+		#{$selector}[#{$attribute}^='#{$prefix}'] {
+			@content;
+		}
+	}
+}
+
+/// Shorthand for selecting a suffix value of an attribute. Typically used to select class suffixes. It is important to
+/// note that the suffix itself will be targeted.
+/// @param {String | List} $attribute - The attribute to select the suffix on. If a list is provided, the first item in
+///   the list is treated as the selector prefix, while the second is then assigned as the attribute.
+/// @param {String} $suffix - The suffix to select.
+/// @param {Boolean} $multivalue [true] - If the attribute can contain multiple space-separated values, such as the
+///   class attribute. As an example, this setting can be disabled when selecting on the ID attribute, as that can only
+///   contain one value.
+/// @param {String} $selector [null] - The prefix to the selector. This is so you can change how it's targeted, such as
+///   a child (>), sibling (+) or anything else. This setting overrides the attribute parameter, if that parameter is
+///   passed as a list.
+/// @content Styles for the suffix selector
+/// @output The suffix selector and the passed styles
+@mixin hf-suffix($attribute, $suffix, $multivalue: true, $selector: null) {
+
+	@if length($attribute) > 1 {
+		$selector: if($selector == null, nth($attribute, 1), $selector);
+		$attribute: nth($attribute, 2);
+	}
+
+	$selector: unquote(if($selector == null, '', $selector));
+	$attribute: unquote($attribute);
+	$suffix: unquote($suffix);
+
+	@if $multivalue {
+
+		#{$selector}[#{$attribute}$='#{$suffix}'],
+		#{$selector}[#{$attribute}*='#{$suffix} '] {
+			@content;
+		}
+
+	} @else {
+
+		#{$selector}[#{$attribute}$='#{$suffix}'] {
+			@content;
+		}
+	}
+}
