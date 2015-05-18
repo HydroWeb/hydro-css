@@ -1,0 +1,27 @@
+.button {
+	@include hf-button(
+		$font-size: 20px,
+		$padding: 12px 20px,
+		$border-width: 1px
+	);
+
+	color: black;
+	background-color: white;
+	border-color: black;
+	border-radius: 999px;
+
+	&:hover,
+	&:active {
+		outline: 0;
+	}
+
+	&:hover,
+	&:focus {
+		background-color: lightgrey;
+	}
+
+	&:active {
+		color: white;
+		background-color: black;
+	}
+}
