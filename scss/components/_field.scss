@@ -1,13 +1,30 @@
+////
+/// Field
+/// @group components
+/// @author Benjamin Fleming
+////
+
+
+// Mixins
+// ------
+
+/// A mixin for styling input, select and textarea elements
+/// @require {mixin} hf-textbox
+/// @param {Number} $font-size [1em]
+/// @param {Number | List} $padding [0]
+/// @param {Number | List} $border-width [0]
+/// @param {Number} $line-height [1]
+/// @output
 @mixin hf-field(
 	$font-size: 1em,
 	$padding: 0,
 	$border-width: 0,
-	$line-height: 1,
-	$placeholder: false,
-	$placeholder-font-size: 1em,
-	$placeholder-line-height: 1
+	$line-height: 1
 ) {
 	@extend %hf-field !optional;
+
+	display: block;
+	width: 100%;
 
 	$input: selector-unify(&, input);
 	$textarea: selector-unify(&, textarea);
@@ -39,30 +56,6 @@
 				$line-height,
 				true
 			);
-		}
-	}
-
-	// TODO does placeholder need a line height setting? See if they go multiline on textarea's
-	@if $placeholder {
-
-		&::-webkit-input-placeholder {
-			font-size: $placeholder-font-size;
-			line-height: $placeholder-line-height;
-		}
-
-		&::-moz-placeholder {
-			font-size: $placeholder-font-size;
-			line-height: $placeholder-line-height;
-		}
-
-		&:-ms-input-placeholder {
-			font-size: $placeholder-font-size;
-			line-height: $placeholder-line-height;
-		}
-
-		&::placeholder {
-			font-size: $placeholder-font-size;
-			line-height: $placeholder-line-height;
 		}
 	}
 }
