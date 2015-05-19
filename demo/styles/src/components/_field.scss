@@ -3,10 +3,7 @@
 		$font-size: 20px,
 		$padding: 12px 20px,
 		$border-width: 1px,
-		$line-height: 1.5,
-		$placeholder: true,
-		$placeholder-font-size: 14px,
-		$placeholder-line-height: 1.1
+		$line-height: 1.5
 	);
 
 	color: black;
@@ -14,8 +11,6 @@
 	border-color: black;
 
 	&::placeholder {
-		text-transform: uppercase;
 		color: grey;
-		font-weight: bold;
 	}
 }

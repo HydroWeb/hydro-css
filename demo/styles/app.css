@@ -26,6 +26,11 @@ img.\+responsive, img.\+fill {
   width: 100% !important;
 }
 
+.\+inline {
+  display: inline-block !important;
+  width: auto !important;
+}
+
 .\+sm {
   font-size: 0.5em !important;
 }
@@ -1879,7 +1884,6 @@ ol.grid > li {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-appearance: none;
   -webkit-user-drag: none;
   color: black;
   background-color: white;
@@ -1898,6 +1902,8 @@ ol.grid > li {
 }
 
 .field {
+  display: block;
+  width: 100%;
   color: black;
   background-color: white;
   border-color: black;
@@ -1926,38 +1932,14 @@ textarea.field {
   line-height: 1.5;
 }
 .field::-webkit-input-placeholder {
-  font-size: 14px;
-  line-height: 1.1;
+  color: grey;
 }
 .field::-moz-placeholder {
-  font-size: 14px;
-  line-height: 1.1;
+  color: grey;
 }
 .field:-ms-input-placeholder {
-  font-size: 14px;
-  line-height: 1.1;
+  color: grey;
 }
 .field::placeholder {
-  font-size: 14px;
-  line-height: 1.1;
-}
-.field::-webkit-input-placeholder {
-  text-transform: uppercase;
   color: grey;
-  font-weight: bold;
-}
-.field::-moz-placeholder {
-  text-transform: uppercase;
-  color: grey;
-  font-weight: bold;
-}
-.field:-ms-input-placeholder {
-  text-transform: uppercase;
-  color: grey;
-  font-weight: bold;
-}
-.field::placeholder {
-  text-transform: uppercase;
-  color: grey;
-  font-weight: bold;
 }
