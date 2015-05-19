@@ -1,3 +1,21 @@
+////
+/// Button
+/// @group components
+/// @author Benjamin Fleming
+////
+
+
+// Mixins
+// ------
+
+/// A mixin for styling buttons
+/// @require {mixin} hf-textbox
+/// @param {Number} $font-size [1em]
+/// @param {Number | List} $padding [0]
+/// @param {Number | List} $border-width [0]
+/// @param {Number} $line-height [1]
+/// @param {Boolean} $multiline [false]
+/// @output
 @mixin hf-button(
 	$font-size: 1em,
 	$padding: 0,
@@ -20,7 +38,5 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	// Reset appearance for webkit as it's set to button in normalize
-	-webkit-appearance: none;
 	-webkit-user-drag: none;
 }
