@@ -36,6 +36,11 @@ $hf-generate-size: $hf-generate !default;
 		width: 100% !important;
 	}
 
+	@include hf-utility('inline') {
+		display: inline-block !important;
+		width: auto !important;
+	}
+
 	@each $size-name, $size-value in $hf-sizes {
 
 		@include hf-utility($size-name) {
