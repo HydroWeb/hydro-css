@@ -1,16 +1,63 @@
+////
+/// Icon
+/// @group components
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (icon) are generated.
+/// @type Boolean
 $hf-generate-icon: $hf-generate !default;
+
+/// The icon module selector
+/// @type String
+$hf-icon-selector: hf-module('icon') !default;
+
+/// The name of the icon font, if applicable
+/// @type String | Boolean
 $hf-icon-font: false !default;
+
+/// The path to the icon sprite sheet, if applicable
+/// @type String | Boolean
 $hf-icon-sprite: false !default;
-$hf-icon-prefix: 'icon-' !default;
+
+/// The default size of the icon
+/// @type Number
 $hf-icon-size: $hf-font-size !default;
+
+/// Map of icons name and value.
+/// If the value is a string of length one, that is treated as a font character.
+/// If the value is a string of more than length one, that is treated as a image file.
+/// If the value is a number or list of numbers, that is treated as a sprite image position.
+/// @type Map
 $hf-icons: () !default;
 
 
-@function hf-icon($name) {
-	@return map-get($hf-icons, $name);
-}
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-icon, 'bool');
+@include hf-assert($hf-icon-selector, 'string');
+@include hf-assert($hf-icon-font, 'bool' 'string');
+@include hf-assert($hf-icon-sprite, 'bool' 'string');
+@include hf-assert($hf-icon-size, 'number');
+@include hf-assert($hf-icons, 'map', 'list' 'string', 'number');
 
 
+// Mixins
+// ------
+
+/// Turns an element into an icon module
+/// @require {variable} hf-icon-size
+/// @require {variable} hf-icon-font
+/// @require {variable} hf-icon-sprite
+/// @param {Number} $size [$hf-icon-size]
+/// @param {String | Boolean} $font [$hf-icon-font]
+/// @param {String | Boolean} $sprite [$hf-icon-sprite]
+/// @output
 @mixin hf-icon(
 	$size: $hf-icon-size,
 	$font: $hf-icon-font,
@@ -30,7 +77,7 @@ $hf-icons: () !default;
 	@if $font != false {
 
 		@if type-of($font) == 'string' {
-			font-family: '#{$font}', sans-serif;
+			font-family: '#{$font}';
 		}
 
 		font-weight: normal;
@@ -55,101 +102,53 @@ $hf-icons: () !default;
 	}
 }
 
+/// Adds a specific icon type to an icon module
+/// @param {List | String | Number} $value
+/// @output
+@mixin hf-icon-type($value, $pseudo: 'before') {
 
-@mixin hf-iconbox-position(
-	$position: 'left',
-	$size: $hf-icon-size,
-	$font-size: 1em,
-	$side-gap: 0,
-	$text-gap: 0,
-	$selector: '&:before'
-) {
-	$position: unquote($position);
-	$loop: index(top right bottom left, $position);
-	$side: hf-nth-loop($side-gap, $loop);
-	$text: hf-nth-loop($text-gap, $loop);
-	$values: $side, $text, $size;
+	@if type-of($value) == 'string' {
 
-	position: relative;
-	padding-#{$position}: hf-sum( (unit($side): $font-size), $values);
-	padding-#{$position}: hf-sum($values);
+		@if length($value) == 1 {
 
-	#{$selector} {
-		$side-unit: unit($side);
-		$side-type: hf-unit-type($side-unit);
-		$center-position: if($position == left or $position == right, top, left);
+			@if $pseudo == false {
+				content: '#{unquote($value)}';
 
-		position: absolute;
-		#{$center-position}: 50%;
-		#{$position}: if($side-type == 'relative',
-			($side / hf-convert($font-size, $side-unit)) + unquote($side-unit)
-			$side
-		);
-		margin-#{$center-position}: -0.5em;
-	}
-}
+			} @else if $pseudo == 'before' or $pseudo == 'after' {
 
+				&:#{unquote($pseudo)} {
+					content: '#{unquote($value)}';
+				}
 
-@mixin hf-iconbox(
-	$font-size: 1em,
-	$padding: 0,
-	$border-width: 0,
-	$line-height: 1,
-	$multiline: false,
-	$icon-size: $hf-icon-size,
-	$icon-side-gap: $padding,
-	$icon-text-gap: $padding,
-	$icon-positions: top right bottom left,
-	$icon-selector: '&:before',
-	$include-textbox: true
-) {
-	@if $include-textbox {
+			} @else {
+				@error 'Pseudo selector #{$pseudo} is neither "before", "after" or false';
+			}
 
-		@include hf-textbox(
-			$font-size,
-			$padding,
-			$border-width,
-			$line-height,
-			$multiline
-		);
-	}
-
-	@each $icon-position in $icon-positions {
-
-		@include hf-parameter('icon-' + $icon-position) {
-
+		} @else {
+			background-image: url($value);
 		}
+
+	} @else if type-of(nth($value, 1)) == 'number' {
+		background-position: $value;
 	}
 }
 
+
+// Styles
+// ------
 
 @if $hf-generate-icon {
 
-	@include hf-prefix('class', hf-name('module', $hf-icon-prefix, false)) {
+	#{$hf-icon-selector} {
+		@include hf-icon;
 
-		&:before {
-			@include hf-icon;
-		}
-	}
+		display: inline-block;
+		vertical-align: top;
 
-	@each $name, $value in $hf-icons {
+		@each $name, $value in $hf-icons {
 
-		@include hf-module($hf-icon-prefix + $name) {
-
-			&:before {
-
-				@if type-of($value) == 'string' {
-
-					@if length($value) == 1 {
-						content: '#{unquote($value)}';
-
-					} @else {
-						background-image: url($value);
-					}
-
-				} @else if type-of(nth($value, 1)) == 'number' {
-					background-position: $value;
-				}
+			@include hf-parameter($name) {
+				@include hf-icon-type($value);
 			}
 		}
 	}
