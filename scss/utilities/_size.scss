@@ -33,6 +33,7 @@ $hf-generate-size: $hf-generate !default;
 	}
 
 	@include hf-utility('fill') {
+		display: block !important;
 		width: 100% !important;
 	}
 
