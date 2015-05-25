@@ -1,36 +1,9 @@
 /*! HydroCSS 0.0.1 | MIT License | hydroframework.io */
-
 ////
-/// HydroCSS Framework
+/// Framework
 /// @group global
 /// @author Benjamin Fleming
 ////
 
-@import 'testing';
-@import 'settings';
-@import 'functions';
-
-@import 'utilities/selectors';
-@import 'utilities/media';
-@import 'utilities/clearfix';
-@import 'utilities/size';
-@import 'utilities/gutters';
-@import 'utilities/text';
-@import 'utilities/visibility';
-@import 'utilities/flexbox';
-
-@import 'libraries/normalize';
-
-@import 'base';
-
-@import 'structures/structure';
-@import 'structures/bar';
-@import 'structures/columns';
-@import 'structures/grid';
-@import 'structures/alignbox';
-@import 'structures/ratiobox';
-@import 'structures/container';
-
-@import 'components/icon';
-@import 'components/button';
-@import 'components/field';
+@import 'core';
+@import 'theme';

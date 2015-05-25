@@ -1,0 +1,34 @@
+////
+/// Framework core
+/// @group global
+/// @author Benjamin Fleming
+////
+
+@import 'core/testing';
+@import 'core/settings';
+@import 'core/functions';
+
+@import 'core/utilities/selectors';
+@import 'core/utilities/media';
+@import 'core/utilities/clearfix';
+@import 'core/utilities/size';
+@import 'core/utilities/gutters';
+@import 'core/utilities/text';
+@import 'core/utilities/visibility';
+@import 'core/utilities/flexbox';
+
+@import 'core/libraries/normalize';
+
+@import 'core/base';
+
+@import 'core/structures/structure';
+@import 'core/structures/bar';
+@import 'core/structures/columns';
+@import 'core/structures/grid';
+@import 'core/structures/alignbox';
+@import 'core/structures/ratiobox';
+@import 'core/structures/container';
+
+@import 'core/components/icon';
+@import 'core/components/button';
+@import 'core/components/field';
