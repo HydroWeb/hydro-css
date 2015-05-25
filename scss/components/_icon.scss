@@ -33,7 +33,7 @@ $hf-icon-size: $hf-font-size !default;
 /// If the value is a string of more than length one, that is treated as a image file.
 /// If the value is a number or list of numbers, that is treated as a sprite image position.
 /// @type Map
-$hf-icons: () !default;
+$hf-icons: false !default;
 
 
 // Asserts
@@ -44,7 +44,7 @@ $hf-icons: () !default;
 @include hf-assert($hf-icon-font, 'bool' 'string');
 @include hf-assert($hf-icon-sprite, 'bool' 'string');
 @include hf-assert($hf-icon-size, 'number');
-@include hf-assert($hf-icons, 'map', 'list' 'string', 'number');
+@include hf-assert($hf-icons, 'bool' 'map', 'list' 'string', 'number');
 
 
 // Mixins
