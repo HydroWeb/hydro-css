@@ -51,5 +51,5 @@ $hf-fonts: (
 // Asserts
 // -------
 
-@include hf-assert($hf-colors, 'map', 'color');
+@include hf-assert($hf-colors, 'map', 'color' 'number' 'string');
 @include hf-assert($hf-fonts, 'map', 'map', 'map' 'string', 'string' 'number');
