@@ -26,6 +26,12 @@
 	display: block;
 	width: 100%;
 
+	// Selector manipulation functions are only available in the Ruby implementation of Sass version >= 3.4
+	// Since this framework intends to support libsass version >= 3.2, a workaround has been discovered and utilised
+	// for this particular use-case.
+	// Old code is kept below for future use (when libsass supports selector functions).
+	/*
+
 	$input: selector-unify(&, (input, select));
 	$textarea: selector-unify(&, textarea);
 
@@ -58,4 +64,40 @@
 			);
 		}
 	}
+
+	*/
+
+	// Workaround uses a temporary placeholder selector that is injected into the document root then extended.
+	// Since selector extensions use many of these selector manipulation functions under the hood, we can take
+	// advantage of the extend directive to emulate them.
+	// Since this mixin can potentially be used more than once, the placeholder selector needs to be unique for each
+	// use.
+
+	$id: unique-id();
+
+	@at-root input%#{$id}, select%#{$id} {
+
+		@include hf-textbox(
+			$font-size,
+			$padding,
+			$border-width,
+			$line-height,
+			false
+		);
+
+		line-height: normal;
+	}
+
+	@at-root textarea%#{$id} {
+
+		@include hf-textbox(
+			$font-size,
+			$padding,
+			$border-width,
+			$line-height,
+			true
+		);
+	}
+
+	@extend %#{$id};
 }
