@@ -18,9 +18,9 @@ module.exports = function(grunt)
 
 			test: {
 				options: {
-					style: 'expanded',
-					sourcemap: 'none',
-					loadPath: [
+					outputStyle: 'expanded', // "style: 'expanded'" in Ruby Sass
+					sourceMap: false, // "sourcemap: 'none'" in Ruby Sass
+					includePaths: [ // "loadPath: [...]" in Ruby Sass
 						'./node_modules/bootcamp/dist',
 						'./scss'
 					]
@@ -32,9 +32,9 @@ module.exports = function(grunt)
 
 			demo: {
 				options: {
-					style: 'expanded',
-					sourcemap: 'none',
-					loadPath: ['./scss']
+					outputStyle: 'expanded', // "style: 'expanded'" in Ruby Sass
+					sourceMap: false, // "sourcemap: 'none'" in Ruby Sass
+					includePaths: ['./scss'] // "loadPath: [...]" in Ruby Sass
 				},
 				files: {
 					'./demo/styles/app.css' : './demo/styles/src/app.scss'
@@ -64,7 +64,7 @@ module.exports = function(grunt)
 	});
 
 	grunt.loadNpmTasks('grunt-scss-lint');
-	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-sass'); // "grunt-contrib-sass" for Ruby Sass
 	grunt.loadNpmTasks('bootcamp');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 

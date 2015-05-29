@@ -29,43 +29,43 @@
 	// Selector manipulation functions are only available in the Ruby implementation of Sass version >= 3.4
 	// Since this framework intends to support libsass version >= 3.2, a workaround has been discovered and utilised
 	// for this particular use-case.
-	// Old code is kept below for future use (when libsass supports selector functions).
-	/*
 
-	$input: selector-unify(&, (input, select));
-	$textarea: selector-unify(&, textarea);
+	// Old code is kept below for future use (when libsass supports selector functions). An option would be to check
+	// for the existence of the unify function using the function-exists method. Unfortunately the contents of the
+	// directive is always checked for errors, and it will throw an "invalid selector after &" error no matter what.
 
-	@if $input != null {
-
-		@at-root #{$input} {
-
-			@include hf-textbox(
-				$font-size,
-				$padding,
-				$border-width,
-				$line-height,
-				false
-			);
-
-			line-height: normal;
-		}
-	}
-
-	@if $textarea != null {
-
-		@at-root #{$textarea} {
-
-			@include hf-textbox(
-				$font-size,
-				$padding,
-				$border-width,
-				$line-height,
-				true
-			);
-		}
-	}
-
-	*/
+	// $input: selector-unify(&, (input, select));
+	// $textarea: selector-unify(&, textarea);
+	//
+	// @if $input != null {
+	//
+	//     @at-root #{$input} {
+	//
+	//         @include hf-textbox(
+	//             $font-size,
+	//             $padding,
+	//             $border-width,
+	//             $line-height,
+	//             false
+	//         );
+	//
+	//         line-height: normal;
+	//     }
+	// }
+	//
+	// @if $textarea != null {
+	//
+	//     @at-root #{$textarea} {
+	//
+	//         @include hf-textbox(
+	//             $font-size,
+	//             $padding,
+	//             $border-width,
+	//             $line-height,
+	//             true
+	//         );
+	//     }
+	// }
 
 	// Workaround uses a temporary placeholder selector that is injected into the document root then extended.
 	// Since selector extensions use many of these selector manipulation functions under the hood, we can take
