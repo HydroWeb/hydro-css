@@ -1,0 +1,17 @@
+{
+	"name": "hydro-css",
+	"version": "0.0.1",
+	"main": "scss/_hydro.scss",
+	"ignore": [
+		"demo",
+		"docs",
+		"spec",
+		".gitignore",
+		".scss-lint.yml",
+		".travis.yml",
+		"CONTRIBUTING.md",
+		"Gruntfile.js",
+		"package.json",
+		"scss-lint-reporter.xml"
+	]
+}
