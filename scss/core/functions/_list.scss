@@ -8,14 +8,44 @@
 // Public
 // ------
 
-/// Returns the value at an index on a list or map. If the index is outside the bounds of the list or map it is 'looped'
-/// around. Essentially the list or map is treated like a circular buffer.
+/// Returns the value from a shorthand CSS list associated with the key.
 /// @param {List | Map} $list
-/// @param {Number} $index
+/// @param {String} $key - Valid keys: top, topleft, right, topright, bottom, bottomright, left, bottomleft
 /// @return {*}
-@function hf-nth-loop($list, $index) {
-	// Ruby's implementation of modulo does not result in negatives, so there's no need to check for negative values.
-	@return nth($list, ($index - 1) % length($list) + 1);
+@function hf-shorthand($list, $key) {
+	$length: length($list);
+	$index: 1;
+
+	@if $length == 0 {
+		@error 'Cannot return #{inspect($key)} item from an empty list';
+	}
+
+	@if $key == right or $key == topright {
+
+		@if $length >= 2 {
+			$index: 2;
+		}
+
+	} @else if $key == bottom or $key == bottomright {
+
+		@if $length >= 3 {
+			$index: 3;
+		}
+
+	} @else if $key == left or $key == bottomleft {
+
+		@if $length >= 2 {
+			$index: 2;
+
+		} @else if $length >= 4 {
+			$index: 4;
+		}
+
+	} @else if $key != top and $key != topleft {
+		@error '#{inspect($key)} is neither top/topleft, right/topright, bottom/bottomright or left/bottomleft';
+	}
+
+	@return nth($list, $index);
 }
 
 /// Flatten a multi-dimensional list into a single dimension list.
@@ -140,36 +170,36 @@
 // ------------
 
 /// Returns the "top" value of a list. Useful to extract individual side values from CSS short-hand lists like paddings.
-/// @require {function} hf-nth-loop
+/// @require {function} hf-shorthand
 /// @param {List | Map} $list
 /// @return {*}
 @function top($list) {
-	@return hf-nth-loop($list, 1);
+	@return hf-shorthand($list, top);
 }
 
 /// Returns the "right" value of a list. Useful to extract individual side values from CSS short-hand lists like
 /// paddings.
-/// @require {function} hf-nth-loop
+/// @require {function} hf-shorthand
 /// @param {List | Map} $list
 /// @return {*}
 @function right($list) {
-	@return hf-nth-loop($list, 2);
+	@return hf-shorthand($list, right);
 }
 
 /// Returns the "bottom" value of a list. Useful to extract individual side values from CSS short-hand lists like
 /// paddings.
-/// @require {function} hf-nth-loop
+/// @require {function} hf-shorthand
 /// @param {List | Map} $list
 /// @return {*}
 @function bottom($list) {
-	@return hf-nth-loop($list, 3);
+	@return hf-shorthand($list, bottom);
 }
 
 /// Returns the "left" value of a list. Useful to extract individual side values from CSS short-hand lists like
 /// paddings.
-/// @require {function} hf-nth-loop
+/// @require {function} hf-shorthand
 /// @param {List | Map} $list
 /// @return {*}
 @function left($list) {
-	@return hf-nth-loop($list, 4);
+	@return hf-shorthand($list, left);
 }

@@ -47,10 +47,10 @@ $hf-generate-text: $hf-generate !default;
 	@if $line-height != 1 and $line-height != 1em and $line-height != 100% {
 		$lh: $line-height * if(unitless($line-height), 1em, 1);
 
-		$p-top:    hf-nth-loop($padding, 1);
-		$p-right:  hf-nth-loop($padding, 2);
-		$p-bottom: hf-nth-loop($padding, 3);
-		$p-left:   hf-nth-loop($padding, 4);
+		$p-top:    hf-shorthand($padding, top);
+		$p-right:  hf-shorthand($padding, right);
+		$p-bottom: hf-shorthand($padding, bottom);
+		$p-left:   hf-shorthand($padding, left);
 		$lh-bleed: ($font-size / 2), ($lh / -2);
 
 		// Add a fallback for browsers that don't support CSS3 calc()
@@ -80,10 +80,10 @@ $hf-generate-text: $hf-generate !default;
 	//
 
 	@if not $multiline {
-		$p-top: hf-nth-loop($padding, 1);
-		$p-bottom: hf-nth-loop($padding, 3);
-		$bw-top: hf-nth-loop($border-width, 1);
-		$bw-bottom: hf-nth-loop($border-width, 3);
+		$p-top: hf-shorthand($padding, top);
+		$p-bottom: hf-shorthand($padding, bottom);
+		$bw-top: hf-shorthand($border-width, top);
+		$bw-bottom: hf-shorthand($border-width, bottom);
 
 		$height-values: (
 			$p-top, $p-bottom,
