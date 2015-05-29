@@ -26,7 +26,7 @@ $hf-generate-gutters: $hf-generate !default;
 
 	@each $property in 'margin', 'padding' {
 
-		@each $gutter-name, $gutter-value in join($hf-gutters, ('none': 0)) {
+		@each $gutter-name, $gutter-value in map-merge($hf-gutters, ('none': 0)) {
 
 			@include hf-utility('t-' + $property + '-' + $gutter-name) { #{$property}-top: $gutter-value !important; }
 			@include hf-utility('b-' + $property + '-' + $gutter-name) { #{$property}-bottom: $gutter-value !important; }
