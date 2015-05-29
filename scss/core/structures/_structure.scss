@@ -5,29 +5,127 @@
 ////
 
 
-// Styles
+// Settings
+// --------
+
+/// Whether the horizontal gap is applied using borders (border) or paddings (padding).
+/// @type String
+$hf-structure-h-gap-property: border !default;
+
+/// The selector for the structure child element.
+/// @type String
+$hf-structure-child-selector: '*' !default;
+
+
+// Mixins
 // ------
 
-%hf-structure {
+/// Turns an element into a structural module.
+/// @param {String} $h-align [left] - Either left, right, center or justify
+/// @param {String} $v-align [left] - Either top, bottom, center or fill
+/// @param {Number} $h-gap [0] - The horizontal spacing between children
+/// @param {Number} $v-gap [0] - The vertical spacing between children
+/// @param {Boolean} $h-outer-gap [false] - Whether to add an outside horizontal gap to the children. Uses the value set
+///   in $h-gap.
+/// @param {Boolean} $v-outer-gap [false] - Whether to add an outside vertical gap to the children. Uses the value set
+///   in $v-gap.
+/// @param {Boolean} $reversed [false] - Whether to reverse the order of the children.
+/// @param {String} $h-gap-property [$hf-structure-h-gap-property] - Whether the horizontal gap is applied using borders
+///   (border) or paddings (padding).
+/// @param {String} $child-selector [$hf-structure-child-selector] - The selector for the structure child element.
+/// @output Styles for a structural module. Will output up to two more selectors - one for the child elements, and
+///   one for the after pseudo element if the horizontal gap is set to justify.
+@mixin hf-structure(
+	$h-align: left,
+	$v-align: top,
+	$h-gap: 0,
+	$v-gap: 0,
+	$h-outer-gap: false,
+	$v-outer-gap: false,
+	$reversed: false,
+	$h-gap-property: $hf-structure-h-gap-property,
+	$child-selector: $hf-structure-child-selector
+) {
+	$h-gap-half: ($h-gap / 2);
+	$v-gap-half: ($v-gap / 2);
+
 	@include hf-display-flex;
 	@include hf-flex-flow(row wrap);
-	@include hf-justify-content(flex-start);
-	@include hf-align-items(flex-start);
+	@include hf-justify-content(map-get((
+		left: if($reversed, flex-end, flex-start),
+		right: if($reversed, flex-start, flex-end),
+		center: center,
+		justify: space-between
+	), $h-align));
+	@include hf-align-items(map-get((
+		top: flex-start,
+		bottom: flex-end,
+		center: center,
+		fill: stretch
+	), $v-align));
 
 	pointer-events: none; // Negative margins mouse event fix
+	direction: if($reversed, rtl, ltr);
 	word-spacing: -1em; // Remove spacing between items
-	text-align: left;
+	margin: if($v-outer-gap, 0, -$v-gap) if($h-outer-gap, 0, -$h-gap-half) 0;
+	padding: 0 if($h-outer-gap, $h-gap-half, 0) if($v-outer-gap, $v-gap, 0);
+	text-align: map-get((
+		left: if($reversed, right, left),
+		right: if($reversed, left, right),
+		center: center,
+		justify: justify
+	), $h-align );
 
-	> * {
+	> #{$child-selector} {
 		pointer-events: auto; // Negative margins mouse event fix
 		display: inline-block;
-		vertical-align: top;
+		direction: if($reversed, ltr, rtl);
+		vertical-align: map-get((
+			top: top,
+			bottom: bottom,
+			center: middle,
+			fill: top
+		), $v-align );
 		width: auto;
 		min-height: 1px; // Fix for empty blocks
 		word-spacing: normal;
 		text-align: left;
-		background-clip: padding-box; // Borders are used for gaps, so clip backgrounds at paddings
+		list-style: none;
+
+		@if $h-gap-half > 0 {
+
+			@if $h-gap-property == border {
+				border-left: $h-gap-half solid transparent;
+				border-right: $h-gap-half solid transparent;
+				background-clip: padding-box; // Borders are used for gaps, so clip backgrounds at paddings
+
+			} @else if $h-gap-property == padding {
+				padding: 0 $h-gap-half;
+			}
+		}
+
+		@if $v-gap > 0 {
+			margin-top: $v-gap;
+		}
 	}
+
+	@if $h-align == justify {
+
+		&:after {
+			content: '';
+			display: inline-block;
+			width: 100%;
+			height: 0;
+		}
+	}
+}
+
+
+// Styles
+// ------
+
+%hf-structure {
+	@include hf-structure;
 
 	//
 	// Reverse
@@ -36,8 +134,8 @@
 	@include hf-parameter('reversed') {
 		@include hf-justify-content(flex-end);
 
-		text-align: right;
 		direction: rtl;
+		text-align: right;
 
 		> * {
 			direction: ltr;
@@ -144,15 +242,5 @@
 				margin-top: $gutter-value;
 			}
 		}
-	}
-}
-
-ul%hf-structure,
-ol%hf-structure {
-	margin: 0;
-	padding: 0;
-
-	> li {
-		list-style: none;
 	}
 }

@@ -142,6 +142,7 @@ linters:
       - overflow-y
 
       # Flow
+      - direction
       - vertical-align
       - float
       - clear
