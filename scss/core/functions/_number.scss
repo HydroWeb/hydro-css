@@ -217,7 +217,7 @@ $hf-number-relative-units: (
 	}
 
 	@if $type != 'number' {
-		@error '#{$value} is not a valid type';
+		@error '#{inspect($value)} is not a valid type';
 	}
 
 	@if $unit == 'decimal' {
@@ -246,7 +246,7 @@ $hf-number-relative-units: (
 			$output: ($normal / $normal-factor) * map-get($hf-number-relative-units, $unit);
 
 		} @else {
-			@error '#{$unit} is not a valid unit';
+			@error '#{inspect($unit)} is not a valid unit';
 		}
 
 	} @elseif -hf-relative-unit($value) {
@@ -268,11 +268,11 @@ $hf-number-relative-units: (
 			$output: $normal * map-get($hf-number-relative-units, $unit);
 
 		} @else {
-			@error '#{$unit} is not a valid unit';
+			@error '#{inspect($unit)} is not a valid unit';
 		}
 
 	} @else {
-		@error '#{$value} does not have a valid unit';
+		@error '#{inspect($value)} does not have a valid unit';
 	}
 
 	@return hf-precision($output);
@@ -311,7 +311,7 @@ $hf-number-relative-units: (
 	@if $format-type == 'map' {
 
 		@if length($format) < 1 {
-			@error '#{$format} is an invalid format';
+			@error '#{inspect($format)} is an invalid format';
 		}
 
 		$format-pair: nth($format, 1);
@@ -319,7 +319,7 @@ $hf-number-relative-units: (
 		$factor: nth($format-pair, 2);
 
 	} @elseif $format-type != 'string' {
-		@error '#{$format} is an invalid format';
+		@error '#{inspect($format)} is an invalid format';
 	}
 
 	//
@@ -331,7 +331,7 @@ $hf-number-relative-units: (
 	@each $item in $values {
 
 		@if type-of($item) != 'number' {
-			@error '#{$item} is not a number';
+			@error '#{inspect($item)} is not a number';
 		}
 
 		$unit: unit($item);

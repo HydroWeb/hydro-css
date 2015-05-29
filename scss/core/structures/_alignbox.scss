@@ -48,11 +48,11 @@ $hf-alignbox-box-selector: hf-module('box') !default;
 	$valid-v-align: (top: flex-start, bottom: flex-end, center: center);
 
 	@if not map-has-key($valid-h-align, $h-align) {
-		@error '#{$h-align} is not a valid horizontal alignment';
+		@error '#{inspect($h-align)} is not a valid horizontal alignment';
 	}
 
 	@if not map-has-key($valid-v-align, $v-align) {
-		@error '#{$h-align} is not a valid vertical alignment';
+		@error '#{inspect($h-align)} is not a valid vertical alignment';
 	}
 
 	@include hf-justify-content( map-get($valid-h-align, $h-align) );

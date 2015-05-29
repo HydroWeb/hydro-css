@@ -50,7 +50,7 @@ $hf-ratiobox-invert: false !default;
 
 	@each $n in $x, $y {
 		@if type-of($n) != 'number' or not unitless($n) or $n <= 0 {
-			@error '#{$n} is not a positive decimal greater than zero';
+			@error '#{inspect($n)} is not a positive decimal greater than zero';
 		}
 	}
 
@@ -88,7 +88,7 @@ $hf-ratiobox-invert: false !default;
 		@each $ratio in $hf-ratiobox-ratios {
 
 			@if type-of($ratio) != 'list' or length($ratio) != 2 {
-				@error '#{$ratio} is not a list of size two';
+				@error '#{inspect($ratio)} is not a list of size two';
 			}
 
 			$x: nth($ratio, 1);
@@ -96,7 +96,7 @@ $hf-ratiobox-invert: false !default;
 
 			@each $n in $x, $y {
 				@if type-of($n) != 'number' or not unitless($n) or $n <= 0 {
-					@error '#{$n} is not a positive decimal greater than zero';
+					@error '#{inspect($n)} is not a positive decimal greater than zero';
 				}
 			}
 

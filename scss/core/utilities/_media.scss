@@ -23,11 +23,11 @@
 	$valid-properties: width device-width height device-height aspect-ratio device-aspect-ratio resolution;
 
 	@if not index($valid-devices, $device) {
-		@warn '#{$device} is not a valid device; media query will never match';
+		@warn '#{inspect($device)} is not a valid device; media query will never match';
 	}
 
 	@if not index($valid-properties, $property) {
-		@warn '#{$property} is not a valid property; media query will never match';
+		@warn '#{inspect($property)} is not a valid property; media query will never match';
 	}
 
 	$query: $device;
@@ -46,7 +46,7 @@
 					$value: map-get($hf-breakpoints, $value);
 					$type: type-of($value);
 				} @else {
-					@error '#{$value} is not a valid value';
+					@error '#{inspect($value)} is not a valid value';
 				}
 			}
 
@@ -56,7 +56,7 @@
 
 				@if $value < $prior {
 					@if $dir == 'min' {
-						@warn 'From value (#{$value}) is negative; media query will never match';
+						@warn 'From value (#{inspect($value)}) is negative; media query will never match';
 					} @else {
 						@warn 'Difference between from and util is negative; media query will never match';
 					}
@@ -73,12 +73,12 @@
 			} @else if $type == 'list' and $is-ratio {
 
 				@if length($value) != 2 {
-					@error '#{$value} is not a valid ratio list';
+					@error '#{inspect($value)} is not a valid ratio list';
 				}
 
 				@each $dim in $value {
 					@if type-of($dim) != 'number' or not unitless($dim) {
-						@error '#{$dim} is not a valid ratio list value';
+						@error '#{inspect($dim)} is not a valid ratio list value';
 					}
 				}
 
@@ -88,7 +88,7 @@
 
 				@if $ratio < $prior {
 					@if $dir == 'min' {
-						@warn 'From value (#{$value}) is negative; media query will never match';
+						@warn 'From value (#{inspect($value)}) is negative; media query will never match';
 					} @else {
 						@warn 'Difference between from and util is negative; media query will never match';
 					}
@@ -98,7 +98,7 @@
 				$prior: $ratio;
 
 			} @else {
-				@error '#{$value} is not a ' + if($is-ratio, 'ratio list', 'number');
+				@error '#{inspect($value)} is not a ' + if($is-ratio, 'ratio list', 'number');
 			}
 
 			$query: $query + ')';
@@ -145,11 +145,11 @@
 @mixin hf-breakpoint($breakpoint, $direction: 'from', $property: width) {
 
 	@if not map-has-key($hf-breakpoints, $breakpoint) {
-		@error '#{$breakpoint} is not a valid breakpoint name';
+		@error '#{inspect($breakpoint)} is not a valid breakpoint name';
 	}
 
 	@if $direction != 'from' and $direction != 'until' {
-		@error '#{$direction} is not a valid direction';
+		@error '#{inspect($direction)} is not a valid direction';
 	}
 
 	$is-from: ($direction == 'from');
@@ -220,10 +220,10 @@
 				$map: map-merge($map, ($break: $properties));
 
 			} @else {
-				@error '#{$break} is not a valid breakpoint name';
+				@error '#{inspect($break)} is not a valid breakpoint name';
 			}
 		} @else if $type != 'number' {
-			@error '#{$break} is not a number or valid breakpoint name';
+			@error '#{inspect($break)} is not a number or valid breakpoint name';
 		}
 	}
 
@@ -242,7 +242,7 @@
 		} @else if $direction == 'until' {
 			$until: $break;
 		} @else {
-			@error '#{$direction} is not a valid direction'
+			@error '#{inspect($direction)} is not a valid direction'
 		}
 
 		@include hf-media($from: $from, $until: $until, $property: $property) {

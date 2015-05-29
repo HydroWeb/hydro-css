@@ -184,7 +184,7 @@
 
 	@if not -hf-test($value, $as) {
 
-		$error: '#{$value} is not';
+		$error: '#{inspect($value)} is not';
 		$lines: -hf-assert-lines($as);
 
 		@if length($lines) == 1 {

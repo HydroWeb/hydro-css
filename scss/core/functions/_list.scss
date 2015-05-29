@@ -33,7 +33,7 @@
 	$separator: if($separator == auto, list-separator($list), $separator);
 
 	@if $separator != 'comma' and $separator != 'space' {
-		@error '#{$separator} is not a valid separator';
+		@error '#{inspect($separator)} is not a valid separator';
 	}
 
 	@each $item in $list {
@@ -64,11 +64,11 @@
 	}
 
 	@if $type != 'list' and $type != 'arglist' {
-		@error '#{$list} is not a list';
+		@error '#{inspect($list)} is not a list';
 	}
 
 	@if $direction != 'asc' and $direction != 'desc' {
-		@error '#{$direction} is not a valid direction';
+		@error '#{inspect($direction)} is not a valid direction';
 	}
 
 	$length: length($list);
@@ -93,7 +93,7 @@
 			$y: nth($list, $j - 1);
 
 			@if not comparable($x, $y) {
-				@error '#{$x} and #{$y} are incomparable values';
+				@error '#{inspect($x)} and #{inspect($y)} are incomparable values';
 			}
 
 			$condition: if($ascending, ($y > $x), ($y < $x));
