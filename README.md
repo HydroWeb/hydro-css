@@ -1,5 +1,4 @@
-# Hydro CSS
-[![Build Status](https://travis-ci.org/HydroWeb/hydro-css.svg?branch=master)](https://travis-ci.org/HydroWeb/hydro-css)
+# Hydro CSS [![Build Status](https://travis-ci.org/HydroWeb/hydro-css.svg?branch=master)](https://travis-ci.org/HydroWeb/hydro-css) [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/HydroWeb/hydro-css)
 
 ### A simple framework for building complex websites.
 Hydro CSS is an extremely light and agnostic framework written in [Sass](https://github.com/sass/sass). It’s aim is to not impose on the developer by providing only a small number of components and settings, while still being comprehensive enough to build even the most complex website.
