@@ -1,10 +1,13 @@
 dest: ./docs
 groups:
-  undefined: 1. Global API
-  global: 1. Global API
-  functions: Functions
-  libraries: Libraries
-  structures: Structures
-  modules: Modules
-  components: Components
-  utilities: Utilities
+  undefined: Core
+  core: Core
+  core-functions: Core → Functions
+  core-libraries: Core → Libraries
+  core-structures: Core → Structures
+  core-components: Core → Components
+  core-utilities: Core → Utilities
+  theme: Theme
+  theme-functions: Theme → Functions
+  theme-modules: Theme → Modules
+  theme-utilities: Theme → Utilities

@@ -2,9 +2,9 @@
   "title": "Hydro CSS",
   "description": "A simple framework for building complex websites.",
   "name": "hydro-css",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha",
   "license": "MIT",
-  "homepage": "hydroframework.io",
+  "homepage": "http://hydroframework.io",
   "scripts": {
     "test": "grunt test"
   },
