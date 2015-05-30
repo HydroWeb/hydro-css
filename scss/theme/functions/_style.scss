@@ -1,57 +1,35 @@
-@function hf-color($value, $alpha: auto) {
-	$type: type-of($value);
+////
+/// Style
+/// @group theme-functions
+/// @author Benjamin Fleming
+////
+
+
+// Public
+// ------
+
+/// Retrieves the color from the color map setting.
+/// @require {variable} hf-colors
+/// @param {String | Color} $name - The name of the color
+/// @param {Number} $alpha - The transparency of the color as a decimal
+/// @return {Color} A CSS color
+@function hf-color($name, $alpha: auto) {
+	$type: type-of($name);
 	$color: false;
 
-	@if $type == 'number' and unit($value) == '%' {
-		$min: 0%;
-		$max: 100%;
-		$min-color: #000;
-		$max-color: #fff;
-		$is-at: false;
+	@if $type == 'string' and map-has-key($hf-colors, $name) {
+		$color: map-get($hf-colors, $name);
 
-		@each $scale, $scale-color in $hf-colors {
-
-			@if type-of($scale) == 'number' and unit($scale) == '%' {
-
-				@if $value > $scale {
-
-					@if $scale > $min {
-						$min: $scale;
-						$min-color: $scale-color;
-					}
-
-				} @else if $value < $scale {
-
-					@if $scale < $max {
-						$max: $scale;
-						$max-color: $scale-color;
-					}
-
-				} @else {
-					$is-at: true;
-					$color: $scale-color;
-				}
-			}
-		}
-
-		@if not $is-at {
-			$weight: (($value - $min) / ($max - $min)) * 100%;
-			$color: mix($max-color, $min-color, $weight);
-		}
-
-	} @else if $type == 'string' and map-has-key($hf-colors, $value) {
-		$color: map-get($hf-colors, $value);
-
-		@if type-of($color) == 'number' and unit($color) == '%' {
+		@if type-of($color) == 'string' {
 			@return hf-color($color, $alpha);
 		}
 
 	} @else if $type == 'color' {
-		$color: $value;
+		$color: $name;
 	}
 
 	@if type-of($color) != 'color' {
-		@error '#{$value} is not a valid color input';
+		@error '#{inspect($name)} is not a valid color input';
 	}
 
 	$alpha: if($alpha == auto, alpha($color), $alpha);

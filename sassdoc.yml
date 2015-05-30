@@ -1,0 +1,10 @@
+dest: ./docs
+groups:
+  undefined: 1. Global API
+  global: 1. Global API
+  functions: Functions
+  libraries: Libraries
+  structures: Structures
+  modules: Modules
+  components: Components
+  utilities: Utilities

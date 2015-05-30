@@ -1,49 +1,55 @@
-// Colours
-// -------
+////
+/// Theme settings
+/// @group theme-global
+/// @author Benjamin Fleming
+////
 
+
+// Public
+// ------
+
+/// The colors to use in your template.
+/// @type Map
 $hf-colors: (
-	  0% : #000,
-	100% : #fff,
+	'white':         #ffffff,
+	'black':         #000000,
 
-	'white'         : #fff,
-	'black'         : #000,
+	'darker':        #111111,
+	'dark':          #333333,
+	'mid':           #777777,
+	'light':         #cccccc,
+	'lighter':       #eeeeee,
 
-	'darker'        :   0%,
-	'dark'          :  25%,
-	'mid'           :  50%,
-	'light'         :  75%,
-	'lighter'       : 100%,
+	'primary-light': #c5cae9,
+	'primary':       #3f51b5,
+	'primary-dark':  #303f9f,
 
-	'primary-light' : #c5cae9,
-	'primary'       : #3f51b5,
-	'primary-dark'  : #303f9f,
+	'accent-light':  #ff80ab,
+	'accent':        #ff4081,
+	'accent-dark':   #f50057,
 
-	'accent-light'  : #ff80ab,
-	'accent'        : #ff4081,
-	'accent-dark'   : #f50057,
-
-	'success'       : #8bc34a,
-	'info'          : #2196f3,
-	'warning'       : #ff9800,
-	'danger'        : #f44336
+	'success':       #8bc34a,
+	'info':          #2196f3,
+	'warning':       #ff9800,
+	'danger':        #f44336
 ) !default;
 
-
-// Text
-// ----
-
+/// The fonts to use in your template
+/// @type Map
 $hf-fonts: (
-	'primary' : (
-		'name'     : 'Helvetica',
-		'fallback' : sans-serif,
-		'weights'  : (
-			'hairline' : 100,
-			'light'    : 300,
-			'regular'  : 400,
-			'semibold' : 600,
-			'bold'     : 700,
-			'black'    : 900
-		)
+	'primary': ('Helvetica', sans-serif)
+) !default;
+
+/// The weights for each font defined in $hf-fonts
+/// @type Map
+$hf-font-weights: (
+	'primary': (
+		'hairline': 100,
+		'light':    300,
+		'regular':  400,
+		'semibold': 600,
+		'bold':     700,
+		'black':    900
 	)
 ) !default;
 
@@ -51,5 +57,6 @@ $hf-fonts: (
 // Asserts
 // -------
 
-@include hf-assert($hf-colors, 'map', 'color' 'number' 'string');
-@include hf-assert($hf-fonts, 'map', 'map', 'map' 'string', 'string' 'number');
+@include hf-assert($hf-colors, 'map', 'color' 'string');
+@include hf-assert($hf-fonts, 'map', 'list' 'string');
+@include hf-assert($hf-font-weights, 'map', 'map', 'string' 'number');

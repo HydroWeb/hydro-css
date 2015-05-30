@@ -8,14 +8,14 @@
 // Private
 // -------
 
-// Slices a list
-// All error checking is removed as being only a helper function for this file appropriate checking is done in context.
-// @author Hugo Giraudel
-// @source http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
-// @param {List} $list
-// @param {Number} $start [1]
-// @param {Number} $length [length($list)]
-// @return {List}
+/// Slices a list
+/// All error checking is removed as being only a helper function for this file appropriate checking is done in context.
+/// @author Hugo Giraudel
+/// @source http://hugogiraudel.com/2013/08/08/advanced-sass-list-functions/
+/// @param {List} $list
+/// @param {Number} $start [1]
+/// @param {Number} $length [length($list)]
+/// @return {List}
 @function -hf-slice($list, $start: 1, $end: length($list)) {
 	$result: ();
 
@@ -26,13 +26,13 @@
 	@return $result;
 }
 
-// Tests if the value's type matches
-// This is a recursive helper method for the actual test function below.
-// @require {function} -hf-test
-// @require {function} -hf-slice
-// @param {*} $value
-// @param {List} $as
-// @return {Boolean}
+/// Tests if the value's type matches
+/// This is a recursive helper method for the actual test function below.
+/// @require {function} -hf-test
+/// @require {function} -hf-slice
+/// @param {*} $value
+/// @param {List} $as
+/// @return {Boolean}
 @function -hf-test($value, $as) {
 	$value-type: type-of($value);
 	$as-length: length($as);
@@ -81,12 +81,12 @@
 	@return false;
 }
 
-// Generates all assertion messages for a given test
-// (I find it pretty funny that this error printing function is twice as large as the actual test function)
-// @require {function} -hf-slice
-// @param {List} $as
-// @param {Boolean} $plural [false]
-// @return {List}
+/// Generates all assertion messages for a given test
+/// (I find it pretty funny that this error printing function is twice as large as the actual test function)
+/// @require {function} -hf-slice
+/// @param {List} $as
+/// @param {Boolean} $plural [false]
+/// @return {List}
 @function -hf-assert-lines($as, $plural: false) {
 	$lines: ();
 	$plural-s: if($plural, 's', '');

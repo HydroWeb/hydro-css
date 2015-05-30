@@ -23,7 +23,7 @@ $hf-generate-text: $hf-generate !default;
 // ------
 
 /// Turns an element into a textbox
-/// @require {function} hf-nth-loop
+/// @require {function} hf-shorthand
 /// @require {function} hf-sum
 /// @param {Number} $font-size [1em]
 /// @param {Number | List} $padding [0]

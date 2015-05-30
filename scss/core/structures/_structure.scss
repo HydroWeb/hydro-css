@@ -17,6 +17,13 @@ $hf-structure-h-gap-property: border !default;
 $hf-structure-child-selector: '*' !default;
 
 
+// Asserts
+// -------
+
+@include hf-assert($hf-structure-h-gap-property, 'string');
+@include hf-assert($hf-structure-child-selector, 'string');
+
+
 // Mixins
 // ------
 
