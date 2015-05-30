@@ -10,11 +10,12 @@
   },
   "dependencies": {
     "grunt": "~0.4.2",
-    "grunt-sass": "~1.0.0",
-    "grunt-autoprefixer": "~3.0.0"
+    "grunt-sass": "~1.0.0"
   },
   "devDependencies": {
+    "grunt-contrib-sass": "~0.8.1",
     "grunt-scss-lint": "~0.3.6",
+    "grunt-autoprefixer": "~3.0.0",
     "sass-true": "~2.0.2"
   }
 }
