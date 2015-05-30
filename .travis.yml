@@ -11,6 +11,7 @@ before_install:
 install: npm install
 
 before_script:
+  - gem install sass -v 3.4.6
   - gem install scss_lint -v 0.38.0
   - grunt lint
   - grunt test

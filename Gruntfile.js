@@ -14,27 +14,27 @@ module.exports = function(grunt)
 			}
 		},
 
-		sass: {
+		libsass: {
 
 			test: {
 				options: {
 					outputStyle: 'expanded', // "style: 'expanded'" in Ruby Sass
 					sourceMap: false, // "sourcemap: 'none'" in Ruby Sass
 					includePaths: [ // "loadPath: [...]" in Ruby Sass
-						'./node_modules/bootcamp/dist',
+						'./node_modules/sass-true/sass',
 						'./scss'
 					]
 				},
 				files: {
-					'./spec/results.css' : './spec/tests.scss'
+					'./spec/results-libsass.css' : './spec/tests.scss'
 				}
 			},
 
 			demo: {
 				options: {
-					outputStyle: 'expanded', // "style: 'expanded'" in Ruby Sass
-					sourceMap: false, // "sourcemap: 'none'" in Ruby Sass
-					includePaths: ['./scss'] // "loadPath: [...]" in Ruby Sass
+					outputStyle: 'expanded',
+					sourceMap: false,
+					includePaths: ['./scss']
 				},
 				files: {
 					'./demo/styles/app.css' : './demo/styles/src/app.scss'
@@ -42,11 +42,19 @@ module.exports = function(grunt)
 			}
 		},
 
-		bootcamp: {
+		rubysass: {
 
 			test: {
+				options: {
+					style: 'expanded',
+					sourcemap: 'none',
+					loadPath: [
+						'./node_modules/sass-true/sass',
+						'./scss'
+					]
+				},
 				files: {
-					src: ['./spec/results.css']
+					'./spec/results-rubysass.css' : './spec/tests.scss'
 				}
 			}
 		},
@@ -64,11 +72,13 @@ module.exports = function(grunt)
 	});
 
 	grunt.loadNpmTasks('grunt-scss-lint');
-	grunt.loadNpmTasks('grunt-sass'); // "grunt-contrib-sass" for Ruby Sass
-	grunt.loadNpmTasks('bootcamp');
+	grunt.loadNpmTasks('grunt-sass');
+	grunt.renameTask('sass', 'libsass');
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.renameTask('sass', 'rubysass');
 	grunt.loadNpmTasks('grunt-autoprefixer');
 
-	grunt.registerTask('test', ['sass:test', 'bootcamp:test']);
+	grunt.registerTask('test', ['libsass:test', 'rubysass:test']);
 	grunt.registerTask('lint', ['scsslint:lint']);
-	grunt.registerTask('demo', ['sass:demo', 'autoprefixer:demo']);
+	grunt.registerTask('demo', ['libsass:demo', 'autoprefixer:demo']);
 };

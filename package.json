@@ -1,6 +1,10 @@
 {
+  "title": "Hydro CSS",
+  "description": "A simple framework for building complex websites.",
   "name": "hydro-css",
   "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "hydroframework.io",
   "scripts": {
     "test": "grunt test"
   },
@@ -10,7 +14,7 @@
     "grunt-autoprefixer": "~3.0.0"
   },
   "devDependencies": {
-    "bootcamp": "~1.1.7",
-    "grunt-scss-lint": "~0.3.6"
+    "grunt-scss-lint": "~0.3.6",
+    "sass-true": "~2.0.2"
   }
 }

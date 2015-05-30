@@ -117,3 +117,5 @@ $RECYCLE.BIN/
 # Files to ignore with generating reports
 scss-lint-reporter.xml
 spec/results.css
+spec/results-libsass.css
+spec/results-rubysass.css
