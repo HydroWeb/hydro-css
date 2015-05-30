@@ -18,9 +18,9 @@ module.exports = function(grunt)
 
 			test: {
 				options: {
-					outputStyle: 'expanded', // "style: 'expanded'" in Ruby Sass
-					sourceMap: false, // "sourcemap: 'none'" in Ruby Sass
-					includePaths: [ // "loadPath: [...]" in Ruby Sass
+					outputStyle: 'expanded',
+					sourceMap: false,
+					includePaths: [
 						'./node_modules/sass-true/sass',
 						'./scss'
 					]
