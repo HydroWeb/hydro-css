@@ -1,0 +1,67 @@
+////
+/// Text Columns
+/// @group theme-modules
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (text-columns) are generated.
+/// @type Boolean
+$hf-generate-text-columns: $hf-generate !default;
+
+/// The text columns module selector
+/// @type String
+$hf-text-columns-selector: hf-module('text-columns') !default;
+
+/// The highest number of columns allowed
+/// @type Number
+$hf-text-columns: 6 !default;
+
+
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-text-columns, 'bool');
+@include hf-assert($hf-text-columns-selector, 'string');
+@include hf-assert($hf-text-columns, 'number');
+
+
+// Styles
+// ------
+
+@if $hf-generate-text-columns {
+
+	#{$hf-text-columns-selector} {
+		// Add a default, non-zero gap for consistency
+		-webkit-column-gap: 1em;
+		-moz-column-gap: 1em;
+		column-gap: 1em;
+
+		@each $breakpoint-name, $breakpoint-value in $hf-breakpoints {
+
+			@include hf-from($breakpoint-value) {
+
+				@for $i from 1 through $hf-text-columns {
+
+					@include hf-parameter($breakpoint-name + '-' + $i) {
+						-webkit-column-count: $i;
+						-moz-column-count: $i;
+						column-count: $i;
+					}
+				}
+			}
+		}
+
+		@each $gap-name, $gap-value in $hf-gutters {
+
+			@include hf-parameter('gap-' + $gap-name) {
+				-webkit-column-gap: $gap-value;
+				-moz-column-gap: $gap-value;
+				column-gap: $gap-value;
+			}
+		}
+	}
+}

@@ -1,0 +1,100 @@
+////
+/// Shape utilities
+/// @group theme-utilities
+/// @author Benjamin Fleming
+////
+
+
+// Mixins
+// ------
+
+/// Converts an element into a triangle using border hacks
+/// @param {String} $direction - Either top/up, topright/upright, right, bottomright/downright, bottom/down,
+///   bottomleft/downleft, left or topleft/upleft
+/// @param {Color} $color - The color of the arrow
+/// @param {Number} $size
+/// @param {Number} $point-size [$size]
+/// @output Border styles
+@mixin triangle($direction, $color, $size, $point-size: $size) {
+	display: block;
+	width: 0;
+	height: 0;
+	border: $size inset transparent; // Use inset to fix firefox anti-aliasing bug
+
+	$diagonal-size: ($size / 2);
+	$diagonal-h-size: ($point-size / 2);
+	$diagonal-v-size: ($size * $size / $point-size / 2);
+
+	@if $direction == top or $direction == up {
+		border-top-width: 0;
+		border-bottom: solid $point-size $color;
+
+	} @else if $direction == bottom or $direction == down {
+		border-bottom-width: 0;
+		border-top: solid $point-size $color;
+
+	} @else if $direction == left {
+		border-left-width: 0;
+		border-right: solid $point-size $color;
+
+	} @else if $direction == right {
+		border-right-width: 0;
+		border-left: solid $point-size $color;
+
+	} @else if $direction == topleft or $direction == upleft {
+		border-width: $diagonal-size;
+		border-top: solid $diagonal-v-size $color;
+		border-left: solid $diagonal-h-size $color;
+
+	} @else if $direction == topright or $direction == upright {
+		border-width: $diagonal-size;
+		border-top: solid $diagonal-v-size $color;
+		border-right: solid $diagonal-h-size $color;
+
+	} @else if $direction == bottomleft or $direction == downleft {
+		border-width: $diagonal-size;
+		border-bottom: solid $diagonal-v-size $color;
+		border-left: solid $diagonal-h-size $color;
+
+	} @else if $direction == bottomright or $direction == downright {
+		border-width: $diagonal-size;
+		border-bottom: solid $diagonal-v-size $color;
+		border-right: solid $diagonal-h-size $color;
+	}
+}
+
+/// Sets the color of a triangle
+/// @param {String} $direction - Either top/up, topright/upright, right, bottomright/downright, bottom/down,
+///   bottomleft/downleft, left or topleft/upleft
+/// @param {Color} $color - The color of the arrow
+@mixin triangle-color($direction, $color) {
+
+	@if $direction == top or $direction == up {
+		border-bottom-color: $color;
+
+	} @else if $direction == bottom or $direction == down {
+		border-top-color: $color;
+
+	} @else if $direction == left {
+		border-right-color: $color;
+
+	} @else if $direction == right {
+		border-left-color: $color;
+
+	} @else if $direction == topleft or $direction == upleft {
+		border-top-color: $color;
+		border-left-color: $color;
+
+	} @else if $direction == topright or $direction == upright {
+		border-top-color: $color;
+		border-right-color: $color;
+
+	} @else if $direction == bottomleft or $direction == downleft {
+		border-bottom-color: $color;
+		border-left-color: $color;
+
+	} @else if $direction == bottomright or $direction == downright {
+		border-bottom-color: $color;
+		border-right-color: $color;
+	}
+}

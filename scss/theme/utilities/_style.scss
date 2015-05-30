@@ -1,0 +1,40 @@
+////
+/// Style utilities
+/// @group theme-utilities
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (style) are generated.
+/// @type Boolean
+$hf-generate-style: $hf-generate !default;
+
+
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-style, 'bool');
+
+
+// Styles
+// ------
+
+@if $hf-generate-style {
+
+	@each $color-name, $color-value in $hf-colors {
+
+		@if type-of($color-name) == 'string' {
+
+			@include hf-utility('color-' + $color-name) {
+				color: hf-color($color-value) !important;
+			}
+
+			@include hf-utility('background-' + $color-name) {
+				background-color: hf-color($color-value) !important;
+			}
+		}
+	}
+}

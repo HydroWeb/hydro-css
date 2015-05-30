@@ -6,3 +6,10 @@
 
 @import 'theme/settings';
 @import 'theme/functions';
+
+@import 'theme/utilities/style';
+@import 'theme/utilities/shape';
+
+@import 'theme/base';
+
+@import 'theme/modules/text-columns';

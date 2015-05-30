@@ -1,0 +1,42 @@
+////
+/// Base styles
+/// @group theme-global
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (base) are generated.
+/// @type Boolean
+$hf-generate-base-theme: $hf-generate-base !default;
+
+
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-base-theme, 'bool');
+
+
+// Styles
+// ------
+
+@if $hf-generate-base-theme {
+
+	html, button, input, select, textarea {
+		/// Fix legibility for custom fonts
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+	body {
+		/// For good measure - sometimes things like negative margins can trigger horizontal scrolling
+		overflow-x: hidden;
+	}
+
+	:focus:hover {
+		/// Remove that annoying outline when you've clicked an element
+		outline: none;
+	}
+}
