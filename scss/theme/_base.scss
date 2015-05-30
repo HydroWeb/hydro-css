@@ -24,10 +24,14 @@ $hf-generate-base-theme: $hf-generate-base !default;
 
 @if $hf-generate-base-theme {
 
-	html, button, input, select, textarea {
+	html,
+	button,
+	input,
+	select,
+	textarea {
 		/// Fix legibility for custom fonts
-		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
 	}
 
 	body {

@@ -30,16 +30,16 @@
 		border-bottom: solid $point-size $color;
 
 	} @else if $direction == bottom or $direction == down {
-		border-bottom-width: 0;
 		border-top: solid $point-size $color;
+		border-bottom-width: 0;
 
 	} @else if $direction == left {
 		border-left-width: 0;
 		border-right: solid $point-size $color;
 
 	} @else if $direction == right {
-		border-right-width: 0;
 		border-left: solid $point-size $color;
+		border-right-width: 0;
 
 	} @else if $direction == topleft or $direction == upleft {
 		border-width: $diagonal-size;
