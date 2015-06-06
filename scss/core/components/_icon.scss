@@ -26,7 +26,7 @@ $hf-icon-sprite: false !default;
 
 /// The default size of the icon
 /// @type Number
-$hf-icon-size: $hf-font-size !default;
+$hf-icon-size: 1em !default;
 
 /// Map of icons name and value.
 /// If the value is a string of length one, that is treated as a font character.
