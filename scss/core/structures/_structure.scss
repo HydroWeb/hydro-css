@@ -86,7 +86,7 @@ $hf-structure-child-selector: '*' !default;
 	> #{$child-selector} {
 		pointer-events: auto; // Negative margins mouse event fix
 		display: inline-block;
-		direction: if($reversed, ltr, rtl);
+		direction: ltr;
 		vertical-align: map-get((
 			top: top,
 			bottom: bottom,
