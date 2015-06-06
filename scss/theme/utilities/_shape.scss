@@ -5,17 +5,26 @@
 ////
 
 
+// Settings
+// --------
+
+/// Controls whether styles in this file (shape) are generated.
+/// @type Boolean
+$hf-generate-shape: $hf-generate !default;
+
+
 // Mixins
 // ------
 
 /// Converts an element into a triangle using border hacks
+/// TODO: Change $size and $point-size to be $width and $height
 /// @param {String} $direction - Either top/up, topright/upright, right, bottomright/downright, bottom/down,
 ///   bottomleft/downleft, left or topleft/upleft
 /// @param {Color} $color - The color of the arrow
 /// @param {Number} $size
 /// @param {Number} $point-size [$size]
 /// @output Border styles
-@mixin triangle($direction, $color, $size, $point-size: $size) {
+@mixin hf-triangle($direction, $color, $size, $point-size: $size) {
 	display: block;
 	width: 0;
 	height: 0;
@@ -67,7 +76,7 @@
 /// @param {String} $direction - Either top/up, topright/upright, right, bottomright/downright, bottom/down,
 ///   bottomleft/downleft, left or topleft/upleft
 /// @param {Color} $color - The color of the arrow
-@mixin triangle-color($direction, $color) {
+@mixin hf-triangle-color($direction, $color) {
 
 	@if $direction == top or $direction == up {
 		border-bottom-color: $color;
@@ -96,5 +105,20 @@
 	} @else if $direction == bottomright or $direction == downright {
 		border-bottom-color: $color;
 		border-right-color: $color;
+	}
+}
+
+
+// Styles
+// ------
+
+@if $hf-generate-shape {
+
+	@include hf-utility('pill') {
+		border-radius: 9999px;
+	}
+
+	@include hf-utility('circle') {
+		border-radius: 50%;
 	}
 }
