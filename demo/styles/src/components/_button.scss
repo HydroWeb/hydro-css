@@ -1,15 +1,16 @@
 .button {
 	@include hf-button(
-		$font-size: 20px,
-		$padding: 12px 20px,
+		$font-size: 14px,
+		$padding: 14px 20px,
 		$border-width: 1px,
 		$multiline: false
 	);
 
-	color: black;
-	background-color: white;
-	border-color: black;
-	border-radius: 999px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: hf-color('primary');
+	background-color: transparent;
+	border-color: hf-color('primary');
 
 	&:hover,
 	&:active {
@@ -18,11 +19,11 @@
 
 	&:hover,
 	&:focus {
-		background-color: lightgrey;
+		background-color: hf-color('primary-light');
 	}
 
 	&:active {
-		color: white;
-		background-color: black;
+		color: hf-color('white');
+		background-color: hf-color('primary');
 	}
 }

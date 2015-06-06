@@ -1,0 +1,42 @@
+$hf-colors: (
+	'white':         #fff,
+	'black':         #000,
+
+	'darker':        #111,
+	'dark':          #333,
+	'mid':           #777,
+	'light':         #ccc,
+	'lighter':       #eee,
+
+	'primary-light': #c5cae9,
+	'primary':       #3f51b5,
+	'primary-dark':  #303f9f,
+
+	'accent-light':  #ff80ab,
+	'accent':        #ff4081,
+	'accent-dark':   #f50057,
+
+	'success':       #8bc34a,
+	'info':          #2196f3,
+	'warning':       #ff9800,
+	'danger':        #f44336
+);
+
+$hf-fonts: (
+	'primary': ('Lato', sans-serif),
+	'accent':  ('Lora', serif)
+);
+
+$hf-font-weights: (
+	'primary': (
+		'thin':       100,
+		'light':      300,
+		'normal':     400,
+		'bold':       700,
+		'ultra-bold': 900
+	),
+	'accent': (
+		'normal':     400,
+		'bold':       700
+	)
+);

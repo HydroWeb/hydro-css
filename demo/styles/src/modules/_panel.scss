@@ -1,0 +1,13 @@
+@include hf-module('panel') {
+	border: 1px solid hf-color('lighter');
+
+	> ._title {
+		margin: 0;
+		padding: hf-gutter('lg');
+		background-color: hf-color('lighter');
+	}
+
+	> ._body {
+		padding: hf-gutter('lg');
+	}
+}

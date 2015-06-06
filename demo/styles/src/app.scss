@@ -1,7 +1,13 @@
 @import 'icons';
 @import 'settings';
 
-@import 'scss/hydro';
+@import 'hydro';
+
+@import 'base';
 
 @import 'components/button';
 @import 'components/field';
+
+@import 'modules/panel';
+
+@debug type-of('white');

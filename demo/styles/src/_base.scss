@@ -1,0 +1,9 @@
+body {
+	padding: hf-gutter('lg');
+	font-family: hf-font('primary');
+}
+
+h1, h2, h3 {
+	font-family: hf-font('accent');
+	font-weight: hf-font-weight('accent', 'normal');
+}
