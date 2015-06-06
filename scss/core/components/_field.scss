@@ -34,12 +34,13 @@
 	// for the existence of the unify function using the function-exists method. Unfortunately the contents of the
 	// directive is always checked for errors, and it will throw an "invalid selector after &" error no matter what.
 
-	// $input: selector-unify(&, (input, select));
+	// $input: selector-unify(&, input);
+	// $input-select: selector-unify(&, (input, select));
 	// $textarea: selector-unify(&, textarea);
 	//
-	// @if $input != null {
+	// @if $input-select != null {
 	//
-	//     @at-root #{$input} {
+	//     @at-root #{$input-select} {
 	//
 	//         @include hf-textbox(
 	//             $font-size,
@@ -48,7 +49,12 @@
 	//             $line-height,
 	//             false
 	//         );
+	//     }
+	// }
 	//
+	// @if $input != null {
+	//
+	//     @at-root #{$input} {
 	//         line-height: normal;
 	//     }
 	// }
@@ -84,7 +90,9 @@
 			$line-height,
 			false
 		);
+	}
 
+	@at-root input%#{$id} {
 		line-height: normal;
 	}
 
