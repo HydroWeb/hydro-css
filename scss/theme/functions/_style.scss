@@ -14,25 +14,30 @@
 /// @param {Number} $alpha - The transparency of the color as a decimal
 /// @return {Color} A CSS color
 @function hf-color($name, $alpha: auto) {
-	$type: type-of($name);
-	$color: false;
 
-	@if $type == 'string' and map-has-key($hf-colors, $name) {
-		$color: map-get($hf-colors, $name);
+	@if map-has-key($hf-colors, $name) {
+		@return hf-color( map-get($hf-colors, $name), $alpha);
 
-		@if type-of($color) == 'string' {
-			@return hf-color($color, $alpha);
-		}
-
-	} @else if $type == 'color' {
-		$color: $name;
-	}
-
-	@if type-of($color) != 'color' {
+	} @else if type-of($name) != 'color' {
 		@error '#{inspect($name)} is not a valid color input';
 	}
 
-	$alpha: if($alpha == auto, alpha($color), $alpha);
+	@return if($alpha == auto, $name, rgba($name, $alpha));
+}
 
-	@return rgba($color, $alpha);
+/// Retrieves the font from the font map setting. Essentially a wrapper for map-get()
+/// @require {variable} hf-fonts
+/// @param {String} $name - The name of the font
+/// @return {String | List} The font or list of fonts and font types
+@function hf-font($name) {
+	@return map-get($hf-fonts, $name);
+}
+
+/// Retrieves the font weight from the weight map setting.
+/// @require {variable} hf-font-weights
+/// @param {String} $name - The name of the font
+/// @param {String} $weight - The name of the font weight
+/// @return {Number | String} The font weight
+@function hf-font-weight($name, $weight) {
+	@return map-get( map-get($hf-font-weights, $name), $weight);
 }
