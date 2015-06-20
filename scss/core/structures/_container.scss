@@ -30,15 +30,13 @@ $hf-container-selector: hf-module('container') !default;
 @if $hf-generate-container {
 
 	#{$hf-container-selector} {
-		$max-width: hf-convert($hf-max-width, em);
-
-		max-width: $max-width;
+		max-width: $hf-max-width;
 		margin: auto;
 
 		@each $division-name, $division-value in $hf-divisions {
 
 			@include hf-parameter('width-' + $division-name) {
-				max-width: hf-convert($division-value, 'decimal') * $max-width;
+				max-width: hf-convert($division-value, 'decimal') * $hf-max-width;
 			}
 		}
 
