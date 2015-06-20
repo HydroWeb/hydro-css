@@ -34,13 +34,13 @@ $hf-generate-gutters: $hf-generate !default;
 			@include hf-utility('r-' + $property + '-' + $gutter-name) { #{$property}-right: $gutter-value !important; }
 
 			@include hf-utility('h-' + $property + '-' + $gutter-name) {
-				#{$property}-top: $gutter-value !important;
-				#{$property}-bottom: $gutter-value !important;
+				#{$property}-left: $gutter-value !important;
+				#{$property}-right: $gutter-value !important;
 			}
 
 			@include hf-utility('v-' + $property + '-' + $gutter-name) {
-				#{$property}-left: $gutter-value !important;
-				#{$property}-right: $gutter-value !important;
+				#{$property}-top: $gutter-value !important;
+				#{$property}-bottom: $gutter-value !important;
 			}
 
 			@include hf-utility($property + '-' + $gutter-name) {
@@ -73,10 +73,5 @@ $hf-generate-gutters: $hf-generate !default;
 	@include hf-utility('v-trim') {
 		> :first-child { margin-top: 0 !important; }
 		> :last-child { margin-bottom: 0 !important; }
-	}
-
-	@include hf-utility('trim') {
-		> :first-child { margin-top: 0 !important; margin-left: 0 !important; }
-		> :last-child { margin-bottom: 0 !important; margin-right: 0 !important; }
 	}
 }
