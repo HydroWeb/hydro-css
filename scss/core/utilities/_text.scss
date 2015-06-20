@@ -109,13 +109,14 @@ $hf-generate-text: $hf-generate !default;
 	@each $text-align in left, center, right, justify {
 
 		@include hf-utility('text-' + $text-align) {
-			text-align: $text-align;
+			text-align: $text-align !important;
 		}
 	}
 
 	@include hf-utility('truncate') {
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		display: block !important; // Text overflow only works for block elements
+		overflow: hidden !important;
+		white-space: nowrap !important;
+		text-overflow: ellipsis !important;
 	}
 }
