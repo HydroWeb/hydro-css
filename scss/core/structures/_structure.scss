@@ -231,8 +231,14 @@ $hf-structure-child-selector: '*' !default;
 			}
 
 			> * {
-				border-left: $gutter-half solid transparent;
-				border-right: $gutter-half solid transparent;
+
+				@if $hf-structure-h-gap-property == border {
+					border-left: $gutter-half solid transparent;
+					border-right: $gutter-half solid transparent;
+
+				} @else if $hf-structure-h-gap-property == padding {
+					padding: 0 $gutter-half;
+				}
 			}
 		}
 
