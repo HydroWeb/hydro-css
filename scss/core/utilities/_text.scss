@@ -114,9 +114,17 @@ $hf-generate-text: $hf-generate !default;
 	}
 
 	@include hf-utility('truncate') {
-		display: block !important; // Text overflow only works for block elements
 		overflow: hidden !important;
+		max-width: 100% !important;
 		white-space: nowrap !important;
 		text-overflow: ellipsis !important;
+	}
+
+	@include hf-utility('uppercase') {
+		text-transform: uppercase !important;
+	}
+
+	@include hf-utility('lowercase') {
+		text-transform: lowercase !important;
 	}
 }
