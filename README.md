@@ -1,3 +1,5 @@
+![alt tag](logo.png)
+
 # Hydro CSS [![Build Status][travis-img]][travis-url] [![Gitter][gitter-img]][gitter-url]
 
 ### A simple framework for building complex websites.
@@ -11,11 +13,17 @@ The CSS framework is built with the Sass language. This allows us to implement e
 #### Powerful responsive modules.
 More than just responsive grids, this framework provides dead simple ways to layout anything you can imagine.
 
+#### Unopinionated styles.
+Say no to bloat! Hydro CSS separates theme styles from the core. This lets you easily style the site the way you want it without having to wrestle with your framework. It favours mixins over styles so you can include only what you need, where you need it.
+
 #### Minimal API and high reusability.
 Forget having to remember a million different settings and class names. There is a large focus on the reusability of styles, so while the number of modules is small they make up for it in their incredible versitility.
 
-#### Unopinionated styles.
-Say no to bloat! Hydro CSS separates theme styles from the core. This lets you easily style the site the way you want it without having to wrestle with your framework. Don’t like a module? Just turn it off by a single setting.
+#### Common sense methodology.
+The framework implements a clear naming scheme and component organisation that just makes sense. Inspired by [BEM](https://en.bem.info/method/), it takes a modular approach by organising classes into modules, parameters and utilities.
+
+#### 6kb minified + gzipped.
+Using everything in the framework (assuming default settings) comes out to just six measly kilobytes, which is incredible given what can be done using it. Every feature is carefully built by considering the size of it's output and how it scales.
 
 #### Supports IE8 — no joke
 Why? Because we could. We also don’t hold our sanity to as high of a regard as most people.
