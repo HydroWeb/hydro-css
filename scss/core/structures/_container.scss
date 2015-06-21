@@ -31,7 +31,8 @@ $hf-container-selector: hf-module('container') !default;
 
 	#{$hf-container-selector} {
 		max-width: $hf-max-width;
-		margin: auto;
+		margin-left: auto;
+		margin-right: auto;
 
 		@each $division-name, $division-value in $hf-divisions {
 
@@ -45,15 +46,18 @@ $hf-container-selector: hf-module('container') !default;
 		}
 
 		@include hf-parameter('align-left') {
-			margin: 0 auto 0 0;
+			margin-left: 0;
+			margin-right: auto;
 		}
 
 		@include hf-parameter('align-right') {
-			margin: 0 0 0 auto;
+			margin-left: auto;
+			margin-right: 0;
 		}
 
 		@include hf-parameter('align-center') {
-			margin: 0 auto;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
 }
