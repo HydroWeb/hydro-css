@@ -5,7 +5,11 @@
 
 @import 'base';
 
+@import 'extensions/bar';
+
 @import 'components/button';
 @import 'components/field';
+@import 'components/label';
 
+@import 'modules/section';
 @import 'modules/panel';

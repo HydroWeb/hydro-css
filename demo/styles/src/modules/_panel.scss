@@ -1,10 +1,11 @@
 @include hf-module('panel') {
-	border: 1px solid hf-color('lighter');
+	border-radius: $border-radius;
+	border: 1px solid hf-color('light');
+	padding: hf-gutter('lg');
 
 	> ._title {
-		margin: 0;
-		padding: hf-gutter('lg');
-		background-color: hf-color('lighter');
+		margin: 0 0 1em 0;
+		color: hf-color('light');
 	}
 
 	> ._body {

@@ -9,7 +9,6 @@
 
 	<link rel="stylesheet" href="styles/app.css">
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-	<link href='http://fonts.googleapis.com/css?family=Lato:300,700|Lora' rel='stylesheet' type='text/css'>
 
 	<!--[if lt IE 9]>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -19,91 +18,161 @@
 <body>
 
 
-<article class="panel -type-structure">
-	<h1 class="_title">Container</h1>
-	<div class="_body">
-		<div class="container">Default container</div>
-		<div class="container -width-6">Width half</div>
-		<div class="container -width-4 -align-left">Width third - Align left</div>
-		<div class="container -width-4 -align-right">Width third - Align right</div>
-		<div class="container -width-fill">Full width</div>
+<article class="section">
+	<div class="container panel">
+		<h1 class="_title">Headings</h1>
+		<div class="_body +v-trim">
+			<h1>Heading 1 - The quick brown fox jumped over the lazy dog</h1>
+			<h2>Heading 2 - The quick brown fox jumped over the lazy dog</h2>
+			<h3>Heading 3 - The quick brown fox jumped over the lazy dog</h3>
+			<h4>Heading 4 - The quick brown fox jumped over the lazy dog</h4>
+			<h5>Heading 5 - The quick brown fox jumped over the lazy dog</h5>
+			<h6>Heading 6 - The quick brown fox jumped over the lazy dog</h6>
+		</div>
 	</div>
 </article>
 
-<article class="panel -type-structure">
-	<h1 class="_title">Bar</h1>
-	<div class="_body">
-
+<article class="section">
+	<div class="container panel">
+		<h1 class="_title">Content</h1>
+		<section class="_body +v-trim">
+			<p>Paragraph - The quick brown fox jumped over the lazy dog</p>
+			<p class="+color-success">Success color</p>
+			<p class="+color-info">Info color</p>
+			<p class="+color-warning">Warning color</p>
+			<p class="+color-danger">Danger color</p>
+			<p class="+color-muted">Muted color</p>
+		</section>
+		<section class="_body +v-trim">
+			<p><a href="#">Anchor</a></p>
+			<p><abbr title="Abbreviation">Abbr.</abbr></p>
+		</section>
+		<section class="_body +v-trim">
+			<p>The following text <mark>is highlighted</mark></p>
+			<p>The following text <del>is deleted</del></p>
+			<p>The following text <s>is struck out</s></p>
+			<p>The following text <ins>is inserted</ins></p>
+			<p>The following text <strong>is stronger</strong></p>
+			<p>The following text <em>is italicised</em></p>
+			<p>The following text <small>is smaller</small></p>
+			<p>The following text <sup>is superscript</sup></p>
+			<p>The following text <sub>is subscript</sub></p>
+		</section>
+		<section class="_body +v-trim">
+			<ul>
+				<li>Unordered list</li>
+				<li>Unordered list</li>
+				<li>Unordered list
+					<ul>
+						<li>Unordered list</li>
+						<li>Unordered list</li>
+					</ul>
+				</li>
+				<li>Unordered list</li>
+			</ul>
+			<ol>
+				<li>Ordered list</li>
+				<li>Ordered list</li>
+				<li>Ordered list
+					<ol>
+						<li>Unordered list</li>
+						<li>Unordered list</li>
+					</ol>
+				</li>
+				<li>Ordered list</li>
+			</ol>
+			<ul class="+unlist">
+				<li>Unstyled list</li>
+				<li>Unstyled list</li>
+				<li>Unstyled list
+					<ul>
+						<li>Unordered list</li>
+						<li>Unordered list</li>
+					</ul>
+				</li>
+				<li>Unstyled list</li>
+			</ul>
+		</section>
+		<section class="_body +v-trim">
+			<address>
+				123 Street St<br>
+				City, State 1234<br>
+				Country
+			</address>
+		</section>
+		<section class="_body +v-trim">
+			<blockquote>
+				<q>The quick brown fox jumped over the lazy dog</q>
+				<cite>Abraham Lincoln</cite>
+			</blockquote>
+		</section>
 	</div>
 </article>
 
-<article class="panel -type-structure">
-	<h1 class="_title">Columns</h1>
-	<div class="_body">
-
+<article class="section">
+	<div class="container panel">
+		<h1 class="_title">Code</h1>
+		<section class="_body +v-trim">
+			<p>For inline code snippets use the <code>&lt;code&gt;</code> tag</p>
+			<p>To refresh this page, press <kbd>ctrl</kbd> + <kbd>r</kbd></p>
+		</section>
+		<section class="_body +v-trim">
+			<pre>This is preformatted text.</pre>
+		</section>
+		<section class="_body +v-trim">
+			<pre><code>&lt;pre&gt;&lt;code&gt;This is preformatted code.&lt;/code&gt;&lt;/pre&gt;</code></pre>
+		</section>
+		<section class="_body +v-trim">
+			<samp>This is sample output from a console window.</samp>
+		</section>
 	</div>
 </article>
 
-<article class="panel -type-structure">
-	<h1 class="_title">Grid</h1>
-	<div class="_body">
-
-	</div>
-</article>
-
-<article class="panel -type-structure">
-	<h1 class="_title">Alignbox</h1>
-	<div class="_body">
-
-	</div>
-</article>
-
-<article class="panel -type-structure">
-	<h1 class="_title">Ratiobox</h1>
-	<div class="_body">
-
-	</div>
-</article>
-
-<article class="panel -type-text">
-	<h1 class="_title">Headings</h1>
-	<div class="_body">
-		<h1>Heading 1</h1>
-		<h2>Heading 2</h2>
-		<h3>Heading 3</h3>
-		<h4>Heading 4</h4>
-		<h5>Heading 5</h5>
-		<h6>Heading 6</h6>
-	</div>
-</article>
-
-<article class="panel -type-button">
-	<h1 class="_title">Button</h1>
-	<div class="_body">
-		<button class="button"><i class="fa fa-cog"></i> Button</button>
-		<button class="button"><i class="icon -cog"></i> Button</button>
-	</div>
-</article>
-
-<article class="panel -type-field">
-	<h1 class="_title">Field</h1>
-	<div class="_body">
-		<input class="field" type="text" value="Input">
-		<textarea class="field">Textarea</textarea>
-	</div>
-</article>
-
-<article class="panel -type-icons">
-	<h1 class="_title">Icons</h1>
-	<div class="_body">
-
-	</div>
-</article>
-
-<article class="panel -type-text">
-	<h1 class="_title">Text Columns</h1>
-	<div class="_body">
-
+<article class="section">
+	<div class="container panel">
+		<h1 class="_title">Forms</h1>
+		<section class="_body">
+			<div class="columns -v-gap-sm">
+				<div class="column -desk-2 -tabl-4">
+					<label class="label" for="field1">Name:</label>
+				</div>
+				<div class="column -desk-10 -tabl-8">
+					<input class="field" id="field1" type="text">
+				</div>
+				<div class="column -desk-2 -tabl-4">
+					<label class="label" for="field2">Email Address:</label>
+				</div>
+				<div class="column -desk-10 -tabl-8">
+					<ul class="bar -fitted-mobl -fields">
+						<li class="item"><input class="field" id="field2" type="text" placeholder="john"></li>
+						<li class="item -fit"><span class="label +fill">@</span></li>
+						<li class="item"><input class="field" type="text" placeholder="gmail.com"></li>
+					</ul>
+				</div>
+				<div class="column -desk-2 -tabl-4">
+					<label class="label" for="field3">Price:</label>
+				</div>
+				<div class="column -desk-4 -tabl-8">
+					<ul class="bar -fitted-mobl -fields">
+						<li class="item -fit"><span class="label +fill">$</span></li>
+						<li class="item"><input class="field" id="field3" type="number" min="0" value="0"></li>
+						<li class="item -fit"><span class="label +fill">.00</span></li>
+					</ul>
+				</div>
+				<div class="column -desk-2 -tabl-4">
+					<label class="label" for="field4">Password:</label>
+				</div>
+				<div class="column -desk-4 -tabl-8">
+					<input class="field" id="field4" type="password">
+				</div>
+				<div class="column -desk-2 -tabl-4">
+					<label class="label" for="field5">Message:</label>
+				</div>
+				<div class="column -desk-10 -tabl-8">
+					<textarea class="field" id="field5" rows="5"></textarea>
+				</div>
+			</div>
+		</section>
 	</div>
 </article>
 

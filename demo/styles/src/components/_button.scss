@@ -1,16 +1,13 @@
 .button {
 	@include hf-button(
-		$font-size: 14px,
-		$padding: 14px 20px,
-		$border-width: 1px,
-		$multiline: false
+		$padding: 12px 16px,
+		$border-width: 1px
 	);
 
-	font-weight: bold;
+	border-radius: $border-radius;
 	border-color: hf-color('primary');
 	background-color: transparent;
 	color: hf-color('primary');
-	text-transform: uppercase;
 
 	&:hover,
 	&:active {

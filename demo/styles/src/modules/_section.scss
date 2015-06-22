@@ -1,0 +1,8 @@
+@include hf-module('section') {
+
+	@include hf-responsive((
+		'mobl': (padding: hf-gutter('md') hf-gutter('sm')),
+		'tabl': (padding: hf-gutter('md') hf-gutter('md')),
+		'desk': (padding: hf-gutter('lg') hf-gutter('md'))
+	));
+}

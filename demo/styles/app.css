@@ -3598,11 +3598,11 @@ video {
   background-color: #303f9f !important;
 }
 
-.\+color-accent-light {
+.\+color-secon-light {
   color: #ff80ab !important;
 }
 
-.\+background-accent-light {
+.\+background-secon-light {
   background-color: #ff80ab !important;
 }
 
@@ -3654,12 +3654,28 @@ video {
   background-color: #f44336 !important;
 }
 
+.\+color-muted {
+  color: #ccc !important;
+}
+
+.\+background-muted {
+  background-color: #ccc !important;
+}
+
 .\+pill {
   border-radius: 9999px;
 }
 
 .\+circle {
   border-radius: 50%;
+}
+
+.\+unlist {
+  padding: 0;
+}
+
+.\+unlist > li {
+  list-style: none;
 }
 
 html,
@@ -3804,27 +3820,45 @@ body {
 }
 
 body {
-  font-family: "Lato", sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif;
   padding: 2em;
 }
 
-h1,
-h2,
-h3 {
-  font-family: "Lora", serif;
-  font-weight: 400;
+.bar.-fields > .item + .item > * {
+  border-left: none;
+}
+
+.bar.-fields > .item > * {
+  border-radius: 0;
+}
+
+.bar.-fields > .item:first-child > * {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.bar.-fields > .item:last-child > * {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.bar.-fields .label {
+  border-color: #ccc;
+  background-color: #eee;
 }
 
 .button {
-  font-size: 14px;
-  padding: 14px 20px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1em;
+  padding: 12px 16px;
   border-width: 1px;
   border-style: solid;
   line-height: 1;
   overflow: hidden;
-  height: 44px;
-  height: -webkit-calc(30px + 1em);
-  height: calc(30px + 1em);
+  height: 42px;
+  height: -webkit-calc(26px + 1em);
+  height: calc(26px + 1em);
   white-space: nowrap;
   text-overflow: ellipsis;
   cursor: pointer;
@@ -3833,13 +3867,10 @@ h3 {
   -ms-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
-  display: inline-block;
-  vertical-align: middle;
-  font-weight: bold;
+  border-radius: 3px;
   border-color: #3f51b5;
   background-color: transparent;
   color: #3f51b5;
-  text-transform: uppercase;
 }
 
 .button:hover,
@@ -3860,19 +3891,22 @@ h3 {
 .field {
   display: block;
   width: 100%;
-  border-color: #777;
+  border-radius: 3px;
+  border-color: #ccc;
   background-color: #fff;
   color: #111;
 }
 
 input.field, select.field {
-  font-size: 20px;
-  padding: 12px 20px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1em;
+  padding: 12px 16px;
   border-width: 1px;
   border-style: solid;
   line-height: 1;
   overflow: hidden;
-  height: 46px;
+  height: 42px;
   height: -webkit-calc(26px + 1em);
   height: calc(26px + 1em);
   white-space: nowrap;
@@ -3884,39 +3918,80 @@ input.field {
 }
 
 textarea.field {
-  padding: 7px 20px 7px 20px;
-  font-size: 20px;
-  padding: -webkit-calc(22px - 0.75em) 20px -webkit-calc(22px - 0.75em) 20px;
-  padding: calc(22px - 0.75em) 20px calc(22px - 0.75em) 20px;
+  padding: 10.4px 16px 10.4px 16px;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1em;
+  padding: -webkit-calc(12px - 0.1em) 16px -webkit-calc(12px - 0.1em) 16px;
+  padding: calc(12px - 0.1em) 16px calc(12px - 0.1em) 16px;
   border-width: 1px;
   border-style: solid;
-  line-height: 1.5;
+  line-height: 1.2;
 }
 
 .field::-webkit-input-placeholder {
-  color: #777;
+  color: #ccc;
 }
 
 .field::-moz-placeholder {
-  color: #777;
+  color: #ccc;
 }
 
 .field:-ms-input-placeholder {
-  color: #777;
+  color: #ccc;
 }
 
 .field::placeholder {
-  color: #777;
+  color: #ccc;
+}
+
+.label {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1em;
+  padding: 12px 16px;
+  border-width: 1px;
+  border-style: solid;
+  line-height: 1;
+  overflow: hidden;
+  height: 42px;
+  height: -webkit-calc(26px + 1em);
+  height: calc(26px + 1em);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-radius: 3px;
+  border-color: transparent;
+  background-color: transparent;
+  color: #111;
+}
+
+@media all and (min-width: 0em) {
+  .section {
+    padding: 1em 0.5em;
+  }
+}
+
+@media all and (min-width: 40em) {
+  .section {
+    padding: 1em 1em;
+  }
+}
+
+@media all and (min-width: 67.5em) {
+  .section {
+    padding: 2em 1em;
+  }
 }
 
 .panel {
-  border: 1px solid #eee;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding: 2em;
 }
 
 .panel > ._title {
-  margin: 0;
-  padding: 2em;
-  background-color: #eee;
+  margin: 0 0 1em 0;
+  color: #ccc;
 }
 
 .panel > ._body {
