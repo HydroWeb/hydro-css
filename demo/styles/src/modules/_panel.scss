@@ -1,10 +1,10 @@
 @include hf-module('panel') {
-	border-radius: $border-radius;
-	border: 1px solid hf-color('light');
 	padding: hf-gutter('lg');
+	border: 1px solid hf-color('light');
+	border-radius: $border-radius;
 
 	> ._title {
-		margin: 0 0 1em 0;
+		margin: 0 0 1em;
 		color: hf-color('light');
 	}
 

@@ -5,7 +5,7 @@
 		> #{$hf-bar-item-selector} {
 
 			+ #{$hf-bar-item-selector} > * {
-				border-left: none;
+				border-left: 0;
 			}
 
 			> * {

@@ -199,6 +199,7 @@ linters:
       - border-right-width
       - border-right-color
       - border-collapse
+      - border-radius
 
       # Background
       - background
