@@ -1,8 +1,8 @@
-scss_files: 'scss/**/*.scss'
+scss_files: '**/*.scss'
 
 exclude:
-  - 'scss/core/libraries/**'
-  - 'scss/theme/libraries/**'
+  - 'node_modules/**'
+  - '**/libraries/**'
 
 linters:
 

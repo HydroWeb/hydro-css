@@ -6,7 +6,6 @@ module.exports = function(grunt)
 		scsslint: {
 
 			lint: {
-				allFiles: ['./scss/*.scss'],
 				options: {
 					config: '.scss-lint.yml',
 					reporterOutput: 'scss-lint-reporter.xml'
