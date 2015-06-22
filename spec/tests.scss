@@ -12,7 +12,25 @@ $hf-generate: false;
 @import 'hydro';
 
 
-// Tests
-// -----
+// Core Tests
+// ----------
 
-@import 'functions/number';
+@import 'core/testing';
+
+@import 'core/functions/framework';
+@import 'core/functions/number';
+@import 'core/functions/string';
+@import 'core/functions/list';
+
+@import 'core/utilities/media';
+
+
+// Theme Tests
+// -----------
+
+
+
+// Report
+// ------
+
+@include report;

@@ -1,0 +1,29 @@
+@include test-module('Core / Functions / Number') {
+
+	@include test('Unit type [function]') {
+		@include assert-equal(hf-unit-type(3em), 'relative', 'Outputs the unit type as either relative or absolute.');
+		@include assert-equal(hf-unit-type(16px), 'absolute', 'Outputs the unit type as either relative or absolute.');
+		@include assert-equal(hf-unit-type(-5), 'relative', 'Outputs the unit type as either relative or absolute.');
+		@include assert-equal(hf-unit-type(34cm), 'absolute', 'Outputs the unit type as either relative or absolute.');
+	}
+
+	@include test('Precision [function]') {
+		@include assert-equal(hf-precision(3.14159265, 3), 3.142, 'Rounds the number to the third decimal.');
+		@include assert-equal(hf-precision(-3.14159265, 3), -3.142, 'Rounds the number to the third decimal.');
+		@include assert-equal(hf-precision(3.14159265, 4, floor), 3.1415, 'Floors the number to the fourth decimal.');
+		@include assert-equal(hf-precision(-3.14159265, 4, floor), -3.1416, 'Floors the number to the fourth decimal.');
+		@include assert-equal(hf-precision(3.14159265, 2, ceil), 3.15, 'Ceilings the number to the second decimal.');
+		@include assert-equal(hf-precision(-3.14159265, 2, ceil), -3.14, 'Ceilings the number to the second decimal.');
+	}
+
+	@include test('Convert [function]') {
+		$hf-font-size: 16px;
+
+		@include assert-equal(hf-convert(1em, '%'), 100%, 'Converts a relative unit to another.');
+		@include assert-equal(hf-convert(1em, 'px'), 16px, 'Converts a relative unit to an absolute unit.');
+	}
+
+	@include test('Sum [function]') {
+
+	}
+}

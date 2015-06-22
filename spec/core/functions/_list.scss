@@ -1,0 +1,14 @@
+@include test-module('Core / Functions / List') {
+
+	@include test('Shorthand [function]') {
+
+	}
+
+	@include test('Flatten [function]') {
+
+	}
+
+	@include test('Sort [function]') {
+
+	}
+}

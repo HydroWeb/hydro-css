@@ -1,0 +1,71 @@
+@include test-module('Core / Utilities / Selectors') {
+
+	@include test('Prefix [mixin]') {
+
+	}
+
+	@include test('Suffix [mixin]') {
+
+	}
+
+	@include test('Extend Tags [mixin]') {
+
+		@include assert('Outputs selectors that have the tag name extended onto it.') {
+			@include input {
+				.content {
+					@include hf-extend-tags(input) {
+						display: block;
+					}
+				}
+			}
+			@include expect {
+				input.content {
+					display: block;
+				}
+			}
+		}
+
+		@include assert('Outputs selectors that have the tag name extended onto it.') {
+			@include input {
+				body > #id .content {
+					@include hf-extend-tags(input) {
+						display: block;
+					}
+				}
+			}
+			@include expect {
+				body > #id input.content {
+					display: block;
+				}
+			}
+		}
+
+		@include assert('Outputs selectors that have the tag name extended onto it.') {
+			@include input {
+				input.content {
+					@include hf-extend-tags(input) {
+						display: block;
+					}
+				}
+			}
+			@include expect {
+				input.content {
+					display: block;
+				}
+			}
+		}
+
+		@include assert('Outputs selectors that have the tag name extended onto it.') {
+			@include input {
+				textarea.content {
+					@include hf-extend-tags(input) {
+						display: block;
+					}
+				}
+			}
+			@include expect {
+				// Nothing
+			}
+		}
+	}
+}
