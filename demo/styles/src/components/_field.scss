@@ -6,11 +6,11 @@
 		$line-height: 1.5
 	);
 
-	color: black;
-	background-color: white;
-	border-color: black;
+	border-color: hf-color('mid');
+	background-color: hf-color('white');
+	color: hf-color('darker');
 
 	&::placeholder {
-		color: grey;
+		color: hf-color('mid');
 	}
 }

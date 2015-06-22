@@ -8,15 +8,20 @@
 
 	@include test('Media [mixin]') {
 
-		@include assert('Outputs a media query based on it\'s parameters') {
+		@include assert("Outputs a media query based on it's parameters") {
+
 			@include input {
+
 				@include hf-media {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media all {
 					.content {
 						display: block;
@@ -25,15 +30,20 @@
 			}
 		}
 
-		@include assert('Outputs a media query based on it\'s parameters') {
+		@include assert("Outputs a media query based on it's parameters") {
+
 			@include input {
+
 				@include hf-media(screen, 400px, null, width) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media screen and (min-width: 25em) {
 					.content {
 						display: block;
@@ -42,15 +52,20 @@
 			}
 		}
 
-		@include assert('Outputs a media query based on it\'s parameters') {
+		@include assert("Outputs a media query based on it's parameters") {
+
 			@include input {
+
 				@include hf-media(tv, null, 400px, width) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media tv and (max-width: 24.99em) {
 					.content {
 						display: block;
@@ -59,15 +74,20 @@
 			}
 		}
 
-		@include assert('Outputs a media query based on it\'s parameters') {
+		@include assert("Outputs a media query based on it's parameters") {
+
 			@include input {
+
 				@include hf-media(print, 50em, 100em, height) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media print and (min-width: 50em) and (max-width: 99.99em) {
 					.content {
 						display: block;
@@ -76,15 +96,20 @@
 			}
 		}
 
-		@include assert('Outputs a media query based on it\'s parameters') {
+		@include assert("Outputs a media query based on it's parameters") {
+
 			@include input {
+
 				@include hf-media(all, 'tabl', 'desk', height) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media print and (min-width: 40em) and (max-width: 112.99em) {
 					.content {
 						display: block;
@@ -93,15 +118,20 @@
 			}
 		}
 
-		@include assert('Outputs a media query based on it\'s parameters') {
+		@include assert("Outputs a media query based on it's parameters") {
+
 			@include input {
-				@include hf-media(handheld, (3,4), (16,9), aspect-ratio) {
+
+				@include hf-media(handheld, (3 4), (16 9), aspect-ratio) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media handheld and (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9) {
 					.content {
 						display: block;
@@ -114,14 +144,19 @@
 	@include test('Breakpoint [mixin]') {
 
 		@include assert('Outputs a media query targeting a specific breakpoint name.') {
+
 			@include input {
+
 				@include hf-breakpoint('desk', 'from', width) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media all and (min-width: 113em) {
 					.content {
 						display: block;
@@ -131,14 +166,19 @@
 		}
 
 		@include assert('Outputs a media query targeting a specific breakpoint name.') {
+
 			@include input {
+
 				@include hf-breakpoint('desk', 'until', width) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media all and (min-width: 40em) and (max-width: 112.99em) {
 					.content {
 						display: block;
@@ -148,14 +188,19 @@
 		}
 
 		@include assert('Outputs a media query targeting a specific breakpoint name.') {
+
 			@include input {
+
 				@include hf-breakpoint('tabl', 'from', width) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media all and (min-width: 40em) and (max-width: 112.99em) {
 					.content {
 						display: block;
@@ -165,14 +210,19 @@
 		}
 
 		@include assert('Outputs a media query targeting a specific breakpoint name.') {
+
 			@include input {
+
 				@include hf-breakpoint('mobl', 'from', width) {
+
 					.content {
 						display: block;
 					}
 				}
 			}
+
 			@include expect {
+
 				@media all and (max-width: 39.99em) {
 					.content {
 						display: block;
@@ -185,7 +235,9 @@
 	@include test('Responsive [mixin]') {
 
 		@include assert('Outputs a list of media queries with the associated properties.') {
+
 			@include input {
+
 				.content {
 					@include hf-responsive((
 						'mobl': (order: 1),
@@ -194,15 +246,19 @@
 					), width, 'from');
 				}
 			}
+
 			@include expect {
+
 				.content {
 					order: 1;
 				}
+
 				@media all and (min-width: 40em) {
 					.content {
 						order: 2;
 					}
 				}
+
 				@media all and (min-width: 113em) {
 					.content {
 						order: 3;
@@ -212,7 +268,9 @@
 		}
 
 		@include assert('Outputs a list of media queries with the associated properties.') {
+
 			@include input {
+
 				.content {
 					@include hf-responsive((
 						'desk': (order: 1),
@@ -221,15 +279,19 @@
 					), width, 'from');
 				}
 			}
+
 			@include expect {
+
 				.content {
 					order: 1;
 				}
+
 				@media all and (min-width: 40em) {
 					.content {
 						order: 2;
 					}
 				}
+
 				@media all and (min-width: 113em) {
 					.content {
 						order: 3;
@@ -239,7 +301,9 @@
 		}
 
 		@include assert('Outputs a list of media queries with the associated properties.') {
+
 			@include input {
+
 				.content {
 					@include hf-responsive((
 						'desk': (order: 1, display: block),
@@ -247,23 +311,28 @@
 					), width, 'from');
 				}
 			}
+
 			@include expect {
+
 				@media all and (min-width: 31.25em) {
 					.content {
 						order: 2;
 					}
 				}
+
 				@media all and (min-width: 113em) {
 					.content {
-						order: 1;
 						display: block;
+						order: 1;
 					}
 				}
 			}
 		}
 
 		@include assert('Outputs a list of media queries with the associated properties.') {
+
 			@include input {
+
 				.content {
 					@include hf-responsive((
 						'desk': (order: 1),
@@ -271,12 +340,15 @@
 					), height, 'until');
 				}
 			}
+
 			@include expect {
+
 				@media all and (max-height: 39.99em) {
 					.content {
 						order: 2;
 					}
 				}
+				
 				@media all and (max-height: 112.99em) {
 					.content {
 						order: 1;

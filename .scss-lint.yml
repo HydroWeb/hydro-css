@@ -64,7 +64,7 @@ linters:
     enabled: true
 
   IdSelector:
-    enabled: true
+    enabled: false
 
   ImportantRule:
     enabled: false
@@ -155,6 +155,14 @@ linters:
       - min-height
       - max-height
 
+      # Font
+      - font-family
+      - font-size
+      - font-weight
+      - font-style
+      - font-variant
+      - line-height
+
       # Margin (Box Model)
       - margin
       - margin-top
@@ -192,25 +200,6 @@ linters:
       - border-right-color
       - border-collapse
 
-      # Font
-      - font-family
-      - font-size
-      - font-weight
-      - font-style
-      - font-variant
-      - line-height
-
-      # Text
-      - white-space
-      - word-spacing
-      - word-wrap
-      - word-break
-      - text-overflow
-      - text-align
-      - text-decoration
-      - text-transform
-      - color
-
       # Background
       - background
       - background-color
@@ -223,6 +212,20 @@ linters:
       - background-attachment
       - background-clip
 
+      # Color
+      - color
+
+      # Text
+      - white-space
+      - word-spacing
+      - word-wrap
+      - word-break
+      - text-overflow
+      - text-align
+      - text-decoration
+      - text-transform
+      - color
+
       # Effects
       - transform
       - transition
@@ -232,18 +235,14 @@ linters:
     extra_properties: []
 
   QualifyingElement:
-    enabled: true
-    allow_element_with_attribute: false
-    allow_element_with_class: false
-    allow_element_with_id: false
+    enabled: false
 
   SelectorDepth:
     enabled: true
     max_depth: 3
 
   SelectorFormat:
-    enabled: true
-    convention: hyphenated_lowercase
+    enabled: false
 
   Shorthand:
     enabled: true

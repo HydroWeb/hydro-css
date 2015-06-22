@@ -7,10 +7,10 @@
 	);
 
 	font-weight: bold;
-	text-transform: uppercase;
-	color: hf-color('primary');
-	background-color: transparent;
 	border-color: hf-color('primary');
+	background-color: transparent;
+	color: hf-color('primary');
+	text-transform: uppercase;
 
 	&:hover,
 	&:active {
@@ -23,7 +23,7 @@
 	}
 
 	&:active {
-		color: hf-color('white');
 		background-color: hf-color('primary');
+		color: hf-color('white');
 	}
 }
