@@ -10,6 +10,7 @@
 
 /// A mixin for styling input, select and textarea elements
 /// @require {mixin} hf-textbox
+/// @require {mixin} hf-extend-tags
 /// @param {Number} $font-size [1em]
 /// @param {Number | List} $padding [0]
 /// @param {Number | List} $border-width [0]
@@ -26,62 +27,7 @@
 	display: block;
 	width: 100%;
 
-	// Selector manipulation functions are only available in the Ruby implementation of Sass version >= 3.4
-	// Since this framework intends to support libsass version >= 3.2, a workaround has been discovered and utilised
-	// for this particular use-case.
-
-	// Old code is kept below for future use (when libsass supports selector functions). An option would be to check
-	// for the existence of the unify function using the function-exists method. Unfortunately the contents of the
-	// directive is always checked for errors, and it will throw an "invalid selector after &" error no matter what.
-
-	// $input: selector-unify(&, input);
-	// $input-select: selector-unify(&, (input, select));
-	// $textarea: selector-unify(&, textarea);
-	//
-	// @if $input-select != null {
-	//
-	//     @at-root #{$input-select} {
-	//
-	//         @include hf-textbox(
-	//             $font-size,
-	//             $padding,
-	//             $border-width,
-	//             $line-height,
-	//             false
-	//         );
-	//     }
-	// }
-	//
-	// @if $input != null {
-	//
-	//     @at-root #{$input} {
-	//         line-height: normal;
-	//     }
-	// }
-	//
-	// @if $textarea != null {
-	//
-	//     @at-root #{$textarea} {
-	//
-	//         @include hf-textbox(
-	//             $font-size,
-	//             $padding,
-	//             $border-width,
-	//             $line-height,
-	//             true
-	//         );
-	//     }
-	// }
-
-	// Workaround uses a temporary placeholder selector that is injected into the document root then extended.
-	// Since selector extensions use many of these selector manipulation functions under the hood, we can take
-	// advantage of the extend directive to emulate them.
-	// Since this mixin can potentially be used more than once, the placeholder selector needs to be unique for each
-	// use.
-
-	$id: unique-id();
-
-	@at-root input%#{$id}, select%#{$id} {
+	@include hf-extend-tags(input, select) {
 
 		@include hf-textbox(
 			$font-size,
@@ -92,11 +38,11 @@
 		);
 	}
 
-	@at-root input%#{$id} {
+	@include hf-extend-tags(input) {
 		line-height: normal;
 	}
 
-	@at-root textarea%#{$id} {
+	@include hf-extend-tags(textarea) {
 
 		@include hf-textbox(
 			$font-size,
@@ -106,6 +52,4 @@
 			true
 		);
 	}
-
-	@extend %#{$id};
 }
