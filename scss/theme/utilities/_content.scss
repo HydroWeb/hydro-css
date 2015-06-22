@@ -1,0 +1,60 @@
+////
+/// Content utilities
+/// @group theme-utilities
+/// @author Benjamin Fleming
+////
+
+
+// Settings
+// --------
+
+/// Controls whether styles in this file (content) are generated.
+/// @type Boolean
+$hf-generate-content: $hf-generate !default;
+
+$hf-quotes-double: '\201c' '\201d' !default;
+$hf-quotes-single: '\2018' '\2019' !default;
+$hf-quotes-double-angle: '\00ab' '\00bb' !default;
+$hf-quotes-single-angle: '\2039' '\203a' !default;
+
+
+// Asserts
+// -------
+
+@include hf-assert($hf-generate-content, 'bool');
+
+
+// Mixins
+// ------
+
+@mixin hf-quotes($outer: $hf-quotes-double, $inner: $hf-quotes-single) {
+	quotes: $outer $inner;
+
+	&:before {
+		content: open-quote;
+	}
+
+	&:after {
+		content: close-quote;
+	}
+
+	&:before,
+	&:after {
+		@content;
+	}
+}
+
+
+// Styles
+// ------
+
+@if $hf-generate-content {
+
+	@include hf-utility('unlist') {
+		padding: 0;
+
+		> li {
+			list-style: none;
+		}
+	}
+}

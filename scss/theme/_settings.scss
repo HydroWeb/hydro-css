@@ -11,33 +11,33 @@
 /// The colors to use in your template.
 /// @type Map
 $hf-colors: (
-	'white':         #fff,
-	'black':         #000,
+	'white':           #fff,
+	'black':           #000,
 
-	'darker':        #111,
-	'dark':          #333,
-	'mid':           #777,
-	'light':         #ccc,
-	'lighter':       #eee,
+	'darker':          #111,
+	'dark':            #333,
+	'mid':             #777,
+	'light':           #ccc,
+	'lighter':         #eee,
 
-	'primary-light': #c5cae9,
-	'primary':       #3f51b5,
-	'primary-dark':  #303f9f,
+	'primary-light':   #c5cae9,
+	'primary':         #3f51b5,
+	'primary-dark':    #303f9f,
 
-	'accent-light':  #ff80ab,
-	'accent':        #ff4081,
-	'accent-dark':   #f50057,
+	'secondary-light': #ff80ab,
+	'secondary':       #ff4081,
+	'secondary-dark':  #f50057,
 
-	'success':       #8bc34a,
-	'info':          #2196f3,
-	'warning':       #ff9800,
-	'danger':        #f44336
+	'success':         #8bc34a,
+	'info':            #2196f3,
+	'warning':         #ff9800,
+	'danger':          #f44336
 ) !default;
 
 /// The fonts to use in your template
 /// @type Map
 $hf-fonts: (
-	'primary': ('Helvetica', sans-serif)
+	'primary': ('Helvetica', 'Arial', sans-serif)
 ) !default;
 
 /// The weights for each font defined in $hf-fonts
