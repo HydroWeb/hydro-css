@@ -68,6 +68,8 @@ $hf-generate-text: $hf-generate !default;
 	// Apply styles
 	//
 
+	display: inline-block;
+	vertical-align: middle; // Fixes a weird extra margin bug in chrome when using hidden overflow with inline block
 	font-size: $font-size;
 	padding: $padding;
 	border-width: $border-width;
