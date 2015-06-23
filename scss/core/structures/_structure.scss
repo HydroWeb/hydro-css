@@ -95,6 +95,7 @@ $hf-structure-child-selector: '*' !default;
 		), $v-align );
 		width: auto;
 		min-height: 1px; // Fix for empty blocks
+		margin: if($v-gap > 0, $v-gap, 0) 0 0;
 		word-spacing: normal;
 		text-align: left;
 		list-style: none;
@@ -109,10 +110,6 @@ $hf-structure-child-selector: '*' !default;
 			} @else if $h-gap-property == padding {
 				padding: 0 $h-gap-half;
 			}
-		}
-
-		@if $v-gap > 0 {
-			margin-top: $v-gap;
 		}
 	}
 
