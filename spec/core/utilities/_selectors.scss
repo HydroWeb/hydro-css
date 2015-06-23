@@ -82,5 +82,44 @@
 				// Nothing
 			}
 		}
+
+		@include assert('Outputs selectors that have the tag name extended onto it.') {
+
+			@include input {
+
+				html.has-js .float-label > select {
+					@include hf-extend-tags(input, select) {
+						display: block;
+					}
+				}
+			}
+
+			@include expect {
+
+				html.has-js .float-label > select {
+					display: block;
+				}
+			}
+		}
+
+		@include assert('Outputs selectors that have the tag name extended onto it.') {
+
+			@include input {
+
+				html.has-js .float-label > input,
+				html.has-js .float-label > select {
+					@include hf-extend-tags(input) {
+						display: block;
+					}
+				}
+
+				@include expect {
+
+					html.has-js .float-label > input {
+						display: block;
+					}
+				}
+			}
+		}
 	}
 }
