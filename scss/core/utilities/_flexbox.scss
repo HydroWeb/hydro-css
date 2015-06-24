@@ -14,6 +14,7 @@
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flexbox;
+	/* autoprefixer: off */
 	display: flex;
 }
 
@@ -23,6 +24,7 @@
 	display: -webkit-inline-flex;
 	display: -moz-inline-flex;
 	display: -ms-inline-flexbox;
+	/* autoprefixer: off */
 	display: inline-flex;
 }
 
@@ -33,6 +35,7 @@
 	-webkit-flex-direction: $direction;
 	-moz-flex-direction: $direction;
 	-ms-flex-direction: $direction;
+	/* autoprefixer: off */
 	flex-direction: $direction;
 }
 
@@ -43,6 +46,7 @@
 	-webkit-flex-wrap: $wrap;
 	-moz-flex-wrap: $wrap;
 	-ms-flex-wrap: if($wrap == nowrap, none, $wrap);
+	/* autoprefixer: off */
 	flex-wrap: $wrap;
 }
 
@@ -53,6 +57,7 @@
 	-webkit-flex-flow: $flow;
 	-moz-flex-flow: $flow;
 	-ms-flex-flow: $flow;
+	/* autoprefixer: off */
 	flex-flow: $flow;
 }
 
@@ -63,6 +68,7 @@
 	-webkit-order: $order;
 	-moz-order: $order;
 	-ms-flex-order: $order;
+	/* autoprefixer: off */
 	order: $order;
 }
 
@@ -73,6 +79,7 @@
 	-webkit-flex-grow: $grow;
 	-moz-flex-grow: $grow;
 	-ms-flex-positive: $grow;
+	/* autoprefixer: off */
 	flex-grow: $grow;
 }
 
@@ -83,6 +90,7 @@
 	-webkit-flex-shrink: $shrink;
 	-moz-flex-shrink: $shrink;
 	-ms-flex-negative: $shrink;
+	/* autoprefixer: off */
 	flex-shrink: $shrink;
 }
 
@@ -93,6 +101,7 @@
 	-webkit-flex-basis: $basis;
 	-moz-flex-basis: $basis;
 	-ms-flex-preferred-size: $basis;
+	/* autoprefixer: off */
 	flex-basis: $basis;
 }
 
@@ -105,6 +114,7 @@
 	-webkit-flex: $grow $shrink $basis;
 	-moz-flex: $grow $shrink $basis;
 	-ms-flex: $grow $shrink $basis;
+	/* autoprefixer: off */
 	flex: $grow $shrink $basis;
 }
 
@@ -116,6 +126,7 @@
 	-ms-flex-pack: if($ms == null, $justify, $ms);
 	-webkit-justify-content: $justify;
 	-moz-justify-content: $justify;
+	/* autoprefixer: off */
 	justify-content: $justify;
 }
 
@@ -127,6 +138,7 @@
 	-ms-flex-align: if($ms == null, $align, $ms);
 	-webkit-align-items: $align;
 	-moz-align-items: $align;
+	/* autoprefixer: off */
 	align-items: $align;
 }
 
@@ -138,6 +150,7 @@
 	-ms-flex-item-align: if($ms == null, $align, $ms);
 	-webkit-align-self: $align;
 	-moz-align-self: $align;
+	/* autoprefixer: off */
 	align-self: $align;
 }
 
@@ -149,6 +162,7 @@
 	-ms-flex-line: if($ms == null, $align, $ms);
 	-webkit-align-content: $align;
 	-moz-align-content: $align;
+	/* autoprefixer: off */
 	align-content: $align;
 }
 
