@@ -108,10 +108,16 @@ $hf-generate-text: $hf-generate !default;
 
 @if $hf-generate-text {
 
-	@each $text-align in left, center, right, justify {
+	@each $breakpoint-name, $breakpoint-value in $hf-breakpoints {
 
-		@include hf-utility('text-' + $text-align) {
-			text-align: $text-align !important;
+		@include hf-from($breakpoint-name) {
+
+			@each $align-name, $align-value in (l: left, c: center, r: right, j: justify) {
+
+				@include hf-utility($align-name + '-text-' + $breakpoint-name) {
+					text-align: $align-value !important;
+				}
+			}
 		}
 	}
 
