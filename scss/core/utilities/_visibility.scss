@@ -60,6 +60,11 @@ $hf-generate-visibility: $hf-generate !default;
 		visibility: hidden !important;
 	}
 
+	@include hf-utility('hidden') {
+		display: none !important;
+		visibility: hidden !important;
+	}
+
 	@each $breakpoint-name in map-keys($hf-breakpoints) {
 
 		@include hf-breakpoint($breakpoint-name) {
