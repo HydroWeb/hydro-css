@@ -232,6 +232,7 @@ $hf-structure-child-selector: '*' !default;
 				@if $hf-structure-h-gap-property == border {
 					border-left: $gutter-half solid transparent;
 					border-right: $gutter-half solid transparent;
+					background-clip: padding-box; // Borders are used for gaps, so clip backgrounds at paddings
 
 				} @else if $hf-structure-h-gap-property == padding {
 					padding: 0 $gutter-half;
