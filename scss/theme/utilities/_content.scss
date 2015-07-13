@@ -57,4 +57,8 @@ $hf-quotes-single-angle: '\2039' '\203a' !default;
 			list-style: none;
 		}
 	}
+
+	@include hf-utility('quotes') {
+		@include hf-quotes;
+	}
 }
