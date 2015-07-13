@@ -127,12 +127,4 @@ $hf-generate-text: $hf-generate !default;
 		white-space: nowrap !important;
 		text-overflow: ellipsis !important;
 	}
-
-	@include hf-utility('uppercase') {
-		text-transform: uppercase !important;
-	}
-
-	@include hf-utility('lowercase') {
-		text-transform: lowercase !important;
-	}
 }
