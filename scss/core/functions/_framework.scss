@@ -47,12 +47,14 @@
 		@if type-of($name) == list {
 			$first: true;
 			@each $part in $name {
-				$output: $output
-					+ if($first, $selector, '')
-					+ hf-name($type, $part);
-				$first: false;
+				@if $part {
+					$output: $output
+						+ if($first, $selector, '')
+						+ hf-name($type, $part);
+					$first: false;
+				}
 			}
-		} @else {
+		} @elseif $name {
 			$output: $output
 				+ $selector
 				+ hf-name($type, $name);
