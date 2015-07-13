@@ -1,0 +1,153 @@
+@mixin hf-float-label(
+	$font-size: 1em,
+	$label-font-size: $font-size,
+	$small-label-font-size: $font-size,
+	$padding: 0,
+	$border-width: 0,
+	$line-height: 1,
+	$field-shift: 0,
+	$label-shift: 0,
+	$shift-on-focus: false,
+	$secondary-label: false,
+	$field-target: input select textarea,
+	$field-selector: '> input, > select, > textarea',
+	$label-selector: '> label',
+	$secondary-label-selector: '&:before'
+) {
+	position: relative;
+
+	$t-padding: hf-shorthand($padding, top);
+	$b-padding: hf-shorthand($padding, bottom);
+	$l-padding: hf-shorthand($padding, left);
+	$r-padding: hf-shorthand($padding, right);
+
+	$rf-t-padding: hf-refactor($t-padding, $font-size);
+	$rf-b-padding: hf-refactor($b-padding, $font-size);
+	$rf-l-padding: hf-refactor($l-padding, $font-size);
+	$rf-r-padding: hf-refactor($r-padding, $font-size);
+
+	$t-border-width: hf-shorthand($border-width, top);
+	$b-border-width: hf-shorthand($border-width, bottom);
+	$l-border-width: hf-shorthand($border-width, left);
+	$r-border-width: hf-shorthand($border-width, right);
+
+	$rf-t-border-width: hf-refactor($t-border-width, $font-size);
+	$rf-b-border-width: hf-refactor($b-border-width, $font-size);
+	$rf-l-border-width: hf-refactor($l-border-width, $font-size);
+	$rf-r-border-width: hf-refactor($r-border-width, $font-size);
+
+	// TODO Allow for outputting calc() if needed instead of always converting units.
+	// This will require some refactoring of the textbox mixin to allow for lists of values to be passed (and later
+	// summed). For now just convert it as any edge cases that result in unexpected behaviour is very rare to happen.
+	// The vast majority of people don't mix EM's and pixels so it's fairly safe.
+	$field-t-padding: hf-sum((unit($t-padding): $font-size), $t-padding, $field-shift);
+	$field-b-padding: hf-sum((unit($b-padding): $font-size), $b-padding, -$field-shift);
+	$field-padding: $field-t-padding $r-padding $field-b-padding $l-padding;
+
+	$label-top: hf-sum(
+		hf-convert($rf-t-padding, unit($t-padding), $label-font-size),
+		hf-convert($rf-t-border-width, unit($t-border-width), $label-font-size),
+		hf-refactor($font-size / 2, $label-font-size, $font-size),
+		hf-convert(-0.5em, unit($label-font-size), $label-font-size)
+	);
+	$label-left: hf-sum(
+		hf-convert($rf-l-padding, unit($l-padding), $label-font-size),
+		hf-convert($rf-l-border-width, unit($l-border-width), $label-font-size)
+	);
+	$label-right: hf-sum(
+		hf-convert($rf-r-padding, unit($r-padding), $label-font-size),
+		hf-convert($rf-r-border-width, unit($r-border-width), $label-font-size)
+	);
+
+	$label-scale: hf-convert($small-label-font-size, unit($label-font-size)) / $label-font-size;
+
+	$s-label-top: hf-sum(
+			hf-convert($rf-t-padding, unit($t-padding), $small-label-font-size),
+			hf-convert($rf-t-border-width, unit($t-border-width), $label-font-size),
+			hf-refactor($font-size / 2, $small-label-font-size, $font-size),
+			hf-convert(-0.5em, unit($small-label-font-size), $small-label-font-size),
+			$label-shift
+	);
+	$s-label-left: hf-sum(
+			hf-convert($rf-l-padding, unit($l-padding), $small-label-font-size),
+			hf-convert($rf-l-border-width, unit($l-border-width), $small-label-font-size)
+	);
+	$s-label-right: hf-sum(
+			hf-convert($rf-r-padding, unit($r-padding), $small-label-font-size),
+			hf-convert($rf-r-border-width, unit($r-border-width), $small-label-font-size)
+	);
+
+	#{$field-selector} {
+		@include hf-field(
+			$font-size: $font-size,
+			$padding: $field-padding,
+			$border-width: $border-width,
+			$line-height: $line-height
+		);
+	}
+
+	#{$label-selector} {
+		position: absolute;
+		font-size: $label-font-size;
+		top: $label-top;
+		left: $label-left;
+		right: $label-right;
+		line-height: 1 !important;
+		pointer-events: none;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		transform-origin: left center;
+	}
+
+	@if $secondary-label {
+
+		#{$secondary-label-selector} {
+			opacity: 0;
+			display: block;
+			content: attr(#{unquote($secondary-label)});
+			position: absolute;
+			font-size: $small-label-font-size;
+			top: $s-label-top;
+			left: $s-label-left;
+			right: $s-label-right;
+			line-height: 1 !important;
+			pointer-events: none;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			transform-origin: left center;
+		}
+	}
+
+	@include hf-state('filled', if($shift-on-focus, 'focused', null)) {
+
+		@if $secondary-label {
+
+			#{$label-selector} {
+				opacity: 0;
+			}
+
+			#{$secondary-label-selector} {
+				opacity: 1;
+			}
+
+		} @else {
+
+			#{$label-selector} {
+				transform: translateY($label-shift) scale($label-scale);
+			}
+
+			@include hf-featureless('transform') {
+
+				#{$label-selector} {
+					font-size: $small-label-font-size;
+					top: $s-label-top;
+					left: $s-label-left;
+					right: $s-label-right;
+					transform: none; // Just to be sure
+				}
+			}
+		}
+	}
+}
