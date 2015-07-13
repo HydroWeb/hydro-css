@@ -119,6 +119,17 @@ $hf-number-relative-units: (
 	@return ($value / ($value * 0 + 1));
 }
 
+/// Strips the unit from a value.
+/// Using this is generally considered bad practice, however there are issues when comparing zero based values that
+/// have units. For example, 0px does not equal 0. So to check if a value with an unknown unit is at zero, the only
+/// way to do that is to strip the unit and compare it. The normalize function above could also be used but the end
+/// result is the same, so why bother performing an unnecessary a map look up and operations?
+/// @param {Number} $value - The value to strip the unit from.
+/// @return {Number} The value without it's unit.
+@function -hf-strip-unit($value) {
+	@return $value / ($value * 0 + 1);
+}
+
 
 // Public
 // ------
@@ -278,6 +289,38 @@ $hf-number-relative-units: (
 	@return hf-precision($output);
 }
 
+///
+/// @require {function} -hf-unit-normalize
+/// @require {function} hf-unit-type
+/// @param {Number} $value
+/// @param {Number} $postfactor
+/// @param {Number} $prefactor
+/// @return {Number}
+@function hf-refactor($value, $postfactor: 1em, $prefactor: 1em) {
+	$scale: 1;
+
+	$post-type: hf-unit-type($postfactor);
+	$post-normalized: -hf-unit-normalize($postfactor);
+	$pre-type: hf-unit-type($prefactor);
+	$pre-normalized: -hf-unit-normalize($prefactor);
+
+	@if $post-type == $pre-type {
+		$scale: ($pre-normalized / $post-normalized);
+
+	} @else {
+		$base: -hf-unit-normalize($-hf-default-font-size);
+
+		@if $post-type == 'absolute' {
+			$scale: ($pre-normalized / ($post-normalized / $base));
+
+		} @else if $pre-type == 'absolute' {
+			$scale: (($pre-normalized / $base) / $post-normalized);
+		}
+	}
+
+	@return $value * $scale;
+}
+
 /// Sum a list of values, either converting them all to a single unit or outputting them as a CSS3 calc() value.
 /// @require {function} hf-flatten
 /// @require {function} hf-convert
@@ -337,7 +380,7 @@ $hf-number-relative-units: (
 		$unit: unit($item);
 		$sum: $item;
 
-		@if $item != 0 { // Comparison with zero doesn't consider unit, so for example 0px == 0 is true
+		@if -hf-strip-unit($item) != 0 {
 
 			@if map-has-key($sums, $unit) {
 				$sum: $sum + map-get($sums, $unit);
@@ -356,27 +399,33 @@ $hf-number-relative-units: (
 		@if length($sums) > 1 {
 			$numbers: '';
 			$first: true;
+			$single: true;
 
 			@each $unit, $value in $sums {
+				$stripped-value: -hf-strip-unit($value);
 
-				@if not $first {
+				@if $stripped-value != 0 {
 
-					@if $value < 0 {
-						$value: $value * -1;
-						$numbers: $numbers + ' - ';
+					@if not $first {
+						$single: false;
 
-					} @elseif $value > 0 {
-						$numbers: $numbers + ' + ';
+						@if $stripped-value < 0 {
+							$value: $value * -1;
+							$numbers: $numbers + ' - ';
+
+						} @else if $stripped-value > 0 {
+							$numbers: $numbers + ' + ';
+						}
+
+					} @else {
+						$first: false;
 					}
 
-				} @else {
-					$first: false;
+					$numbers: $numbers + $value;
 				}
-
-				$numbers: $numbers + $value;
 			}
 
-			@return unquote($format + '(' + $numbers + ')');
+			@return unquote(if($single, $numbers, $format + '(' + $numbers + ')'));
 
 		} @else { // Can trust the length is equal to one, thanks to the error checking above
 
