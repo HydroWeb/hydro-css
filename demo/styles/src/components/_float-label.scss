@@ -1,0 +1,67 @@
+.float-label {
+	@include hf-float-label(
+		$small-label-font-size: 10px,
+		$label-font-size: 12px,
+		$padding: 16px,
+		$border-width: 1px,
+		$line-height: 1.2,
+		$label-shift: -10px,
+		$field-shift: 6px,
+		$shift-on-focus: true
+	);
+
+	> label {
+		text-transform: uppercase;
+		font-weight: hf-font-weight('primary', 'bold');
+		color: hf-color('mid');
+		transition: color 0.3s, transform 0.3s;
+	}
+
+	> input,
+	> select,
+	> textarea {
+		border-color: hf-color('light');
+		border-radius: $border-radius;
+		background-color: hf-color('white');
+		color: hf-color('darker');
+
+		&:focus {
+			outline: 0;
+		}
+	}
+
+	> textarea {
+		padding-top: 32px;
+	}
+
+	@include hf-state('focused') {
+
+		> input,
+		> select,
+		> textarea {
+			outline: 0;
+			box-shadow: 0 0 5px hf-color('black', 0.2);
+		}
+	}
+
+	@include hf-state('filled') {
+
+		> label {
+			color: hf-color('light');
+		}
+	}
+
+	@include hf-state('invalid') {
+
+		> label {
+			color: hf-color('danger');
+		}
+	}
+
+	@include hf-state('scrolled') {
+
+		> label {
+			color: hf-color('light', 0);
+		}
+	}
+}

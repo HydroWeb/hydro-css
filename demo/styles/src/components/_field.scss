@@ -13,4 +13,9 @@
 	&::placeholder {
 		color: hf-color('light');
 	}
+
+	&:focus {
+		outline: 0;
+		box-shadow: 0 0 5px hf-color('black', 0.2);
+	}
 }

@@ -18,8 +18,31 @@
 <body>
 
 
-<article class="section">
-	<div class="container panel">
+<!--
+
+TODO
+
+- Icons
+- Buttons
++ Fields
+	- Radios and Checkboxes
+	- File Input
+- Tables
+- Labels
++ Navigation
+	- Horizontal/vertical menu
+	- Dropdown menu (could just be the same as horizontal/vertical)
+	- Tabs
+	- Pagination
+- Progress Bar
+- Alerts
++ Composite
+	- Header
+
+-->
+
+<article class="section panel">
+	<div class="container +v-trim">
 		<h1 class="_title">Headings</h1>
 		<div class="_body +v-trim">
 			<h1>Heading 1 - The quick brown fox jumped over the lazy dog</h1>
@@ -32,8 +55,8 @@
 	</div>
 </article>
 
-<article class="section">
-	<div class="container panel">
+<article class="section panel">
+	<div class="container +v-trim">
 		<h1 class="_title">Content</h1>
 		<section class="_body +v-trim">
 			<p>Paragraph - The quick brown fox jumped over the lazy dog</p>
@@ -109,8 +132,8 @@
 	</div>
 </article>
 
-<article class="section">
-	<div class="container panel">
+<article class="section panel">
+	<div class="container +v-trim">
 		<h1 class="_title">Code</h1>
 		<section class="_body +v-trim">
 			<p>For inline code snippets use the <code>&lt;code&gt;</code> tag</p>
@@ -128,54 +151,148 @@
 	</div>
 </article>
 
-<article class="section">
-	<div class="container panel">
+<article class="section panel">
+	<div class="container +v-trim">
 		<h1 class="_title">Forms</h1>
 		<section class="_body">
-			<div class="columns -v-gap-sm">
-				<div class="column -desk-2 -tabl-4">
-					<label class="label" for="field1">Name:</label>
+			<div class="columns -h-gap-sm -v-gap-sm -v-align-center">
+				<div class="column -desk-2 -tabl-3 +r-text-tabl">
+					<label for="field1">Name:</label>
 				</div>
-				<div class="column -desk-10 -tabl-8">
+				<div class="column -desk-10 -tabl-9">
 					<input class="field" id="field1" type="text">
 				</div>
-				<div class="column -desk-2 -tabl-4">
-					<label class="label" for="field2">Email Address:</label>
+				<div class="column -desk-2 -tabl-3 +r-text-tabl">
+					<label for="field2">Email Address:</label>
 				</div>
-				<div class="column -desk-10 -tabl-8">
+				<div class="column -desk-10 -tabl-9">
 					<ul class="bar -fitted-mobl -fields">
-						<li class="item"><input class="field" id="field2" type="text" placeholder="john"></li>
+						<li class="item"><input class="field" id="field2" type="text"></li>
 						<li class="item -fit"><span class="label +fill">@</span></li>
 						<li class="item"><input class="field" type="text" placeholder="gmail.com"></li>
 					</ul>
 				</div>
-				<div class="column -desk-2 -tabl-4">
-					<label class="label" for="field3">Price:</label>
+				<div class="column -desk-2 -tabl-3 +r-text-tabl">
+					<label for="field3">Price:</label>
 				</div>
-				<div class="column -desk-4 -tabl-8">
+				<div class="column -desk-4 -tabl-9">
 					<ul class="bar -fitted-mobl -fields">
 						<li class="item -fit"><span class="label +fill">$</span></li>
 						<li class="item"><input class="field" id="field3" type="number" min="0" value="0"></li>
 						<li class="item -fit"><span class="label +fill">.00</span></li>
 					</ul>
 				</div>
-				<div class="column -desk-2 -tabl-4">
-					<label class="label" for="field4">Password:</label>
+				<div class="column -desk-2 -tabl-3 +r-text-tabl">
+					<label for="field4">Password:</label>
 				</div>
-				<div class="column -desk-4 -tabl-8">
+				<div class="column -desk-4 -tabl-9">
 					<input class="field" id="field4" type="password">
 				</div>
-				<div class="column -desk-2 -tabl-4">
-					<label class="label" for="field5">Message:</label>
+				<div class="column -desk-2 -tabl-3 +r-text-tabl">
+					<label for="field5">Message:</label>
 				</div>
-				<div class="column -desk-10 -tabl-8">
+				<div class="column -desk-10 -tabl-9">
 					<textarea class="field" id="field5" rows="5"></textarea>
+				</div>
+			</div>
+		</section>
+		<section class="_body">
+			<div class="columns -h-gap-sm -v-gap-sm">
+				<div class="column -desk-6">
+					<div class="float-label" data-label="Email">
+						<label for="float-email">Email</label>
+						<input id="float-email" type="email">
+					</div>
+				</div>
+				<div class="column -desk-6">
+					<div class="float-label" data-label="Country">
+						<label>Country</label>
+						<select>
+							<option selected disabled></option>
+							<option>United States</option>
+							<option>Canada</option>
+							<option>United Kingdom</option>
+							<option>Australia</option>
+							<option>China</option>
+							<option>Russia</option>
+						</select>
+					</div>
+				</div>
+				<div class="column">
+					<div class="float-label" data-label="Message">
+						<label>Message</label>
+						<textarea rows="4">Write about your feelings.</textarea>
+					</div>
 				</div>
 			</div>
 		</section>
 	</div>
 </article>
 
+
+<!--[if lt IE 9]>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<![endif]--><!--[if gte IE 9]><!-->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!--<![endif]-->
+
+<script>
+	(function()
+	{
+		'use strict';
+
+		// The float label selector to add functionality to
+		var selector = '.float-label';
+
+		// The class names of the various states the float label can have
+		var classes = {
+			focused:  'is-focused',
+			filled:   'is-filled',
+			invalid:  'is-invalid',
+			scrolled: 'is-scrolled'
+		};
+
+		/**
+		 * Applies the correct class names to the field
+		 * @param e - The event object
+		 */
+		function setState(e)
+		{
+			var field = $(this);
+
+			// Wrap within an instantaneous timeout so state changes can be detected on the next redraw. This fixes a
+			// problem with the "keydown" event in that the key value is added to the field after the event has been
+			// called. This means the value of the field returned will be the previous value. The timeout ensures that
+			// the input happens before the value is checked.
+			setTimeout(function()
+			{
+				field.parent()
+
+					// Is the element in focus?
+					.toggleClass(classes.focused, (e.type == 'focus') || field.is(':focus'))
+
+					// Check if the fields value is an empty string. This works for select options that have an empty
+					// value. This can be exploited by creating an empty option, disabling it and setting it as the
+					// default.
+					.toggleClass(classes.filled, !!field.val())
+
+					// Only apply if browser supports field validation
+					.toggleClass(classes.invalid, field[0].validity ? !field[0].validity.valid : false)
+
+					// Specifically for textarea's. This is useful so that the label can be hidden when the content is
+					// scrolled, so that the label and the fields text don't overlap and look ugly.
+					.toggleClass(classes.scrolled, field.scrollTop() > 0);
+			});
+		}
+
+		// Find any field types inside the float label, but don't assume they're immediate children.
+		$(selector).children('input, select, textarea')
+			.on('focus blur change keyup keydown scroll', setState)
+
+			// Set states on the page load.
+			.each(setState);
+	}());
+</script>
 
 </body>
 </html>
