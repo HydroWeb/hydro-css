@@ -145,10 +145,12 @@ $hf-icons: false !default;
 		display: inline-block;
 		vertical-align: top;
 
-		@each $name, $value in $hf-icons {
+		@if $hf-icons {
+			@each $name, $value in $hf-icons {
 
-			@include hf-parameter($name) {
-				@include hf-icon-type($value);
+				@include hf-parameter($name) {
+					@include hf-icon-type($value);
+				}
 			}
 		}
 	}
